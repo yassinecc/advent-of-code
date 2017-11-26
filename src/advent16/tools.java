@@ -92,6 +92,10 @@ public class tools {
 		public static <L, R> Pair<L, R> of(L left, R right) {
 			return new Pair<L, R>(left, right);
 		}
+
+		public String toString() {
+			return "<" + this.left.toString() + "," + this.right.toString() + ">";
+		}
 	}
 
 	public static List<List<String>> findPerms(List<String> floor) {
