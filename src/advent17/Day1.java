@@ -1,10 +1,8 @@
 package advent17;
 
-
 public class Day1 extends tools {
   public static void main (String [] args) {
     String inputFile = readFile("input1.txt").get(0);
-    List<String> list = "a";
     // String inputFile = "123123";
     // int shiftLength = inputFile.length() - 1;
     int shiftLength = inputFile.length()/2;
