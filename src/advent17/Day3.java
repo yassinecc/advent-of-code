@@ -48,9 +48,5 @@ public class Day3 extends tools {
     int input = 368078;
     int[] source = {0,0};
     println(manhattanDistance(positions(input), source));
-    println(manhattanDistance(positions(1), source));
-    println(manhattanDistance(positions(12), source));
-    println(manhattanDistance(positions(23), source));
-    println(manhattanDistance(positions(1024), source));
   }
 }
