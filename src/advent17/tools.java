@@ -143,6 +143,36 @@ public class tools {
 		return result;
 	}
 
+	public static class Node {
+		public String name;
+		public int weight;
+		public Node parent;
+		public List<Node> children;
+
+		public Node(String name, int weight) {
+			this.name = name;
+			this.weight = weight;
+		}
+
+		public static void connect(Node parent, List<Node> children) {
+			parent.children = children;
+			for (Node child: children) {
+				child.parent = parent;
+			}
+		}
+
+		public int discWeight() {
+			if(this.children != null) {
+				int result = this.weight;
+				for (Node child: this.children) {
+					result+=child.discWeight();
+				}
+				return result;
+			}
+			else return this.weight;
+		}
+	}
+
 	public static boolean isInteger(String input) {
 		try {
 			Integer.parseInt(input);
