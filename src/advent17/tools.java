@@ -26,6 +26,32 @@ public class tools {
 		return input;
 	}
 
+	public static int[] max(List<Integer> intArray) {
+		if(intArray.size()<1) return new int[] {0, -1};
+		int candidate = intArray.get(0);
+		int candidateIndex = 0;
+		for (int i=1; i<intArray.size(); i++) {
+			if( candidate < intArray.get(i)) {
+				candidate = intArray.get(i);
+				candidateIndex = i;
+			};
+		}
+		return new int[] {candidate, candidateIndex};
+	}
+
+	public static int[] min(List<Integer> intArray) {
+		if(intArray.size()<1) return new int[] {0, -1};
+		int candidate = intArray.get(0);
+		int candidateIndex = 0;
+		for (int i=1; i<intArray.size(); i++) {
+			if( candidate > intArray.get(i)) {
+				candidate = intArray.get(i);
+				candidateIndex = i;
+			};
+		}
+		return new int[] {candidate, candidateIndex};
+	}
+
 	public static int[] findAll(String input, char chr) {
 		ArrayList<Integer> list = new ArrayList<Integer>();
 		int index = input.indexOf(chr);

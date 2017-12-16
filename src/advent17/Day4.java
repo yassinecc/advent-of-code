@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.List;
 
 public class Day4 extends tools {
+  @SuppressWarnings("unused")
   private static Map<Character, Integer> letterMap(String word) {
     Map<Character, Integer> result = new HashMap<Character, Integer>();
     for(char c:word.toCharArray()) {
