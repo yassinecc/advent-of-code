@@ -26,6 +26,14 @@ public class tools {
 		return input;
 	}
 
+	public static Integer[] parseToIntArray(String[] array) {
+		Integer[] result = new Integer[array.length];
+		for(int index=0; index<array.length; index++) {
+			result[index] = Integer.parseInt(array[index]);
+		}
+		return result;
+	}
+
 	public static int[] max(List<Integer> intArray) {
 		if(intArray.size()<1) return new int[] {0, -1};
 		int candidate = intArray.get(0);
