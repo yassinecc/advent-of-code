@@ -34,18 +34,18 @@ public class Day10 extends tools {
     return result;
   }
 
-  private static List<Integer> denseHash(List<Integer> asciiList) {
-    if(max(asciiList)[0]>255 || min(asciiList)[0]<0) {
+  private static List<Integer> denseHash(List<Integer> list) {
+    if(max(list)[0]>255 || min(list)[0]<0) {
       throw new Error("Invalid range");
     }
-    else if(asciiList.size() != 256) {
+    else if(list.size() != 256) {
       throw new Error("Incorrect list size");
     }
     else {
       List<Integer> result = new ArrayList<Integer>();
       for (int i=0; i<16; i++) {
         Integer hashElement = 0;
-        for(Integer number:asciiList.subList(16*i, 16*i + 16)) {
+        for(Integer number:list.subList(16*i, 16*i + 16)) {
           hashElement^=number;
         }
         result.add(hashElement);
@@ -63,17 +63,11 @@ public class Day10 extends tools {
     return result;
   }
 
-  public static void main(String[] args) {
-    String inputFile = readFile("input10.txt").get(0);
-    // String inputFile = "1,2,4";
+  public static String knotHash(String inputFile) {
     List<Integer> list = new ArrayList<Integer>();
     for(int i=0; i<256; i++) {
       list.add(i);
     }
-    List<Integer> list2 = new ArrayList<Integer>(list);
-    String[] elements = inputFile.split(",");
-    List<Integer> intElements = Arrays.asList(parseToIntArray(elements));
-
     List<Integer> asciiList = new ArrayList<Integer>();
     for (char c:inputFile.toCharArray()) {
       asciiList.add( (int) c);
@@ -88,13 +82,28 @@ public class Day10 extends tools {
 
     int skipSize = 0;
     int position = 0;
-    knotRound(list, intElements, position, skipSize);
-    println(list.get(0) * list.get(1));
     for(int i=0; i<64; i++) {
-      int[] indices = knotRound(list2, asciiList, position, skipSize);
+      int[] indices = knotRound(list, asciiList, position, skipSize);
       position = indices[0];
       skipSize = indices[1];
     }
-    println(hexHash(denseHash(list2)));
+    return hexHash(denseHash(list));
+  }
+
+  public static void main(String[] args) {
+    String inputFile = readFile("input10.txt").get(0);
+    List<Integer> list = new ArrayList<Integer>();
+    for(int i=0; i<256; i++) {
+      list.add(i);
+    }
+    
+    String[] elements = inputFile.split(",");
+    List<Integer> intElements = Arrays.asList(parseToIntArray(elements));
+
+    int skipSize = 0;
+    int position = 0;
+    knotRound(list, intElements, position, skipSize);
+    println(list.get(0) * list.get(1));
+    println(knotHash(inputFile));
   }
 }
