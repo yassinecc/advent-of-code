@@ -67,7 +67,7 @@ public class Day24 extends tools {
 			Set<Cell> newCellSet = new HashSet<Cell>();
 			String directions = "UDLR";
 
-			for(int i=0; i<4; i++) {
+			for(int i=0; i<directions.length(); i++) {
         char direction = directions.charAt(i);
         Cell nextCell = new Cell(this, direction);
 				if(!nextCell.isWall()){
@@ -97,13 +97,11 @@ public class Day24 extends tools {
       }
       j++;
     }
-    for(int key:locations.keySet()){
-      locationsArray.add(locations.get(key));
-    }
+    locationsArray.addAll(locations.values());
     return grid;
   }
 
-  private static Cell BFS(char[][] grid, Pair<Integer, Integer> start, Pair<Integer, Integer> finish) {
+  private static Cell BFS(Pair<Integer, Integer> start, Pair<Integer, Integer> finish) {
     Set<String> checked = new HashSet<String>();
     Queue<Cell> queue = new LinkedList<Cell>();
     Day24 puzzle = new Day24();
@@ -132,25 +130,25 @@ public class Day24 extends tools {
       Pair<Integer, Integer> location = locationsArray.get(i);
       for(int j=i+1; j<locationsArray.size(); j++){
         Pair<Integer, Integer> secondLocation = locationsArray.get(j);
-        Cell result = BFS(grid, location, secondLocation);
+        Cell result = BFS(location, secondLocation);
         minDistances[i][j] = result.path.length();
         minDistances[j][i] = result.path.length();
       }
     }
   }
 
-  private static int shortestPath(int[][] minDistances, List<Integer> locationsList, int start) {
+  private static int shortestPath(int[][] minDistances, List<Integer> locationsList, int start, boolean part2) {
     int result = 100000;
     if(locationsList.size()==1){
       int end = locationsList.get(0);
       result = minDistances[start][end];
-      result+=minDistances[end][0]; // Part 2
+      if (part2) result+=minDistances[end][0];
     }
     else {
       List<Integer> reducedList = new ArrayList<Integer>(locationsList);
       reducedList.remove((Integer) start);
       for(Integer newStart:reducedList) {
-        int shortPathCandidate = shortestPath(minDistances, reducedList, newStart);
+        int shortPathCandidate = shortestPath(minDistances, reducedList, newStart, part2);
         int candidate = minDistances[start][newStart] + shortPathCandidate;
         result = candidate<result ? candidate : result;
       }
@@ -171,7 +169,8 @@ public class Day24 extends tools {
       locationsList.add(i);
     }
 
-    println("Length of the shortest path : " + shortestPath(minDistances, locationsList, 0));
+    println("Length of the shortest path : " + shortestPath(minDistances, locationsList, 0, false));
+    println("Length of the shortest path : " + shortestPath(minDistances, locationsList, 0, true));
     
   }
 }
