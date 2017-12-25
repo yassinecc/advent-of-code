@@ -7,7 +7,6 @@ import java.util.Collections;
 
 public class Day10 extends tools {
 
-
   private static void tieKnot(List<Integer> list, int position, int length) {
     if (position + length < list.size()) {
       Collections.reverse(list.subList(position, position + length));
