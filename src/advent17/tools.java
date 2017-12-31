@@ -28,36 +28,40 @@ public class tools {
 
 	public static Integer[] parseToIntArray(String[] array) {
 		Integer[] result = new Integer[array.length];
-		for(int index=0; index<array.length; index++) {
+		for (int index = 0; index < array.length; index++) {
 			result[index] = Integer.parseInt(array[index]);
 		}
 		return result;
 	}
 
 	public static int[] max(List<Integer> intArray) {
-		if(intArray.size()<1) return new int[] {0, -1};
+		if (intArray.size() < 1)
+			return new int[] { 0, -1 };
 		int candidate = intArray.get(0);
 		int candidateIndex = 0;
-		for (int i=1; i<intArray.size(); i++) {
-			if( candidate < intArray.get(i)) {
+		for (int i = 1; i < intArray.size(); i++) {
+			if (candidate < intArray.get(i)) {
 				candidate = intArray.get(i);
 				candidateIndex = i;
-			};
+			}
+			;
 		}
-		return new int[] {candidate, candidateIndex};
+		return new int[] { candidate, candidateIndex };
 	}
 
 	public static int[] min(List<Integer> intArray) {
-		if(intArray.size()<1) return new int[] {0, -1};
+		if (intArray.size() < 1)
+			return new int[] { 0, -1 };
 		int candidate = intArray.get(0);
 		int candidateIndex = 0;
-		for (int i=1; i<intArray.size(); i++) {
-			if( candidate > intArray.get(i)) {
+		for (int i = 1; i < intArray.size(); i++) {
+			if (candidate > intArray.get(i)) {
 				candidate = intArray.get(i);
 				candidateIndex = i;
-			};
+			}
+			;
 		}
-		return new int[] {candidate, candidateIndex};
+		return new int[] { candidate, candidateIndex };
 	}
 
 	public static int[] findAll(String input, char chr) {
@@ -164,21 +168,29 @@ public class tools {
 
 		public static void connect(Node parent, List<Node> children) {
 			parent.children = children;
-			for (Node child: children) {
+			for (Node child : children) {
 				child.parent = parent;
 			}
 		}
 
 		public int discWeight() {
-			if(this.children != null) {
+			if (this.children != null) {
 				int result = this.weight;
-				for (Node child: this.children) {
-					result+=child.discWeight();
+				for (Node child : this.children) {
+					result += child.discWeight();
 				}
 				return result;
-			}
-			else return this.weight;
+			} else
+				return this.weight;
 		}
+	}
+
+	public static String reverse(String s) {
+		String result = "";
+		for (int i = s.length() - 1; i >= 0; i--) {
+			result += s.charAt(i);
+		}
+		return result;
 	}
 
 	public static boolean isInteger(String input) {
