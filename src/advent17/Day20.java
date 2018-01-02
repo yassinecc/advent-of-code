@@ -13,7 +13,7 @@ public class Day20 extends tools {
     List<Triplet> accelerations = new ArrayList<Triplet>();
     println(closestParticleIndex(inputFile, positions, velocities, accelerations));
     int i = 0;
-    while (i < 10000000) {
+    while (i < 100) {
       Map<Triplet, List<Integer>> toRemove = update(positions, velocities, accelerations);
       List<Integer> toRemoveList = new ArrayList<Integer>();
       for (List<Integer> tripletList : toRemove.values()) {
@@ -24,8 +24,8 @@ public class Day20 extends tools {
       removeByIndices(positions, toRemoveList);
       // println("Map " + toRemoveList);
       if (i % 1000 == 0)
-        println(positions.size());
-      i++;
+        // println(positions.size());
+        i++;
     }
     println(positions.size());
   }
