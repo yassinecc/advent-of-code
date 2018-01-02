@@ -4,6 +4,7 @@ import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -133,6 +134,65 @@ public class tools {
 
 		public String toString() {
 			return "<" + this.left.toString() + "," + this.right.toString() + ">";
+		}
+	}
+
+	public static void removeByIndices(List<Triplet> list, List<Integer> indicesList) {
+		Collections.sort(indicesList, Collections.reverseOrder());
+		for (int index : indicesList) {
+			list.remove(index);
+		}
+	}
+
+	public static class Triplet {
+		final Integer x;
+		final Integer y;
+		final Integer z;
+
+		public Triplet(Integer x, Integer y, Integer z) {
+			this.x = x;
+			this.y = y;
+			this.z = z;
+		}
+
+		public static Triplet of(Integer x, Integer y, Integer z) {
+			return new Triplet(x, y, z);
+		}
+
+		@Override
+		public int hashCode() {
+			return (this.x + "x" + this.y + "x" + this.z).hashCode();
+		}
+
+		@Override
+		public boolean equals(Object triplet) {
+			return (this.x == ((Triplet) triplet).x && this.y == ((Triplet) triplet).y && this.z == ((Triplet) triplet).z);
+		}
+
+		public static Triplet of(String[] array) {
+			int x = Integer.parseInt(array[0]);
+			int y = Integer.parseInt(array[1]);
+			int z = Integer.parseInt(array[2]);
+			return new Triplet(x, y, z);
+		}
+
+		public static Triplet of(int[] array) {
+			int x = array[0];
+			int y = array[1];
+			int z = array[2];
+			return new Triplet(x, y, z);
+		}
+
+		public Triplet add(Triplet t) {
+			return new Triplet(this.x + t.x, this.y + t.y, this.z + t.z);
+		}
+
+		public String toString() {
+			return "<" + this.x + "," + this.y + "," + this.z + ">";
+		}
+
+		public int norm() {
+			return this.x * this.x + this.y * this.y + this.z * this.z;
 		}
 	}
 
