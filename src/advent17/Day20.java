@@ -21,7 +21,7 @@ public class Day20 extends tools {
       removeDuplicates(findDuplicates(positions), positions, velocities, accelerations);
       i++;
     }
-    println("Particles left after collisions" + positions.size());
+    println("Particles left after collisions: " + positions.size());
   }
 
   private static void updateValues(List<Triplet> positions, List<Triplet> velocities, List<Triplet> accelerations) {
