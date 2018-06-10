@@ -10,7 +10,8 @@ import java.util.regex.Pattern;
 
 public class tools {
 	public static ArrayList<String> readFile(String fileName) {
-		// Reads a text file line by line. Each line is stored as an ArrayList string element
+		// Reads a text file line by line. Each line is stored as an ArrayList string
+		// element
 		File file = new File(fileName);
 		ArrayList<String> input = new ArrayList<String>();
 		try {
@@ -213,6 +214,20 @@ public class tools {
 		singleton.add(floor.get(floor.size() - 1));
 		result.add(singleton);
 		return result;
+	}
+
+	public static List<List<String>> convertListTo2DList(List<String> inputFile) {
+		int xMax = inputFile.size();
+		int yMax = inputFile.get(0).length();
+		List<List<String>> newList = new ArrayList<List<String>>();
+		for (int i = 0; i < xMax; i++) {
+			List<String> newLine = new ArrayList<String>();
+			for (int j = 0; j < yMax; j++) {
+				newLine.add(String.valueOf(inputFile.get(i).charAt(j)));
+			}
+			newList.add(newLine);
+		}
+		return newList;
 	}
 
 	public static class Node {
