@@ -1,9 +1,9 @@
 package advent17;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 public class Day20 extends tools {
   public static void main(String[] args) {
@@ -11,46 +11,60 @@ public class Day20 extends tools {
     List<Triplet> positions = new ArrayList<Triplet>();
     List<Triplet> velocities = new ArrayList<Triplet>();
     List<Triplet> accelerations = new ArrayList<Triplet>();
-    println(closestParticleIndex(inputFile, positions, velocities, accelerations));
+    List<Integer> norms = initialiseAndComputeNorms(inputFile, positions, velocities, accelerations);
+
+    println("Closest particle to origin: " + min(norms)[1]);
+
     int i = 0;
     while (i < 100) {
-      Map<Triplet, List<Integer>> toRemove = update(positions, velocities, accelerations);
-      List<Integer> toRemoveList = new ArrayList<Integer>();
-      for (List<Integer> tripletList : toRemove.values()) {
-        if (tripletList.size() > 1) {
-          toRemoveList.addAll(tripletList);
-        }
-      }
-      removeByIndices(positions, toRemoveList);
-      // println("Map " + toRemoveList);
-      if (i % 1000 == 0)
-        // println(positions.size());
-        i++;
+      updateValues(positions, velocities, accelerations);
+      removeDuplicates(findDuplicates(positions), positions, velocities, accelerations);
+      i++;
     }
-    println(positions.size());
+    println("Particles left after collisions" + positions.size());
   }
 
-  private static Map<Triplet, List<Integer>> update(List<Triplet> positions, List<Triplet> velocities,
-      List<Triplet> accelerations) {
-    Map<Triplet, List<Integer>> toRemove = new HashMap<Triplet, List<Integer>>();
+  private static void updateValues(List<Triplet> positions, List<Triplet> velocities, List<Triplet> accelerations) {
     for (int i = 0; i < positions.size(); i++) {
-      Triplet newVelocity = velocities.get(i).add(accelerations.get(i));
-      velocities.set(i, newVelocity);
-      Triplet newPosition = positions.get(i).add(newVelocity);
-      positions.set(i, newPosition);
-      if (toRemove.containsKey(newPosition)) {
-        toRemove.get(newPosition).add(i);
-      } else {
-        List<Integer> list = new ArrayList<Integer>();
-        list.add(i);
-        toRemove.put(newPosition, list);
-      }
+      velocities.set(i, velocities.get(i).add(accelerations.get(i)));
+      positions.set(i, positions.get(i).add(velocities.get(i)));
     }
-    return toRemove;
   }
 
-  private static int closestParticleIndex(List<String> inputFile, List<Triplet> positions, List<Triplet> velocities,
-      List<Triplet> accelerations) {
+  private static Set<Triplet> findDuplicates(List<Triplet> positions) {
+    Set<Triplet> collisionPositions = new HashSet<Triplet>();
+    for (Triplet currentParticle : positions) {
+      if (positions.indexOf(currentParticle) != positions.lastIndexOf(currentParticle)) {
+        collisionPositions.add(currentParticle);
+      }
+    }
+    return collisionPositions;
+  }
+
+  private static void removeDuplicates(Set<Triplet> collisionPositions, List<Triplet> positions,
+      List<Triplet> velocities, List<Triplet> accelerations) {
+
+    List<Triplet> newPositions = new ArrayList<Triplet>();
+    List<Triplet> newVelocities = new ArrayList<Triplet>();
+    List<Triplet> newAccelerations = new ArrayList<Triplet>();
+
+    for (int i = 0; i < positions.size(); i++) {
+      if (!collisionPositions.contains(positions.get(i))) {
+        newPositions.add(positions.get(i));
+        newVelocities.add(velocities.get(i));
+        newAccelerations.add(accelerations.get(i));
+      }
+    }
+    positions.removeAll(positions);
+    positions.addAll(newPositions);
+    velocities.removeAll(velocities);
+    velocities.addAll(newVelocities);
+    accelerations.removeAll(accelerations);
+    accelerations.addAll(newAccelerations);
+  }
+
+  private static List<Integer> initialiseAndComputeNorms(List<String> inputFile, List<Triplet> positions,
+      List<Triplet> velocities, List<Triplet> accelerations) {
     List<Integer> norms = new ArrayList<Integer>();
     for (String s : inputFile) {
       String[] elements = s.split(", ");
@@ -66,6 +80,6 @@ public class Day20 extends tools {
       int norm = acc.norm();
       norms.add(norm);
     }
-    return min(norms)[1];
+    return norms;
   }
 }

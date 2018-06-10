@@ -1,0 +1,235 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Debug (Launch)-Day1<Advent2017>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "stopOnEntry": false,
+      "mainClass": "advent17.Day1",
+      "projectName": "Advent2017",
+      "args": ""
+    },
+    {
+      "type": "java",
+      "name": "Debug (Launch)-Day10<Advent2017>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "stopOnEntry": false,
+      "mainClass": "advent17.Day10",
+      "projectName": "Advent2017",
+      "args": ""
+    },
+    {
+      "type": "java",
+      "name": "Debug (Launch)-Day11<Advent2017>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "stopOnEntry": false,
+      "mainClass": "advent17.Day11",
+      "projectName": "Advent2017",
+      "args": ""
+    },
+    {
+      "type": "java",
+      "name": "Debug (Launch)-Day12<Advent2017>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "stopOnEntry": false,
+      "mainClass": "advent17.Day12",
+      "projectName": "Advent2017",
+      "args": ""
+    },
+    {
+      "type": "java",
+      "name": "Debug (Launch)-Day13<Advent2017>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "stopOnEntry": false,
+      "mainClass": "advent17.Day13",
+      "projectName": "Advent2017",
+      "args": ""
+    },
+    {
+      "type": "java",
+      "name": "Debug (Launch)-Day14<Advent2017>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "stopOnEntry": false,
+      "mainClass": "advent17.Day14",
+      "projectName": "Advent2017",
+      "args": ""
+    },
+    {
+      "type": "java",
+      "name": "Debug (Launch)-Day15<Advent2017>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "stopOnEntry": false,
+      "mainClass": "advent17.Day15",
+      "projectName": "Advent2017",
+      "args": ""
+    },
+    {
+      "type": "java",
+      "name": "Debug (Launch)-Day16<Advent2017>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "stopOnEntry": false,
+      "mainClass": "advent17.Day16",
+      "projectName": "Advent2017",
+      "args": ""
+    },
+    {
+      "type": "java",
+      "name": "Debug (Launch)-Day17<Advent2017>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "stopOnEntry": false,
+      "mainClass": "advent17.Day17",
+      "projectName": "Advent2017",
+      "args": ""
+    },
+    {
+      "type": "java",
+      "name": "Debug (Launch)-Day18<Advent2017>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "stopOnEntry": false,
+      "mainClass": "advent17.Day18",
+      "projectName": "Advent2017",
+      "args": ""
+    },
+    {
+      "type": "java",
+      "name": "Debug (Launch)-Day19<Advent2017>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "stopOnEntry": false,
+      "mainClass": "advent17.Day19",
+      "projectName": "Advent2017",
+      "args": ""
+    },
+    {
+      "type": "java",
+      "name": "Debug (Launch)-Day2<Advent2017>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "stopOnEntry": false,
+      "mainClass": "advent17.Day2",
+      "projectName": "Advent2017",
+      "args": ""
+    },
+    {
+      "type": "java",
+      "name": "Debug (Launch)-Day20<Advent2017>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "stopOnEntry": false,
+      "mainClass": "advent17.Day20",
+      "projectName": "Advent2017",
+      "args": ""
+    },
+    {
+      "type": "java",
+      "name": "Debug (Launch)-Day3<Advent2017>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "stopOnEntry": false,
+      "mainClass": "advent17.Day3",
+      "projectName": "Advent2017",
+      "args": ""
+    },
+    {
+      "type": "java",
+      "name": "Debug (Launch)-Day4<Advent2017>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "stopOnEntry": false,
+      "mainClass": "advent17.Day4",
+      "projectName": "Advent2017",
+      "args": ""
+    },
+    {
+      "type": "java",
+      "name": "Debug (Launch)-Day5<Advent2017>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "stopOnEntry": false,
+      "mainClass": "advent17.Day5",
+      "projectName": "Advent2017",
+      "args": ""
+    },
+    {
+      "type": "java",
+      "name": "Debug (Launch)-Day6<Advent2017>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "stopOnEntry": false,
+      "mainClass": "advent17.Day6",
+      "projectName": "Advent2017",
+      "args": ""
+    },
+    {
+      "type": "java",
+      "name": "Debug (Launch)-Day7<Advent2017>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "stopOnEntry": false,
+      "mainClass": "advent17.Day7",
+      "projectName": "Advent2017",
+      "args": ""
+    },
+    {
+      "type": "java",
+      "name": "Debug (Launch)-Day8<Advent2017>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "stopOnEntry": false,
+      "mainClass": "advent17.Day8",
+      "projectName": "Advent2017",
+      "args": ""
+    },
+    {
+      "type": "java",
+      "name": "Debug (Launch)-Day9<Advent2017>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "stopOnEntry": false,
+      "mainClass": "advent17.Day9",
+      "projectName": "Advent2017",
+      "args": ""
+    },
+    {
+      "type": "java",
+      "name": "Debug (Attach)",
+      "request": "attach",
+      "hostName": "localhost",
+      "port": 0
+    }
+  ]
+}
