@@ -1,0 +1,11 @@
+{
+  "name": "advent-of-code-2018",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "github.com/yassinecc/advent-of-code",
+  "author": "yassinecc",
+  "license": "MIT",
+  "dependencies": {
+    "lodash": "^4.17.11"
+  }
+}
