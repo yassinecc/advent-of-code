@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+  - 8.11.4
+before_install: cd 2018 && npm install -g yarn
+install: yarn
+cache:
+  directories:
+    - jest/tmp
+    - node_modules

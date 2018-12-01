@@ -5,6 +5,9 @@
   "repository": "github.com/yassinecc/advent-of-code",
   "author": "yassinecc",
   "license": "MIT",
+  "scripts": {
+    "test": "jest"
+  },
   "dependencies": {
     "jest": "^23.6.0",
     "lodash": "^4.17.11"
