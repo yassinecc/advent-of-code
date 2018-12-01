@@ -5,12 +5,14 @@ const filterInt = function(value) {
   return NaN;
 };
 
+const separators = ['\n', ', '];
+
 const parseFile = fileName => {
   const fileContents = fs.readFileSync(fileName, 'utf-8');
   const contentsArray = fileContents
     .toString()
     .trim()
-    .split('\n');
+    .split(new RegExp(separators.join('|'), 'g'));
   return contentsArray.map(line => {
     try {
       const integer = filterInt(line);
