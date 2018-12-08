@@ -1,4 +1,4 @@
-const { part1, part2 } = require('../src/day1/parts');
+const { part1, part2 } = require('../parts');
 
 describe('Day1', () => {
   it('Should correctly sum the array', () => {

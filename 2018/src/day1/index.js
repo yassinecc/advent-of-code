@@ -1,5 +1,5 @@
-const { part1, part2 } = require('./parts');
 const { parseFile } = require('../../utils/parseFile');
+const { part1, part2 } = require('./parts');
 
 const frequenciesList = parseFile('inputs/day1.txt');
 
