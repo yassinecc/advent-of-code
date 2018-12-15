@@ -1,36 +1,20 @@
+var v = require('vectorious'),
+  Matrix = v.Matrix,
+  Vector = v.Vector,
+  BLAS = v.BLAS; // access BLAS routines
+
 const initializeArray = (size, value) => {
-  var array = [];
-  for (var i = 0; i < size; i++) {
-    array[i] = [];
-    for (var j = 0; j < size; j++) {
-      array[i][j] = value;
-    }
-  }
-  return array;
+  const result = Matrix.fill(size, size, value);
+  return result;
 };
 
 const arraySum = (array1, array2) => {
-  if (!isArrayValid(array1) || !isArrayValid(array1)) {
-    return undefined;
-  } else if (array1.length !== array2.length || array1[0].length !== array2[0].length) {
+  if (array1.shape[0] !== array2.shape[0] && array1.shape[1] !== array2.shape[1]) {
     return undefined;
   } else {
-    return array1.map((line, i) =>
-      line.map((cell, j) => {
-        return cell + array2[i][j];
-      })
-    );
+    const result = array1.add(array2);
+    return result;
   }
-};
-
-const isArrayValid = array => {
-  const dimension = array[0].length;
-  array.forEach(line => {
-    if (line.length !== dimension) {
-      return false;
-    }
-  });
-  return true;
 };
 
 module.exports = { arraySum, initializeArray };

@@ -15,7 +15,7 @@ generateArray = (line, gridSize) => {
   const result = initializeArray(gridSize, 0);
   for (var i = xStart; i < xStart + deltaX; i++) {
     for (var j = yStart; j < yStart + deltaY; j++) {
-      result[i][j] = 1;
+      result.set(i, j, 1);
     }
   }
   return result;
@@ -26,10 +26,7 @@ const part1 = (claimsList, gridSize = 1000) => {
   claimsList.forEach((claim, index) => {
     result = arraySum(result, generateArray(claim, gridSize));
   });
-  countArray = result.map(line => {
-    return line.filter(cell => cell > 1).length;
-  });
-  return sum(countArray);
+  return result.reduce((a, b) => (b > 1 ? a + 1 : a));
 };
 
 const part2 = () => {
