@@ -11,7 +11,7 @@
   "dependencies": {
     "jest": "^23.6.0",
     "lodash": "^4.17.11",
-    "plop": "^2.1.0"
+    "plop": "^2.2.0"
   },
   "jest": {
     "testPathIgnorePatterns": [
