@@ -1,7 +1,4 @@
-var v = require('vectorious'),
-  Matrix = v.Matrix,
-  Vector = v.Vector,
-  BLAS = v.BLAS; // access BLAS routines
+const Matrix = require('vectorious').Matrix;
 
 const initializeArray = (size, value) => {
   const result = Matrix.fill(size, size, value);
