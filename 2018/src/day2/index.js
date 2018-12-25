@@ -1,4 +1,4 @@
-const { parseFile } = require('../../utils/parseFile');
+const { parseFile } = require('../../utils/common');
 const { part1, part2 } = require('../day2/parts');
 
 const wordsList = parseFile('inputs/day2.txt');

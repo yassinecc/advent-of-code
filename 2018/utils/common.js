@@ -23,4 +23,11 @@ const parseFile = fileName => {
   });
 };
 
-module.exports = { parseFile };
+const findRegex = (string, regex) => {
+  var matched = regex.exec(string);
+  return matched && matched[1];
+};
+
+findRegex('This is a test string [more or less]', /\[(.*?)\]/);
+
+module.exports = { parseFile, filterInt, findRegex };

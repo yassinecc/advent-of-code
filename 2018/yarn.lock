@@ -2449,6 +2449,10 @@ natural-compare@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
 
+nblas@^1.2.0:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/nblas/-/nblas-1.2.2.tgz#cc750ca672920de59c2074abd4063beee6b83384"
+
 needle@^2.2.1:
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/needle/-/needle-2.2.4.tgz#51931bff82533b1928b7d1d69e01f1b00ffd2a4e"
@@ -2637,6 +2641,10 @@ onetime@^2.0.0:
   resolved "https://registry.yarnpkg.com/onetime/-/onetime-2.0.1.tgz#067428230fd67443b2794b22bba528b6867962d4"
   dependencies:
     mimic-fn "^1.0.0"
+
+opencollective-postinstall@^2.0.0:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/opencollective-postinstall/-/opencollective-postinstall-2.0.1.tgz#798e83e168f7b91949061c2683f762af747f17cc"
 
 optimist@^0.6.1:
   version "0.6.1"
@@ -3637,6 +3645,14 @@ validate-npm-package-license@^3.0.1:
   dependencies:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
+
+vectorious@^4.8.5:
+  version "4.8.5"
+  resolved "https://registry.yarnpkg.com/vectorious/-/vectorious-4.8.5.tgz#9ac44e2af383f9587eeba48d42eac6664b7c20b7"
+  dependencies:
+    opencollective-postinstall "^2.0.0"
+  optionalDependencies:
+    nblas "^1.2.0"
 
 verror@1.10.0:
   version "1.10.0"
