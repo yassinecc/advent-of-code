@@ -3,15 +3,16 @@ const { filterInt, findRegex } = require('../../utils/common');
 const { initializeArray, arraySum } = require('../../utils/math');
 
 const parseClaim = claimLine => {
-  const yStart = filterInt(findRegex(claimLine, /@\s([0-9]*?)\,/));
-  const deltaY = filterInt(findRegex(claimLine, /\:\s([0-9]*?)x/));
-  const xStart = filterInt(findRegex(claimLine, /\,([0-9]*?)\:/));
-  const deltaX = filterInt(findRegex(claimLine, /x([0-9]*?)$/));
+  const xStart = filterInt(findRegex(claimLine, /@\s([0-9]*?)\,/));
+  const deltaX = filterInt(findRegex(claimLine, /\:\s([0-9]*?)x/));
+  const yStart = filterInt(findRegex(claimLine, /\,([0-9]*?)\:/));
+  const deltaY = filterInt(findRegex(claimLine, /x([0-9]*?)$/));
   return { xStart, deltaX, yStart, deltaY };
 };
 
-const doClaimsIntersect = (claim1, claim2) => {
+const doClaimsIntersect = (claimLine1, claimLine2) => {
   try {
+    const [claim1, claim2] = [claimLine1, claimLine2].map(parseClaim);
     const { xStart: x1, yStart: y1, deltaX: dx1, deltaY: dy1 } = claim1;
     const { xStart: x2, yStart: y2, deltaX: dx2, deltaY: dy2 } = claim2;
     return x1 < x2 + dx2 && x1 + dx1 > x2 && y1 < y2 + dy2 && y1 + dy1 > x2;
