@@ -96,16 +96,17 @@ const getHighestFrequency = minutesLog => {
   return finalFrequency;
 };
 
-const part1 = log => {
+const solve = (log, searchFunction) => {
   const sleepLog = fillSleepLog(log);
-  const guardLog = findLongestSleepGuard(sleepLog);
+  const guardLog = searchFunction(sleepLog);
   const mostSleptMinute = getMostFrequentMark(guardLog.log);
   return mostSleptMinute * guardLog.guardId;
 };
 
-const part2 = () => {
-  return 0;
-};
+const part1 = log => solve(log, findLongestSleepGuard);
+
+const part2 = log => solve(log, findFrequentSleepGuard);
+
 module.exports = {
   extractDateFromEntry,
   extractGuardIdFromEntry,

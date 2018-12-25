@@ -10,6 +10,7 @@ const {
   findFrequentSleepGuard,
   getMostFrequentMark,
   part1,
+  part2,
 } = require('../parts');
 
 const log = [
@@ -236,5 +237,9 @@ describe('Day4', () => {
   ];
   it('should return the most frequent sleepy guard', () => {
     expect(findFrequentSleepGuard(sleepLog)).toEqual({ guardId: 99, log: frequentLog });
+  });
+
+  it('should solve part 2', () => {
+    expect(part2(log)).toEqual(4455);
   });
 });
