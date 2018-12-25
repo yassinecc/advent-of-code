@@ -1,30 +1,21 @@
 const { findIndex } = require('lodash');
 
-const findInvertedCase = word => {
-  const charArray = [...word];
-  return findIndex(charArray, (char, index) => {
-    const nextChar = charArray[index + 1];
-    if (!nextChar) {
-      return false;
-    } else if (char == char.toUpperCase()) {
-      return char == nextChar.toUpperCase() && nextChar == nextChar.toLowerCase();
-    } else {
-      return char == nextChar.toLowerCase() && nextChar == nextChar.toUpperCase();
-    }
-  });
-};
+const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
+let toReplace = alphabet.map(char => char + char.toUpperCase());
+toReplace = toReplace.concat(alphabet.map(char => char.toUpperCase() + char));
 
 const part1 = word => {
-  let index = findInvertedCase(word);
-  while (index > -1) {
-    let charArray = [...word];
-    charArray.splice(index, 2);
-    word = charArray.join('');
-    index = findInvertedCase(word);
-  }
+  let lengthBefore, lengthAfter;
+  do {
+    lengthBefore = word.length;
+    toReplace.forEach(single => {
+      word = word.split(single).join('');
+    });
+    lengthAfter = word.length;
+  } while (lengthBefore !== lengthAfter);
   return word.length;
 };
 const part2 = () => {
   return 0;
 };
-module.exports = { findInvertedCase, part1, part2 };
+module.exports = { part1, part2 };
