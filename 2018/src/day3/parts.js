@@ -10,6 +10,17 @@ const parseClaim = claimLine => {
   return { xStart, deltaX, yStart, deltaY };
 };
 
+const doClaimsIntersect = (claim1, claim2) => {
+  try {
+    const { xStart: x1, yStart: y1, deltaX: dx1, deltaY: dy1 } = claim1;
+    const { xStart: x2, yStart: y2, deltaX: dx2, deltaY: dy2 } = claim2;
+    return x1 < x2 + dx2 && x1 + dx1 > x2 && y1 < y2 + dy2 && y1 + dy1 > x2;
+  } catch (e) {
+    console.log('Could not parse inputs', claim1, claim2, e);
+    return false;
+  }
+};
+
 generateArray = (line, gridSize) => {
   const { xStart, deltaX, yStart, deltaY } = parseClaim(line);
   const result = initializeArray(gridSize, 0);
@@ -23,7 +34,7 @@ generateArray = (line, gridSize) => {
 
 const part1 = (claimsList, gridSize = 1000) => {
   let result = initializeArray(gridSize, 0);
-  claimsList.forEach((claim, index) => {
+  claimsList.forEach(claim => {
     result = arraySum(result, generateArray(claim, gridSize));
   });
   return result.reduce((a, b) => (b > 1 ? a + 1 : a));
@@ -33,4 +44,4 @@ const part2 = () => {
   return 0;
 };
 
-module.exports = { generateArray, parseClaim, part1, part2 };
+module.exports = { generateArray, doClaimsIntersect, parseClaim, part1, part2 };
