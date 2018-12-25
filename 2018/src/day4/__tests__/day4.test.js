@@ -6,7 +6,8 @@ const {
   getSleepingHours,
   fillSleepLog,
   sleepLogsMerge,
-  findSleepiestGuard,
+  findLongestSleepGuard,
+  findFrequentSleepGuard,
   getMostFrequentMark,
   part1,
 } = require('../parts');
@@ -185,7 +186,7 @@ describe('Day4', () => {
     54,
   ];
   it('should find the sleepiest log', () => {
-    expect(findSleepiestGuard(sleepLog)).toEqual({ guardId: 10, log: longLog });
+    expect(findLongestSleepGuard(sleepLog)).toEqual({ guardId: 10, log: longLog });
   });
 
   const flatLog = { guardId: 10, log: sleepLogsMerge(sleepLog['10']) };
@@ -194,10 +195,46 @@ describe('Day4', () => {
   });
 
   it('should get the most slept minute', () => {
-    expect(getMostFrequentMark(flatLog)).toEqual('24');
+    expect(getMostFrequentMark(flatLog.log)).toEqual('24');
   });
 
   it('should solve part1', () => {
     expect(part1(log)).toEqual(240);
+  });
+
+  const frequentLog = [
+    36,
+    37,
+    38,
+    39,
+    40,
+    40,
+    41,
+    41,
+    42,
+    42,
+    43,
+    43,
+    44,
+    44,
+    45,
+    45,
+    45,
+    46,
+    46,
+    47,
+    47,
+    48,
+    48,
+    49,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+  ];
+  it('should return the most frequent sleepy guard', () => {
+    expect(findFrequentSleepGuard(sleepLog)).toEqual({ guardId: 99, log: frequentLog });
   });
 });

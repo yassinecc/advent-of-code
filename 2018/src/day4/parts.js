@@ -61,14 +61,14 @@ const sleepLogsMerge = guardLog => {
   return sortBy(flatLog);
 };
 
-const findSleepiestGuard = sleepLog => {
+const findSleepiestGuard = (sleepLog, comparator) => {
   const flatSleepLogs = map(sleepLog, (guardLog, key) => {
     return { guardId: key, log: sleepLogsMerge(guardLog) };
   });
   let finalGuardId = 0;
   let finalLog = [];
   flatSleepLogs.forEach(guardLog => {
-    if (guardLog.log.length > finalLog.length) {
+    if (comparator(guardLog.log, finalLog)) {
       finalGuardId = Number(guardLog.guardId);
       finalLog = guardLog.log;
     }
@@ -76,15 +76,30 @@ const findSleepiestGuard = sleepLog => {
   return { guardId: finalGuardId, log: finalLog };
 };
 
+const findLongestSleepGuard = sleepLog =>
+  findSleepiestGuard(sleepLog, (a, b) => a.length > b.length);
+
+const findFrequentSleepGuard = sleepLog =>
+  findSleepiestGuard(sleepLog, (a, b) => getHighestFrequency(a) > getHighestFrequency(b));
+
 const getMostFrequentMark = minutesLog =>
-  reduce(countBy(minutesLog.log), (localMax, value, index, source) =>
+  reduce(countBy(minutesLog), (localMax, value, index, source) =>
     source[localMax] > value ? localMax : index
   );
 
+const getHighestFrequency = minutesLog => {
+  const frequencies = countBy(minutesLog);
+  let finalFrequency = 0;
+  Object.values(frequencies).forEach(frequency => {
+    finalFrequency = Math.max(frequency, finalFrequency);
+  });
+  return finalFrequency;
+};
+
 const part1 = log => {
   const sleepLog = fillSleepLog(log);
-  const guardLog = findSleepiestGuard(sleepLog);
-  const mostSleptMinute = getMostFrequentMark(guardLog);
+  const guardLog = findLongestSleepGuard(sleepLog);
+  const mostSleptMinute = getMostFrequentMark(guardLog.log);
   return mostSleptMinute * guardLog.guardId;
 };
 
@@ -99,7 +114,8 @@ module.exports = {
   getSleepingHours,
   fillSleepLog,
   sleepLogsMerge,
-  findSleepiestGuard,
+  findLongestSleepGuard,
+  findFrequentSleepGuard,
   getMostFrequentMark,
   part1,
   part2,
