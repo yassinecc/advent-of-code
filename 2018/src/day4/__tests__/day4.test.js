@@ -6,15 +6,17 @@ const {
   getSleepingHours,
   fillSleepLog,
   sleepLogsMerge,
+  findSleepiestGuard,
   getMostFrequentMark,
+  part1,
 } = require('../parts');
 
 const log = [
   '[1518-11-01 00:00] Guard #10 begins shift',
-  '[1518-11-01 00:15] falls asleep',
+  '[1518-11-01 00:05] falls asleep',
   '[1518-11-01 00:25] wakes up',
   '[1518-11-01 00:30] falls asleep',
-  '[1518-11-01 00:35] wakes up',
+  '[1518-11-01 00:55] wakes up',
   '[1518-11-01 23:58] Guard #99 begins shift',
   '[1518-11-02 00:40] falls asleep',
   '[1518-11-02 00:50] wakes up',
@@ -73,7 +75,53 @@ describe('Day4', () => {
   it('should correctly get the guards sleep times', () => {
     expect(sleepLog).toEqual({
       '10': {
-        '1518-11-01': [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 30, 31, 32, 33, 34],
+        '1518-11-01': [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52,
+          53,
+          54,
+        ],
         '1518-11-03': [24, 25, 26, 27, 28],
       },
       '99': {
@@ -84,33 +132,72 @@ describe('Day4', () => {
     });
   });
 
-  const flatLog = sleepLogsMerge(sleepLog['10']);
+  const longLog = [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    24,
+    25,
+    26,
+    27,
+    28,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+  ];
+  it('should find the sleepiest log', () => {
+    expect(findSleepiestGuard(sleepLog)).toEqual({ guardId: 10, log: longLog });
+  });
+
+  const flatLog = { guardId: 10, log: sleepLogsMerge(sleepLog['10']) };
   it('should flatten the sleep log', () => {
-    expect(flatLog).toEqual([
-      15,
-      16,
-      17,
-      18,
-      19,
-      20,
-      21,
-      22,
-      23,
-      24,
-      24,
-      25,
-      26,
-      27,
-      28,
-      30,
-      31,
-      32,
-      33,
-      34,
-    ]);
+    expect(flatLog).toEqual({ guardId: 10, log: longLog });
   });
 
   it('should get the most slept minute', () => {
     expect(getMostFrequentMark(flatLog)).toEqual('24');
+  });
+
+  it('should solve part1', () => {
+    expect(part1(log)).toEqual(240);
   });
 });

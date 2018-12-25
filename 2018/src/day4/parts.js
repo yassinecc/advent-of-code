@@ -1,4 +1,4 @@
-const { sortBy, range, flow, mergeWith, isArray, countBy, max, reduce } = require('lodash');
+const { sortBy, range, flow, mergeWith, isArray, countBy, reduce, map } = require('lodash');
 const moment = require('moment');
 const { findRegex } = require('../../utils/common');
 
@@ -61,15 +61,33 @@ const sleepLogsMerge = guardLog => {
   return sortBy(flatLog);
 };
 
-const getMostFrequentMark = minutesLog => {
-  return reduce(countBy(minutesLog), (localMax, value, index, source) =>
-    source[localMax] > value ? localMax : index
-  );
+const findSleepiestGuard = sleepLog => {
+  const flatSleepLogs = map(sleepLog, (guardLog, key) => {
+    return { guardId: key, log: sleepLogsMerge(guardLog) };
+  });
+  let finalGuardId = 0;
+  let finalLog = [];
+  flatSleepLogs.forEach(guardLog => {
+    if (guardLog.log.length > finalLog.length) {
+      finalGuardId = Number(guardLog.guardId);
+      finalLog = guardLog.log;
+    }
+  });
+  return { guardId: finalGuardId, log: finalLog };
 };
 
-const part1 = () => {
-  return 0;
+const getMostFrequentMark = minutesLog =>
+  reduce(countBy(minutesLog.log), (localMax, value, index, source) =>
+    source[localMax] > value ? localMax : index
+  );
+
+const part1 = log => {
+  const sleepLog = fillSleepLog(log);
+  const guardLog = findSleepiestGuard(sleepLog);
+  const mostSleptMinute = getMostFrequentMark(guardLog);
+  return mostSleptMinute * guardLog.guardId;
 };
+
 const part2 = () => {
   return 0;
 };
@@ -81,6 +99,7 @@ module.exports = {
   getSleepingHours,
   fillSleepLog,
   sleepLogsMerge,
+  findSleepiestGuard,
   getMostFrequentMark,
   part1,
   part2,
