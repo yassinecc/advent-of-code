@@ -5,6 +5,7 @@ const {
   sortTimeEntries,
   getSleepingHours,
   fillSleepLog,
+  sleepLogsMerge,
 } = require('../parts');
 
 const log = [
@@ -80,5 +81,30 @@ describe('Day4', () => {
         '1518-11-05': [45, 46, 47, 48, 49, 50, 51, 52, 53, 54],
       },
     });
+  });
+
+  it('should flatten the sleep log', () => {
+    expect(sleepLogsMerge(sleepLog['10'])).toEqual([
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      24,
+      25,
+      26,
+      27,
+      28,
+      30,
+      31,
+      32,
+      33,
+      34,
+    ]);
   });
 });

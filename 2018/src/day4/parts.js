@@ -53,6 +53,14 @@ const fillSleepLog = log => {
   return sleepLog;
 };
 
+const sleepLogsMerge = guardLog => {
+  let flatLog = [];
+  Object.keys(guardLog).forEach(date => {
+    flatLog = flatLog.concat(guardLog[date]);
+  });
+  return sortBy(flatLog);
+};
+
 const part1 = () => {
   return 0;
 };
@@ -66,6 +74,7 @@ module.exports = {
   convertDateStringToMoment,
   getSleepingHours,
   fillSleepLog,
+  sleepLogsMerge,
   part1,
   part2,
 };
