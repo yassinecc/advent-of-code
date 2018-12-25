@@ -6,6 +6,7 @@ const {
   getSleepingHours,
   fillSleepLog,
   sleepLogsMerge,
+  getMostFrequentMark,
 } = require('../parts');
 
 const log = [
@@ -83,8 +84,9 @@ describe('Day4', () => {
     });
   });
 
+  const flatLog = sleepLogsMerge(sleepLog['10']);
   it('should flatten the sleep log', () => {
-    expect(sleepLogsMerge(sleepLog['10'])).toEqual([
+    expect(flatLog).toEqual([
       15,
       16,
       17,
@@ -106,5 +108,9 @@ describe('Day4', () => {
       33,
       34,
     ]);
+  });
+
+  it('should get the most slept minute', () => {
+    expect(getMostFrequentMark(flatLog)).toEqual('24');
   });
 });

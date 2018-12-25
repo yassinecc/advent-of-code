@@ -1,4 +1,4 @@
-const { sortBy, range, flow, mergeWith, isArray } = require('lodash');
+const { sortBy, range, flow, mergeWith, isArray, countBy, max, reduce } = require('lodash');
 const moment = require('moment');
 const { findRegex } = require('../../utils/common');
 
@@ -61,6 +61,12 @@ const sleepLogsMerge = guardLog => {
   return sortBy(flatLog);
 };
 
+const getMostFrequentMark = minutesLog => {
+  return reduce(countBy(minutesLog), (localMax, value, index, source) =>
+    source[localMax] > value ? localMax : index
+  );
+};
+
 const part1 = () => {
   return 0;
 };
@@ -75,6 +81,7 @@ module.exports = {
   getSleepingHours,
   fillSleepLog,
   sleepLogsMerge,
+  getMostFrequentMark,
   part1,
   part2,
 };
