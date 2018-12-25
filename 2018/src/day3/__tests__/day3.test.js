@@ -1,4 +1,7 @@
+const { parseFile } = require('advent-of-code-2018/utils/common');
 const { parseClaim, doClaimsIntersect, part1, part2 } = require('../parts');
+
+const claimsList = parseFile('inputs/day3.txt');
 
 describe('Day3', () => {
   it('should correctly parse claims', () =>
@@ -18,5 +21,9 @@ describe('Day3', () => {
     ['#1 @ 1,3: 4x4', '#3 @ 5,5: 2x2', false],
   ])('should correctly determine if rectangles are overlapping', (a, b, expected) => {
     expect(doClaimsIntersect(a, b)).toBe(expected);
+  });
+  const claim = claimsList[0];
+  it.each(claimsList.slice(1))('%s should swap', a => {
+    expect(doClaimsIntersect(claim, a)).toEqual(doClaimsIntersect(a, claim));
   });
 });

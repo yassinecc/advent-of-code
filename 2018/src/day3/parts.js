@@ -1,4 +1,4 @@
-const { sum } = require('lodash');
+const { sum, forEach } = require('lodash');
 const { filterInt, findRegex } = require('../../utils/common');
 const { initializeArray, arraySum } = require('../../utils/math');
 
@@ -15,7 +15,7 @@ const doClaimsIntersect = (claimLine1, claimLine2) => {
     const [claim1, claim2] = [claimLine1, claimLine2].map(parseClaim);
     const { xStart: x1, yStart: y1, deltaX: dx1, deltaY: dy1 } = claim1;
     const { xStart: x2, yStart: y2, deltaX: dx2, deltaY: dy2 } = claim2;
-    return x1 < x2 + dx2 && x1 + dx1 > x2 && y1 < y2 + dy2 && y1 + dy1 > x2;
+    return x1 < x2 + dx2 && x1 + dx1 > x2 && y1 < y2 + dy2 && y1 + dy1 > y2;
   } catch (e) {
     console.log('Could not parse inputs', claim1, claim2, e);
     return false;
@@ -41,8 +41,20 @@ const part1 = (claimsList, gridSize = 1000) => {
   return result.reduce((a, b) => (b > 1 ? a + 1 : a));
 };
 
-const part2 = () => {
-  return 0;
+const part2 = claimsList => {
+  let result;
+  forEach(claimsList, claim => {
+    let hasCollided = false;
+    forEach(claimsList, concurrentClaim => {
+      hasCollided =
+        hasCollided || (concurrentClaim !== claim && doClaimsIntersect(claim, concurrentClaim));
+    });
+    if (!hasCollided) {
+      result = claim;
+      return false;
+    }
+  });
+  return result;
 };
 
 module.exports = { generateArray, doClaimsIntersect, parseClaim, part1, part2 };
