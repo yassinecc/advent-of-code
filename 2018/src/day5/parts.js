@@ -15,9 +15,7 @@ const react = word => {
   return word;
 };
 
-const part1 = word => {
-  return react(word).length;
-};
+const part1 = word => react(word).length;
 const part2 = word => {
   let length = word.length;
   alphabet.forEach(single => {
