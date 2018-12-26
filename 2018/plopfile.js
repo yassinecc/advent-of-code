@@ -4,19 +4,19 @@ module.exports = function(plop) {
     prompts: [
       {
         type: 'input',
-        name: 'fileName',
-        message: 'File name?',
+        name: 'dayNumber',
+        message: 'Day number?',
       },
     ],
     actions: [
       {
         type: 'addMany',
-        destination: 'src/{{fileName}}/',
+        destination: 'src/day{{dayNumber}}/',
         templateFiles: 'plop-templates/*',
       },
       {
         type: 'add',
-        path: 'src/{{fileName}}/__tests__/{{fileName}}.test.js',
+        path: 'src/day{{dayNumber}}/__tests__/day{{dayNumber}}.test.js',
         templateFile: 'plop-templates/__tests__/test.js',
       },
     ],
