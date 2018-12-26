@@ -73,6 +73,10 @@ const countClosestLocations = (points, index) => {
   return totalPoints;
 };
 
-const part1 = () => 0;
+const part1 = input => {
+  const coordinates = formatInput(input);
+  const areas = coordinates.map((_, index) => countClosestLocations(coordinates, index));
+  return Math.max(...areas);
+};
 const part2 = () => 0;
 module.exports = { formatInput, getEdges, manhattanDistance, countClosestLocations, part1, part2 };

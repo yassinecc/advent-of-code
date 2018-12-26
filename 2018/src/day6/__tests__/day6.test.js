@@ -1,4 +1,10 @@
-const { formatInput, getEdges, manhattanDistance, countClosestLocations } = require('../parts');
+const {
+  formatInput,
+  getEdges,
+  manhattanDistance,
+  countClosestLocations,
+  part1,
+} = require('../parts');
 
 const input = ['1, 1', '1, 6', '8, 3', '3, 4', '5, 5', '8, 9'];
 
@@ -24,5 +30,9 @@ describe('Day 6', () => {
     expect(countClosestLocations(coordinates, 3)).toEqual(9);
     expect(countClosestLocations(coordinates, 4)).toEqual(17);
     expect(countClosestLocations(coordinates, 5)).toEqual(-1);
+  });
+
+  it('should solve part1', () => {
+    expect(part1(input)).toEqual(17);
   });
 });
