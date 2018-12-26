@@ -6,7 +6,7 @@
   "author": "yassinecc",
   "license": "MIT",
   "scripts": {
-    "test": "jest"
+    "test": "eslint . && jest"
   },
   "dependencies": {
     "jest": "^23.6.0",
