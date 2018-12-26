@@ -1,4 +1,4 @@
-const { sum, forEach } = require('lodash');
+const { forEach } = require('lodash');
 const { filterInt, findRegex } = require('../../utils/common');
 const { initializeArray, arraySum } = require('../../utils/math');
 
