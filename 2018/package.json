@@ -20,5 +20,9 @@
       "/node_modules/",
       "<rootDir>/plop-templates"
     ]
+  },
+  "devDependencies": {
+    "eslint": "^5.11.0",
+    "eslint-config-google": "^0.11.0"
   }
 }
