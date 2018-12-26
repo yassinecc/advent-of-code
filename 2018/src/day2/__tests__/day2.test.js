@@ -21,7 +21,7 @@ describe('Day2', () => {
   });
   it('Should return the correct checksum for part 1', () => {
     expect(part1(['abcdef', 'bababc', 'abbcde', 'abcccd', 'aabcdd', 'abcdee', 'ababab'])).toEqual(
-      12
+        12
     );
   });
 
@@ -32,7 +32,7 @@ describe('Day2', () => {
     expect(getPairs([1, 2, 3])).toEqual([[1, 2], [1, 3], [2, 3]]);
     expect(getPairs([1, 2, 3, 3])).toEqual([[1, 2], [1, 3], [1, 3], [2, 3], [2, 3], [3, 3]]);
   });
-  it("Should return undefined if the two words don't have the same length", () => {
+  it('Should return undefined if the two words don\'t have the same length', () => {
     expect(findPairMatch('abcde', 'a')).not.toBeDefined();
   });
   it.each([

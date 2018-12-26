@@ -1,4 +1,4 @@
-const { sum, forEach } = require('lodash');
+const { forEach } = require('lodash');
 const { filterInt, findRegex } = require('../../utils/common');
 const { initializeArray, arraySum } = require('../../utils/math');
 
@@ -25,8 +25,8 @@ const doClaimsIntersect = (claimLine1, claimLine2) => {
 generateArray = (line, gridSize) => {
   const { xStart, deltaX, yStart, deltaY } = parseClaim(line);
   const result = initializeArray(gridSize, 0);
-  for (var i = xStart; i < xStart + deltaX; i++) {
-    for (var j = yStart; j < yStart + deltaY; j++) {
+  for (let i = xStart; i < xStart + deltaX; i++) {
+    for (let j = yStart; j < yStart + deltaY; j++) {
       result.set(i, j, 1);
     }
   }

@@ -44,12 +44,12 @@ describe('Day4', () => {
 
   it('should sort entries according to dates', () => {
     expect(
-      sortTimeEntries([
-        '[1518-11-01 00:00] Guard #10 begins shift',
-        '[1518-11-01 00:30] falls asleep',
-        '[1518-11-01 00:05] falls asleep',
-        '[1518-11-01 00:25] wakes up',
-      ])
+        sortTimeEntries([
+          '[1518-11-01 00:00] Guard #10 begins shift',
+          '[1518-11-01 00:30] falls asleep',
+          '[1518-11-01 00:05] falls asleep',
+          '[1518-11-01 00:25] wakes up',
+        ])
     ).toEqual([
       '[1518-11-01 00:00] Guard #10 begins shift',
       '[1518-11-01 00:05] falls asleep',

@@ -1,5 +1,5 @@
 const { parseFile } = require('advent-of-code-2018/utils/common');
-const { parseClaim, doClaimsIntersect, part1, part2 } = require('../parts');
+const { parseClaim, doClaimsIntersect, part1 } = require('../parts');
 
 const claimsList = parseFile('inputs/day3.txt');
 

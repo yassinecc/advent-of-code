@@ -1,0 +1,23 @@
+{
+  "extends": "google",
+  "parserOptions": {
+    "ecmaVersion": 2017
+  },
+
+  "env": {
+    "es6": true
+  },
+  "rules": {
+    "arrow-parens": [2, "as-needed"],
+    "object-curly-spacing": [2, "always"],
+    "max-len": [
+      2,
+      {
+        "code": 120,
+        "tabWidth": 2,
+        "ignoreUrls": true,
+        "ignorePattern": "^goog.(module|require)"
+      }
+    ]
+  }
+}

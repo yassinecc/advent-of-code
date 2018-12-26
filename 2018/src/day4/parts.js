@@ -29,7 +29,7 @@ const customiser = (objValue, srcValue) => {
 
 const getGuardSleep = (guardId, entryIndex, sortedLog, sleepLog) => {
   let index = entryIndex + 1;
-  let startTime, endTime;
+  let startTime; let endTime;
   if (!sleepLog[guardId]) sleepLog[guardId] = {};
   while (sortedLog[index]) {
     if (sortedLog[index].includes('falls asleep')) {
@@ -41,14 +41,15 @@ const getGuardSleep = (guardId, entryIndex, sortedLog, sleepLog) => {
       index++;
     } else break;
   }
-  if (sortedLog[index])
+  if (sortedLog[index]) {
     getGuardSleep(extractGuardIdFromEntry(sortedLog[index]), index, sortedLog, sleepLog);
+  }
 };
 
 const fillSleepLog = log => {
   const sortedLog = sortTimeEntries(log);
   const firstGuardIndex = extractGuardIdFromEntry(sortedLog[0]);
-  let sleepLog = {};
+  const sleepLog = {};
   getGuardSleep(firstGuardIndex, 0, sortedLog, sleepLog);
   return sleepLog;
 };

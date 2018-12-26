@@ -10,9 +10,9 @@ const separators = ['\n', ', '];
 const parseFile = fileName => {
   const fileContents = fs.readFileSync(fileName, 'utf-8');
   const contentsArray = fileContents
-    .toString()
-    .trim()
-    .split(new RegExp(separators.join('|'), 'g'));
+      .toString()
+      .trim()
+      .split(new RegExp(separators.join('|'), 'g'));
   return contentsArray.map(line => {
     try {
       const integer = filterInt(line);
@@ -24,7 +24,7 @@ const parseFile = fileName => {
 };
 
 const findRegex = (string, regex) => {
-  var matched = regex.exec(string);
+  const matched = regex.exec(string);
   return matched && matched[1];
 };
 
