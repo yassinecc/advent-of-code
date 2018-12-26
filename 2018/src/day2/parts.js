@@ -6,11 +6,11 @@ const hasRepetition = (size, word) => {
 };
 
 const getPairs = array => {
-  //array may contain duplicate elements
+  // array may contain duplicate elements
   const length = array.length;
   const pairsArray = [];
-  for (var i = 0; i < length; i++) {
-    for (var j = i + 1; j < length; j++) {
+  for (let i = 0; i < length; i++) {
+    for (let j = i + 1; j < length; j++) {
       pairsArray.push([array[i], array[j]]);
     }
   }
@@ -21,7 +21,7 @@ const findPairMatch = (word1, word2) => {
   if (word1.length !== word2.length) return;
   else {
     const resultArray = [...word1].filter(
-      (char, index) => word1.charAt(index) === word2.charAt(index)
+        (char, index) => word1.charAt(index) === word2.charAt(index)
     );
     return resultArray.join('');
   }

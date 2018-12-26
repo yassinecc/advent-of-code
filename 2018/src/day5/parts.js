@@ -5,7 +5,7 @@ let toReplace = alphabet.map(char => char + char.toUpperCase());
 toReplace = toReplace.concat(alphabet.map(char => char.toUpperCase() + char));
 
 const react = word => {
-  let lengthBefore, lengthAfter;
+  let lengthBefore; let lengthAfter;
   do {
     lengthBefore = word.length;
     toReplace.forEach(single => {
