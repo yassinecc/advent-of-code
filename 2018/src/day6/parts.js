@@ -37,7 +37,7 @@ const createPointsRing = (point, radius) => {
 };
 
 const countClosestLocations = (points, index) => {
-  const edges = getEdges(points);
+  const { xMin, xMax, yMin, yMax } = getEdges(points);
   const otherPoints = [...points];
   const point = otherPoints.splice(index, 1)[0];
   let radius = 0;
@@ -61,8 +61,8 @@ const countClosestLocations = (points, index) => {
       if (shouldExit) {
         return false;
       } else {
-        const isInXBoundary = point.x - radius >= edges.xMin && point.x + radius <= edges.xMax;
-        const isInYBoundary = point.y - radius >= edges.yMin && point.y + radius <= edges.yMax;
+        const isInXBoundary = point.x - radius >= xMin && point.x + radius <= xMax;
+        const isInYBoundary = point.y - radius >= yMin && point.y + radius <= yMax;
         if (!isInXBoundary || !isInYBoundary) {
           newPoints = 0;
           totalPoints = -1;
@@ -73,10 +73,38 @@ const countClosestLocations = (points, index) => {
   return totalPoints;
 };
 
+const measureDistanceToAllPoints = (point, coordinates) =>
+  coordinates.reduce((acc, value) => acc + manhattanDistance(point, value), 0);
+
 const part1 = input => {
   const coordinates = formatInput(input);
   const areas = coordinates.map((_, index) => countClosestLocations(coordinates, index));
   return Math.max(...areas);
 };
-const part2 = () => 0;
-module.exports = { formatInput, getEdges, manhattanDistance, countClosestLocations, part1, part2 };
+
+const part2 = (input, threshold = 10000) => {
+  const coordinates = formatInput(input);
+  const { xMin, xMax, yMin, yMax } = getEdges(coordinates);
+  const xScale = range(xMin, xMax + 1);
+  const yScale = range(yMin, yMax + 1);
+  const worldPoints = xScale.reduce(
+      (xAcc, xValue) =>
+        xAcc.concat(yScale.reduce((yAcc, yValue) => yAcc.concat({ x: xValue, y: yValue }), [])),
+      []
+  );
+  const worldDistances = worldPoints.map(worldPoint =>
+    measureDistanceToAllPoints(worldPoint, coordinates)
+  );
+  const safeDistances = worldDistances.filter(distance => distance < threshold);
+  return safeDistances.length;
+};
+
+module.exports = {
+  formatInput,
+  getEdges,
+  manhattanDistance,
+  countClosestLocations,
+  measureDistanceToAllPoints,
+  part1,
+  part2,
+};

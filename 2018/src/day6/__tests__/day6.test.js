@@ -3,7 +3,9 @@ const {
   getEdges,
   manhattanDistance,
   countClosestLocations,
+  measureDistanceToAllPoints,
   part1,
+  part2,
 } = require('../parts');
 
 const input = ['1, 1', '1, 6', '8, 3', '3, 4', '5, 5', '8, 9'];
@@ -25,14 +27,24 @@ describe('Day 6', () => {
   });
 
   it('should get the number of points', () => {
-    expect(countClosestLocations(coordinates, 1)).toEqual(-1);
-    expect(countClosestLocations(coordinates, 2)).toEqual(-1);
-    expect(countClosestLocations(coordinates, 3)).toEqual(9);
-    expect(countClosestLocations(coordinates, 4)).toEqual(17);
-    expect(countClosestLocations(coordinates, 5)).toEqual(-1);
+    expect([1, 2, 3, 4, 5].map(index => countClosestLocations(coordinates, index))).toEqual([
+      -1,
+      -1,
+      9,
+      17,
+      -1,
+    ]);
   });
 
   it('should solve part1', () => {
     expect(part1(input)).toEqual(17);
+  });
+
+  it('should calculate the sum of distances', () => {
+    expect(measureDistanceToAllPoints({ x: 4, y: 3 }, coordinates)).toEqual(30);
+  });
+
+  it('should solve part 2', () => {
+    expect(part2(input, 32)).toEqual(16);
   });
 });

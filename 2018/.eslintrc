@@ -8,7 +8,6 @@
     "es6": true
   },
   "rules": {
-    "arrow-body-style": [1, "as-needed"],
     "arrow-parens": [1, "as-needed"],
     "object-curly-spacing": [1, "always"],
     "max-len": [
