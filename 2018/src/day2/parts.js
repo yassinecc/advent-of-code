@@ -33,13 +33,11 @@ const part1 = wordsList => {
   return numberOfWordsWithPairs * numberOfWordsWithTriplets;
 };
 
-const part2 = wordsList => {
-  return getPairs(wordsList).forEach(pair => {
-    const match = findPairMatch(...pair);
-    if (match.length === pair[0].length - 1) {
-      return match;
-    }
-  });
-};
+const part2 = wordsList => getPairs(wordsList).forEach(pair => {
+  const match = findPairMatch(...pair);
+  if (match.length === pair[0].length - 1) {
+    return match;
+  }
+});
 
 module.exports = { hasRepetition, getPairs, findPairMatch, part1, part2 };

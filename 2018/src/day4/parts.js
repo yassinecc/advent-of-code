@@ -63,9 +63,7 @@ const sleepLogsMerge = guardLog => {
 };
 
 const findSleepiestGuard = (sleepLog, comparator) => {
-  const flatSleepLogs = map(sleepLog, (guardLog, key) => {
-    return { guardId: key, log: sleepLogsMerge(guardLog) };
-  });
+  const flatSleepLogs = map(sleepLog, (guardLog, key) => ({ guardId: key, log: sleepLogsMerge(guardLog) }));
   let finalGuardId = 0;
   let finalLog = [];
   flatSleepLogs.forEach(guardLog => {

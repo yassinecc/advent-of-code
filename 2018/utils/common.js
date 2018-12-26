@@ -5,7 +5,7 @@ const filterInt = function(value) {
   return NaN;
 };
 
-const separators = ['\n', ', '];
+const separators = ['\n'];
 
 const parseFile = fileName => {
   const fileContents = fs.readFileSync(fileName, 'utf-8');
