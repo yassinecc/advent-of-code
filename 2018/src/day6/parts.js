@@ -6,6 +6,17 @@ const formatInput = points =>
     return { x: Number(array[0]), y: Number(array[1]) };
   });
 
+const getEdges = points => {
+  const Xs = points.map(point => point.x);
+  const Ys = points.map(point => point.y);
+  return {
+    xMin: Math.min(...Xs),
+    xMax: Math.max(...Xs),
+    yMin: Math.min(...Ys),
+    yMax: Math.max(...Ys),
+  };
+};
+
 const manhattanDistance = (pointA, pointB) =>
   Math.abs(pointA.x - pointB.x) + Math.abs(pointA.y - pointB.y);
 
@@ -26,16 +37,13 @@ const createPointsRing = (point, radius) => {
 };
 
 const countClosestLocations = (points, index) => {
+  const edges = getEdges(points);
   const otherPoints = [...points];
   const point = otherPoints.splice(index, 1)[0];
   let radius = 0;
   let totalPoints = 0;
   let newPoints = 1;
   while (newPoints > 0) {
-    if (totalPoints > 20) {
-      console.log('infinity');
-      break;
-    }
     totalPoints = totalPoints + newPoints;
     radius++;
     newPoints = 0;
@@ -53,7 +61,12 @@ const countClosestLocations = (points, index) => {
       if (shouldExit) {
         return false;
       } else {
-        newPoints++;
+        const isInXBoundary = point.x - radius >= edges.xMin && point.x + radius <= edges.xMax;
+        const isInYBoundary = point.y - radius >= edges.yMin && point.y + radius <= edges.yMax;
+        if (!isInXBoundary || !isInYBoundary) {
+          newPoints = 0;
+          totalPoints = -1;
+        } else newPoints++;
       }
     });
   }
@@ -62,4 +75,4 @@ const countClosestLocations = (points, index) => {
 
 const part1 = () => 0;
 const part2 = () => 0;
-module.exports = { formatInput, manhattanDistance, countClosestLocations, part1, part2 };
+module.exports = { formatInput, getEdges, manhattanDistance, countClosestLocations, part1, part2 };
