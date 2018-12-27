@@ -8,11 +8,7 @@ class Node {
   }
 
   updateStatus() {
-    this.isAvailable = !this.parents.some(parent => parent.isDone);
-  }
-
-  process() {
-    this.isDone = true;
+    this.isAvailable = !this.parents.some(parent => !parent.isDone);
   }
 }
 

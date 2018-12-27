@@ -1,4 +1,4 @@
-const { findRegex } = require('advent-of-code-2018/utils/common');
+const { findRegex } = require('../../utils/common');
 const Node = require('./Node');
 
 const parseNodeLink = instruction => {
@@ -27,6 +27,34 @@ const createNodeNetwork = (nodeCollection, instructionsList) => {
   });
 };
 
-const part1 = () => 0;
+const findNextAvailableNodeName = nodeCollection => {
+  const availableNodes = Object.keys(nodeCollection).filter(nodeKey => {
+    const node = nodeCollection[nodeKey];
+    return !node.isDone && node.isAvailable;
+  });
+  const availableNodeNames = availableNodes.map(nodeKey => nodeCollection[nodeKey].name).sort();
+  return availableNodeNames[0];
+};
+
+const processAndUpdateNodes = (nodeCollection, nextNodeName) => {
+  nodeCollection[nextNodeName].isDone = true;
+  Object.keys(nodeCollection)
+      .filter(nodeKey => !nodeCollection[nodeKey].isDone)
+      .forEach(nodeKey => nodeCollection[nodeKey].updateStatus());
+};
+
+const part1 = instructionsList => {
+  const nodeCollection = {};
+  createNodeNetwork(nodeCollection, instructionsList);
+  Object.keys(nodeCollection).forEach(nodeKey => nodeCollection[nodeKey].updateStatus());
+  let result = '';
+  while (true) {
+    const nextAvailableNodeName = findNextAvailableNodeName(nodeCollection);
+    if (!nextAvailableNodeName) break;
+    result = result + nextAvailableNodeName;
+    processAndUpdateNodes(nodeCollection, nextAvailableNodeName);
+  }
+  return result;
+};
 const part2 = () => 0;
 module.exports = { parseNodeLink, createNodeNetwork, part1, part2 };
