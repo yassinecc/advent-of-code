@@ -1,3 +1,32 @@
+const { findRegex } = require('advent-of-code-2018/utils/common');
+const Node = require('./Node');
+
+const parseNodeLink = instruction => {
+  const parent = findRegex(instruction, /Step\s([A-Z]*?)\s/);
+  const child = findRegex(instruction, /step\s([A-Z]*?)\scan\sbegin/);
+  return { parent, child };
+};
+
+const createNodeLink = (nodeCollection, parentName, childName) => {
+  if (!nodeCollection[parentName]) {
+    Object.assign(nodeCollection, { [parentName]: new Node(parentName) });
+  }
+  if (!nodeCollection[childName]) {
+    Object.assign(nodeCollection, { [childName]: new Node(childName) });
+  }
+  const parentNode = nodeCollection[parentName];
+  const childNode = nodeCollection[childName];
+  parentNode.children.push(childNode);
+  childNode.parents.push(parentNode);
+};
+
+const createNodeNetwork = (nodeCollection, instructionsList) => {
+  instructionsList.forEach(instruction => {
+    const { parent, child } = parseNodeLink(instruction);
+    createNodeLink(nodeCollection, parent, child);
+  });
+};
+
 const part1 = () => 0;
 const part2 = () => 0;
-module.exports = { part1, part2 };
+module.exports = { parseNodeLink, createNodeNetwork, part1, part2 };
