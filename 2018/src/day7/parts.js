@@ -27,13 +27,13 @@ const createNodeNetwork = (nodeCollection, instructionsList) => {
   });
 };
 
-const findNextAvailableNodeName = nodeCollection => {
+const findNextAvailableNodeNames = nodeCollection => {
   const availableNodes = Object.keys(nodeCollection).filter(nodeKey => {
     const node = nodeCollection[nodeKey];
     return !node.isDone && node.isAvailable;
   });
   const availableNodeNames = availableNodes.map(nodeKey => nodeCollection[nodeKey].name).sort();
-  return availableNodeNames[0];
+  return availableNodeNames;
 };
 
 const processAndUpdateNodes = (nodeCollection, nextNodeName) => {
@@ -49,7 +49,7 @@ const part1 = instructionsList => {
   Object.keys(nodeCollection).forEach(nodeKey => nodeCollection[nodeKey].updateStatus());
   let result = '';
   while (true) {
-    const nextAvailableNodeName = findNextAvailableNodeName(nodeCollection);
+    const nextAvailableNodeName = findNextAvailableNodeNames(nodeCollection)[0];
     if (!nextAvailableNodeName) break;
     result = result + nextAvailableNodeName;
     processAndUpdateNodes(nodeCollection, nextAvailableNodeName);
