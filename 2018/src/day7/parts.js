@@ -1,8 +1,6 @@
 const { findRegex } = require('../../utils/common');
 const Node = require('./Node');
 
-const MINIMUM_PROCESSING_TIME = 0;
-
 const parseNodeLink = instruction => {
   const parent = findRegex(instruction, /Step\s([A-Z]*?)\s/);
   const child = findRegex(instruction, /step\s([A-Z]*?)\scan\sbegin/);
@@ -56,9 +54,9 @@ const getNextTimeStep = workers => {
   return nextTimeStep;
 };
 
-const getLeadTime = nodeName => {
+const getLeadTime = (nodeName, minimumProcessingTime) => {
   const offset = 'A'.charCodeAt(0) - 1;
-  return nodeName.charCodeAt(0) - offset + MINIMUM_PROCESSING_TIME;
+  return nodeName.charCodeAt(0) - offset + minimumProcessingTime;
 };
 
 const part1 = instructionsList => {
@@ -74,12 +72,11 @@ const part1 = instructionsList => {
   }
   return result;
 };
-const part2 = instructionsList => {
-  const NUMBER_OF_WORKERS = 2;
+const part2 = (instructionsList, minimumProcessingTime = 60, numberOfWorkers = 5) => {
   const nodeCollection = {};
   createNodeNetwork(nodeCollection, instructionsList);
   Object.keys(nodeCollection).forEach(nodeKey => nodeCollection[nodeKey].updateStatus());
-  const workers = [...Array(NUMBER_OF_WORKERS).keys()].map(key => ({
+  const workers = [...Array(numberOfWorkers).keys()].map(key => ({
     id: key,
     step: '.',
     leadTime: 0,
@@ -95,7 +92,7 @@ const part2 = instructionsList => {
         const nextNodeName = nextAvailableNodeNames[index];
         nodeCollection[nextNodeName].isProcessing = true;
         worker.step = nextNodeName;
-        worker.leadTime = getLeadTime(nextNodeName);
+        worker.leadTime = getLeadTime(nextNodeName, minimumProcessingTime);
       }
     });
     const nextTimeStep = getNextTimeStep(workers);
@@ -111,7 +108,6 @@ const part2 = instructionsList => {
           }
         });
   }
-  console.log('totalTime', totalTime);
   return { result, totalTime };
 };
 module.exports = { parseNodeLink, createNodeNetwork, part1, part2 };
