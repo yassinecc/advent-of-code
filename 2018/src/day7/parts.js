@@ -1,6 +1,8 @@
 const { findRegex } = require('../../utils/common');
 const Node = require('./Node');
 
+const MINIMUM_PROCESSING_TIME = 0;
+
 const parseNodeLink = instruction => {
   const parent = findRegex(instruction, /Step\s([A-Z]*?)\s/);
   const child = findRegex(instruction, /step\s([A-Z]*?)\scan\sbegin/);
@@ -43,6 +45,19 @@ const processAndUpdateNodes = (nodeCollection, nextNodeName) => {
       .forEach(nodeKey => nodeCollection[nodeKey].updateStatus());
 };
 
+const getAvailableWorkers = workers => workers.filter(worker => worker.leadTime === 0);
+
+const getNextTimeStep = workers => {
+  const sortedWorkers = [...workers].sort((v, w) => v.leadTime - w.leadTime);
+  const nextTimeStep = sortedWorkers[0].leadTime;
+  return nextTimeStep;
+};
+
+const getLeadTime = nodeName => {
+  const offset = 'A'.charCodeAt(0) - 1;
+  return nodeName.charCodeAt(0) - offset + MINIMUM_PROCESSING_TIME;
+};
+
 const part1 = instructionsList => {
   const nodeCollection = {};
   createNodeNetwork(nodeCollection, instructionsList);
@@ -56,5 +71,44 @@ const part1 = instructionsList => {
   }
   return result;
 };
-const part2 = () => 0;
+const part2 = instructionsList => {
+  const NUMBER_OF_WORKERS = 5;
+  const nodeCollection = {};
+  createNodeNetwork(nodeCollection, instructionsList);
+  Object.keys(nodeCollection).forEach(nodeKey => nodeCollection[nodeKey].updateStatus());
+  const workers = [...Array(NUMBER_OF_WORKERS).keys()].map(key => ({
+    id: key,
+    step: '.',
+    leadTime: 0,
+  }));
+  let result = '';
+  let totalTime = 0;
+  while (true) {
+    const nextAvailableNodeNames = findNextAvailableNodeNames(nodeCollection);
+    if (nextAvailableNodeNames.length === 0) break;
+    const availableWorkers = getAvailableWorkers(workers);
+    const processedNodeNames = [];
+    availableWorkers.forEach((worker, index) => {
+      if (index < nextAvailableNodeNames.length) {
+        const nextNodeName = nextAvailableNodeNames[index];
+        worker.step = nextNodeName;
+        worker.leadTime = getLeadTime(nextNodeName);
+        processedNodeNames.push(worker.step);
+      }
+    });
+    const nextTimeStep = getNextTimeStep(workers);
+    workers
+        .filter(worker => worker.leadTime > 0)
+        .forEach(worker => {
+          worker.leadTime = worker.leadTime - nextTimeStep;
+          totalTime = totalTime + nextTimeStep;
+        });
+    processedNodeNames.forEach(nodeName => {
+      result = result + nodeName;
+      processAndUpdateNodes(nodeCollection, nodeName);
+    });
+  }
+  console.log('totalTime', totalTime);
+  return result;
+};
 module.exports = { parseNodeLink, createNodeNetwork, part1, part2 };

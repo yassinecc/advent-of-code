@@ -31,6 +31,6 @@ describe('Day 7', () => {
     expect(part1(instructionsList)).toEqual('CABDFE');
   });
   it('should solve part 2', () => {
-    expect(part2()).toEqual(0);
+    expect(part2(instructionsList)).toEqual('CABFDE');
   });
 });
