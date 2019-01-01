@@ -2,6 +2,7 @@ class Node {
   constructor(name) {
     this.name = name;
     this.isAvailable = false;
+    this.isProcessing = false;
     this.isDone = false;
     this.parents = [];
     this.children = [];
