@@ -44,6 +44,13 @@ const processAndUpdateNodes = (nodeCollection, nextNodeName) => {
       .forEach(nodeKey => nodeCollection[nodeKey].updateStatus());
 };
 
+const initWorkers = numberOfWorkers =>
+  [...Array(numberOfWorkers).keys()].map(key => ({
+    id: key,
+    step: '.',
+    leadTime: 0,
+  }));
+
 const getAvailableWorkers = workers => workers.filter(worker => worker.leadTime === 0);
 
 const getNextTimeStep = workers => {
@@ -59,28 +66,30 @@ const getLeadTime = (nodeName, minimumProcessingTime) => {
   return nodeName.charCodeAt(0) - offset + minimumProcessingTime;
 };
 
-const part1 = instructionsList => {
-  const nodeCollection = {};
-  createNodeNetwork(nodeCollection, instructionsList);
-  Object.keys(nodeCollection).forEach(nodeKey => nodeCollection[nodeKey].updateStatus());
-  let result = '';
-  while (true) {
-    const nextAvailableNodeName = findNextAvailableNodeNames(nodeCollection)[0];
-    if (!nextAvailableNodeName) break;
-    result = result + nextAvailableNodeName;
-    processAndUpdateNodes(nodeCollection, nextAvailableNodeName);
-  }
-  return result;
+const assignStepToWorker = (nodeCollection, minimumProcessingTime, worker, nextNodeName) => {
+  nodeCollection[nextNodeName].isProcessing = true;
+  worker.step = nextNodeName;
+  worker.leadTime = getLeadTime(nextNodeName, minimumProcessingTime);
 };
-const part2 = (instructionsList, minimumProcessingTime = 60, numberOfWorkers = 5) => {
+
+const makeWork = (nodeCollection, worker, nextTimeStep) => {
+  worker.leadTime = worker.leadTime - nextTimeStep;
+  let workerResult = '';
+  let workerTime = 0;
+  if (worker.leadTime === 0) {
+    workerResult = worker.step;
+    processAndUpdateNodes(nodeCollection, worker.step);
+    worker.step = '.';
+    workerTime = nextTimeStep;
+  }
+  return { workerResult, workerTime };
+};
+
+const runWorkers = (instructionsList, numberOfWorkers = 5, minimumProcessingTime = 60) => {
   const nodeCollection = {};
   createNodeNetwork(nodeCollection, instructionsList);
   Object.keys(nodeCollection).forEach(nodeKey => nodeCollection[nodeKey].updateStatus());
-  const workers = [...Array(numberOfWorkers).keys()].map(key => ({
-    id: key,
-    step: '.',
-    leadTime: 0,
-  }));
+  const workers = initWorkers(numberOfWorkers);
   let result = '';
   let totalTime = 0;
   while (true) {
@@ -89,25 +98,28 @@ const part2 = (instructionsList, minimumProcessingTime = 60, numberOfWorkers = 5
     const availableWorkers = getAvailableWorkers(workers);
     availableWorkers.forEach((worker, index) => {
       if (index < nextAvailableNodeNames.length) {
-        const nextNodeName = nextAvailableNodeNames[index];
-        nodeCollection[nextNodeName].isProcessing = true;
-        worker.step = nextNodeName;
-        worker.leadTime = getLeadTime(nextNodeName, minimumProcessingTime);
+        assignStepToWorker(
+            nodeCollection,
+            minimumProcessingTime,
+            worker,
+            nextAvailableNodeNames[index]
+        );
       }
     });
     const nextTimeStep = getNextTimeStep(workers);
     workers
         .filter(worker => worker.leadTime > 0)
         .forEach(worker => {
-          worker.leadTime = worker.leadTime - nextTimeStep;
-          if (worker.leadTime === 0) {
-            result = result + worker.step;
-            processAndUpdateNodes(nodeCollection, worker.step);
-            worker.step = '.';
-            totalTime = totalTime + nextTimeStep;
-          }
+          const { workerResult, workerTime } = makeWork(nodeCollection, worker, nextTimeStep);
+          result = result + workerResult;
+          totalTime = totalTime + workerTime;
         });
   }
   return { result, totalTime };
 };
+
+const part1 = instructionsList => runWorkers(instructionsList, 1).result;
+
+const part2 = runWorkers;
+
 module.exports = { parseNodeLink, createNodeNetwork, part1, part2 };
