@@ -1,5 +1,5 @@
 const { findRegex } = require('../../utils/common');
-const Node = require('./Node');
+const Node = require('../../utils/Node');
 
 const parseNodeLink = instruction => {
   const parent = findRegex(instruction, /Step\s([A-Z]*?)\s/);

@@ -6,6 +6,7 @@ class Node {
     this.isDone = false;
     this.parents = [];
     this.children = [];
+    this.metadata = [];
   }
 
   updateStatus() {
