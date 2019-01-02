@@ -1,22 +1,23 @@
+const fillMetadata = (file, result, metadataIndex, numberOfMetadata) => {
+  [...Array(numberOfMetadata).keys()].forEach(index => {
+    result.value = result.value + file[metadataIndex + index];
+  });
+  return metadataIndex + numberOfMetadata;
+};
+
 const fillNode = (file, headerIndex, result = { value: 0 }) => {
   const numberOfChildren = file[headerIndex];
   const metadataIndex = headerIndex + 1;
   const numberOfMetadata = file[headerIndex + 1];
   if (numberOfChildren === 0) {
-    [...Array(numberOfMetadata).keys()].forEach(index => {
-      result.value = result.value + file[metadataIndex + 1 + index];
-    });
-    return metadataIndex + numberOfMetadata + 1;
+    return fillMetadata(file, result, metadataIndex + 1, numberOfMetadata);
   }
   let childHeaderIndex = headerIndex + 2;
   [...Array(numberOfChildren).keys()].forEach(index => {
     childHeaderIndex = fillNode(file, childHeaderIndex, result);
   });
 
-  [...Array(numberOfMetadata).keys()].forEach(index => {
-    result.value = result.value + file[childHeaderIndex + index];
-  });
-  return childHeaderIndex + numberOfMetadata;
+  return fillMetadata(file, result, childHeaderIndex, numberOfMetadata);
 };
 
 const part1 = input => {
