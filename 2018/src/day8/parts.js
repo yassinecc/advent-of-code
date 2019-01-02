@@ -36,6 +36,22 @@ const fillNode = (nodeCollection, file, headerIndex, result = { value: 0 }, pare
   return fillMetadata(file, result, metadataInfo, nodeInfo);
 };
 
+const getNodeValue = (nodeCollection, nodeName) => {
+  const currentNode = nodeCollection[nodeName];
+  if (!currentNode) return 0;
+  let reducer = () => 0;
+  if (currentNode.children.length === 0) {
+    reducer = (acc, value) => acc + value;
+  } else {
+    reducer = (acc, value) => {
+      const childNodeName = currentNode.children[value - 1];
+      const nodeValue = getNodeValue(nodeCollection, childNodeName);
+      return acc + nodeValue;
+    };
+  }
+  return currentNode.metadata.reduce(reducer, 0);
+};
+
 const part1 = input => {
   const result = { value: 0 };
   const file = input[0].split(' ').map(Number);
@@ -43,5 +59,10 @@ const part1 = input => {
   fillNode(nodeCollection, file, 0, result);
   return result;
 };
-const part2 = () => 0;
-module.exports = { fillNode, part1, part2 };
+const part2 = input => {
+  const file = input[0].split(' ').map(Number);
+  const nodeCollection = {};
+  fillNode(nodeCollection, file, 0);
+  return getNodeValue(nodeCollection, 0);
+};
+module.exports = { fillNode, getNodeValue, part1, part2 };
