@@ -11,7 +11,7 @@ const fillMetadata = (file, result, metadataInfo, nodeInfo) => {
   return metadataIndex + number;
 };
 
-const fillNode = (nodeCollection, file, headerIndex, result = { value: 0 }, parentName) => {
+const fillNode = (nodeCollection, file, headerIndex = 0, result = { value: 0 }, parentName) => {
   const nodeNames = Object.keys(nodeCollection).map(Number);
   const nextNodeName = nodeNames.length > 0 ? Math.max(...nodeNames) + 1 : 0;
   Object.assign(nodeCollection, { [nextNodeName]: new Node(nextNodeName) });
@@ -52,17 +52,14 @@ const getNodeValue = (nodeCollection, nodeName) => {
   return currentNode.metadata.reduce(reducer, 0);
 };
 
-const part1 = input => {
+const part1 = file => {
   const result = { value: 0 };
-  const file = input[0].split(' ').map(Number);
-  const nodeCollection = {};
-  fillNode(nodeCollection, file, 0, result);
+  fillNode({}, file, 0, result);
   return result;
 };
-const part2 = input => {
-  const file = input[0].split(' ').map(Number);
+const part2 = file => {
   const nodeCollection = {};
-  fillNode(nodeCollection, file, 0);
+  fillNode(nodeCollection, file);
   return getNodeValue(nodeCollection, 0);
 };
 module.exports = { fillNode, getNodeValue, part1, part2 };

@@ -15,7 +15,7 @@ describe('Day 8', () => {
     expect(fillNode({}, file, 7)).toEqual(13);
   });
   it('should solve part 1', () => {
-    expect(part1(input)).toEqual({ value: 138 });
+    expect(part1(file)).toEqual({ value: 138 });
   });
   it('should compute node values', () => {
     const indices = [0, 1, 2, 3];
@@ -24,6 +24,6 @@ describe('Day 8', () => {
     expect(nodeValues).toEqual(expectedValues);
   });
   it('should solve part 2', () => {
-    expect(part2(input)).toEqual(66);
+    expect(part2(file)).toEqual(66);
   });
 });
