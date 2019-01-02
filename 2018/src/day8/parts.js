@@ -1,65 +1,65 @@
-const Node = require('../../utils/Node');
+const Cell = require('../../utils/Cell');
 
-const fillMetadata = (file, result, metadataInfo, nodeInfo) => {
+const fillMetadata = (file, result, metadataInfo, cellInfo) => {
   const { metadataIndex, number } = metadataInfo;
-  const { nodeCollection, nodeName } = nodeInfo;
+  const { cellCollection, cellName } = cellInfo;
   [...Array(number).keys()].forEach(index => {
     const metadataValue = file[metadataIndex + index];
-    nodeCollection[nodeName].metadata.push(metadataValue);
+    cellCollection[cellName].metadata.push(metadataValue);
     result.value += metadataValue;
   });
   return metadataIndex + number;
 };
 
-const fillNode = (nodeCollection, file, headerIndex = 0, result = { value: 0 }, parentName) => {
-  const nodeNames = Object.keys(nodeCollection).map(Number);
-  const nextNodeName = nodeNames.length > 0 ? Math.max(...nodeNames) + 1 : 0;
-  Object.assign(nodeCollection, { [nextNodeName]: new Node(nextNodeName) });
+const fillCell = (cellCollection, file, headerIndex = 0, result = { value: 0 }, parentName) => {
+  const cellNames = Object.keys(cellCollection).map(Number);
+  const nextCellName = cellNames.length > 0 ? Math.max(...cellNames) + 1 : 0;
+  Object.assign(cellCollection, { [nextCellName]: new Cell(nextCellName) });
   if (parentName > -1) {
-    nodeCollection[nextNodeName].parents.push(parentName);
-    nodeCollection[parentName].children.push(nextNodeName);
+    cellCollection[nextCellName].parents.push(parentName);
+    cellCollection[parentName].children.push(nextCellName);
   }
   const numberOfChildren = file[headerIndex];
   const metadataIndex = headerIndex + 1;
   const numberOfMetadata = file[headerIndex + 1];
-  const nodeInfo = { nodeCollection, nodeName: nextNodeName };
+  const cellInfo = { cellCollection, cellName: nextCellName };
   if (numberOfChildren === 0) {
     const metadataInfo = { metadataIndex: metadataIndex + 1, number: numberOfMetadata };
-    return fillMetadata(file, result, metadataInfo, nodeInfo);
+    return fillMetadata(file, result, metadataInfo, cellInfo);
   }
   let childHeaderIndex = headerIndex + 2;
   [...Array(numberOfChildren).keys()].forEach(index => {
-    childHeaderIndex = fillNode(nodeCollection, file, childHeaderIndex, result, nextNodeName);
+    childHeaderIndex = fillCell(cellCollection, file, childHeaderIndex, result, nextCellName);
   });
 
   const metadataInfo = { metadataIndex: childHeaderIndex, number: numberOfMetadata };
-  return fillMetadata(file, result, metadataInfo, nodeInfo);
+  return fillMetadata(file, result, metadataInfo, cellInfo);
 };
 
-const getNodeValue = (nodeCollection, nodeName) => {
-  const currentNode = nodeCollection[nodeName];
-  if (!currentNode) return 0;
+const getCellValue = (cellCollection, cellName) => {
+  const currentCell = cellCollection[cellName];
+  if (!currentCell) return 0;
   let reducer = () => 0;
-  if (currentNode.children.length === 0) {
+  if (currentCell.children.length === 0) {
     reducer = (acc, value) => acc + value;
   } else {
     reducer = (acc, value) => {
-      const childNodeName = currentNode.children[value - 1];
-      const nodeValue = getNodeValue(nodeCollection, childNodeName);
-      return acc + nodeValue;
+      const childCellName = currentCell.children[value - 1];
+      const cellValue = getCellValue(cellCollection, childCellName);
+      return acc + cellValue;
     };
   }
-  return currentNode.metadata.reduce(reducer, 0);
+  return currentCell.metadata.reduce(reducer, 0);
 };
 
 const part1 = file => {
   const result = { value: 0 };
-  fillNode({}, file, 0, result);
+  fillCell({}, file, 0, result);
   return result;
 };
 const part2 = file => {
-  const nodeCollection = {};
-  fillNode(nodeCollection, file);
-  return getNodeValue(nodeCollection, 0);
+  const cellCollection = {};
+  fillCell(cellCollection, file);
+  return getCellValue(cellCollection, 0);
 };
-module.exports = { fillNode, getNodeValue, part1, part2 };
+module.exports = { fillCell, getCellValue, part1, part2 };

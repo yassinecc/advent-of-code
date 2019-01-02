@@ -6,4 +6,4 @@ const input = parseFile('inputs/day8.txt');
 const file = input[0].split(' ').map(Number);
 
 console.log('Sum of metadata entries is', part1(file).value);
-console.log('Root node value is', part2(file));
+console.log('Root cell value is', part2(file));

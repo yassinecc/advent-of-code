@@ -1,4 +1,4 @@
-class Node {
+class Cell {
   constructor(name) {
     this.name = name;
     this.isAvailable = false;
@@ -14,4 +14,4 @@ class Node {
   }
 }
 
-module.exports = Node;
+module.exports = Cell;

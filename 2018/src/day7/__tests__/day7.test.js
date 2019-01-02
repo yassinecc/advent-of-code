@@ -1,4 +1,4 @@
-const { parseNodeLink, createNodeNetwork, part1, part2 } = require('../parts');
+const { parseCellLink, createCellNetwork, part1, part2 } = require('../parts');
 
 const instructionsList = [
   'Step C must be finished before step A can begin.',
@@ -12,16 +12,16 @@ const instructionsList = [
 
 describe('Day 7', () => {
   it('should parse an instruction', () => {
-    expect(parseNodeLink('Step C must be finished before step A can begin.')).toEqual({
+    expect(parseCellLink('Step C must be finished before step A can begin.')).toEqual({
       parent: 'C',
       child: 'A',
     });
   });
 
-  it('should create the node network', () => {
-    const nodeCollection = [];
-    createNodeNetwork(nodeCollection, instructionsList);
-    const parentNames = nodeCollection['E'].parents.map(parent => {
+  it('should create the cell network', () => {
+    const cellCollection = [];
+    createCellNetwork(cellCollection, instructionsList);
+    const parentNames = cellCollection['E'].parents.map(parent => {
       return parent.name;
     });
     expect(parentNames).toEqual(['B', 'D', 'F']);
