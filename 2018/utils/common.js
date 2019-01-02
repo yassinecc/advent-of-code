@@ -28,6 +28,4 @@ const findRegex = (string, regex) => {
   return matched && matched[1];
 };
 
-findRegex('This is a test string [more or less]', /\[(.*?)\]/);
-
 module.exports = { parseFile, filterInt, findRegex };

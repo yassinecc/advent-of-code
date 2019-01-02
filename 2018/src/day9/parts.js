@@ -1,3 +1,11 @@
+const { findRegex } = require('../../utils/common');
+
+const parseInput = input => {
+  const numberOfPlayers = Number(findRegex(input, /^([1-9]+)/));
+  const maxPoints = Number(findRegex(input, /([0-9]+)\spoints/));
+  return { numberOfPlayers, maxPoints };
+};
+
 const addMarble = (marbleArray, index, marble) => {
   const newMarbleArray = [...marbleArray];
   let insertionIndex;
@@ -17,4 +25,4 @@ const addMarble = (marbleArray, index, marble) => {
 
 const part1 = () => 0;
 const part2 = () => 0;
-module.exports = { addMarble, part1, part2 };
+module.exports = { parseInput, addMarble, part1, part2 };

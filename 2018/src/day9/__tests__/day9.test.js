@@ -1,4 +1,4 @@
-const { addMarble, part1, part2 } = require('../parts');
+const { parseInput, addMarble, part1, part2 } = require('../parts');
 
 const testArray = [
   [0],
@@ -14,6 +14,13 @@ const testArray = [
 const indicesArray = [0, 1, 1, 3, 1, 3, 5, 7, 1];
 
 describe('Day 9', () => {
+  it('should correclty parse an input', () => {
+    expect(parseInput('478 players; last marble is worth 71240 points')).toEqual({
+      numberOfPlayers: 478,
+      maxPoints: 71240,
+    });
+  });
+
   it('should correctly add standard marbles', () => {
     let array = testArray[0];
     let index = 0;
