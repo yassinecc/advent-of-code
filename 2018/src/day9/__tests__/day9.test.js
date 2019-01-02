@@ -1,3 +1,5 @@
+const { zipWith } = require('lodash');
+
 const { parseInput, addMarble, part1, part2 } = require('../parts');
 
 const testArray = [
@@ -12,9 +14,18 @@ const testArray = [
   [0, 8, 4, 2, 5, 1, 6, 3, 7],
 ];
 const indicesArray = [0, 1, 1, 3, 1, 3, 5, 7, 1];
+const testInputs = [
+  '9 players; last marble is worth 25 points',
+  '10 players; last marble is worth 1618 points',
+  '13 players; last marble is worth 7999 points',
+  '17 players; last marble is worth 1104 points',
+  '21 players; last marble is worth 6111 points',
+  '30 players; last marble is worth 5807 points',
+];
+const testMaxScores = [32, 8317, 146373, 2764, 54718, 37305];
 
 describe('Day 9', () => {
-  it('should correclty parse an input', () => {
+  it('should correctly parse an input', () => {
     expect(parseInput('478 players; last marble is worth 71240 points')).toEqual({
       numberOfPlayers: 478,
       maxPoints: 71240,
@@ -48,7 +59,10 @@ describe('Day 9', () => {
     expect(addMarble(arr, 6, 23)).toEqual({ array: xpected, index: 0, score: 38 });
   });
   it('should solve part 1', () => {
-    expect(part1()).toEqual(0);
+    zipWith(testInputs, testMaxScores, (testInput, testMaxScore) => {
+      const maxScore = part1(testInput);
+      expect(maxScore).toEqual(testMaxScore);
+    });
   });
   it('should solve part 2', () => {
     expect(part2()).toEqual(0);
