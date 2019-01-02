@@ -15,6 +15,10 @@ const fillNode = (nodeCollection, file, headerIndex, result = { value: 0 }, pare
   const nodeNames = Object.keys(nodeCollection).map(Number);
   const nextNodeName = nodeNames.length > 0 ? Math.max(...nodeNames) + 1 : 0;
   Object.assign(nodeCollection, { [nextNodeName]: new Node(nextNodeName) });
+  if (parentName > -1) {
+    nodeCollection[nextNodeName].parents.push(parentName);
+    nodeCollection[parentName].children.push(nextNodeName);
+  }
   const numberOfChildren = file[headerIndex];
   const metadataIndex = headerIndex + 1;
   const numberOfMetadata = file[headerIndex + 1];
@@ -25,7 +29,7 @@ const fillNode = (nodeCollection, file, headerIndex, result = { value: 0 }, pare
   }
   let childHeaderIndex = headerIndex + 2;
   [...Array(numberOfChildren).keys()].forEach(index => {
-    childHeaderIndex = fillNode(nodeCollection, file, childHeaderIndex, result);
+    childHeaderIndex = fillNode(nodeCollection, file, childHeaderIndex, result, nextNodeName);
   });
 
   const metadataInfo = { metadataIndex: childHeaderIndex, number: numberOfMetadata };
