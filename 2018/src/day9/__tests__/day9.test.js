@@ -21,22 +21,24 @@ describe('Day 9', () => {
       const result = addMarble(array, index, idx + 1);
       array = result.array;
       index = result.index;
+      score = result.score;
       expect(array).toEqual(testArray[idx + 1]);
       expect(index).toEqual(indicesArray[idx + 1]);
+      expect(score).toEqual(0);
     });
   });
   const arr = [0, 16, 8, 17, 4, 18, 9, 19, 2, 20, 10, 21, 5, 22, 11, 1, 12, 6, 13, 3, 14, 7, 15];
   it('should correctly add a 23rd marble', () => {
     const xpected = [0, 16, 8, 17, 4, 18, 19, 2, 20, 10, 21, 5, 22, 11, 1, 12, 6, 13, 3, 14, 7, 15];
-    expect(addMarble(arr, 13, 23)).toEqual({ array: xpected, index: 6 });
+    expect(addMarble(arr, 13, 23)).toEqual({ array: xpected, index: 6, score: 32 });
   });
   it('should correctly add a 23rd marble - negative index', () => {
     const xpected = [0, 16, 8, 17, 4, 18, 9, 19, 2, 20, 10, 21, 5, 22, 11, 1, 12, 6, 3, 14, 7, 15];
-    expect(addMarble(arr, 2, 23)).toEqual({ array: xpected, index: 18 });
+    expect(addMarble(arr, 2, 23)).toEqual({ array: xpected, index: 18, score: 36 });
   });
   it('should correctly add a 23rd marble - right edge', () => {
     const xpected = [0, 16, 8, 17, 4, 18, 9, 19, 2, 20, 10, 21, 5, 22, 11, 1, 12, 6, 13, 3, 14, 7];
-    expect(addMarble(arr, 6, 23)).toEqual({ array: xpected, index: 0 });
+    expect(addMarble(arr, 6, 23)).toEqual({ array: xpected, index: 0, score: 38 });
   });
   it('should solve part 1', () => {
     expect(part1()).toEqual(0);
