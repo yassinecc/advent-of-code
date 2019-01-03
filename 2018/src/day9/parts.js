@@ -1,4 +1,5 @@
 const { findRegex } = require('../../utils/common');
+const Node = require('../../utils/Node');
 
 const parseInput = input => {
   const numberOfPlayers = Number(findRegex(input, /^([0-9]+)/));
@@ -6,36 +7,42 @@ const parseInput = input => {
   return { numberOfPlayers, maxPoints };
 };
 
-const addMarble = (marbleArray, index, marble) => {
-  const newMarbleArray = [...marbleArray];
-  let insertionIndex;
-  let score = 0;
-  if (marble % 23 !== 0) {
-    insertionIndex = ((index + 1) % marbleArray.length) + 1;
-    newMarbleArray.splice(insertionIndex, 0, marble);
-  } else {
-    indexToRemove = index - 7;
-    if (indexToRemove < 0) indexToRemove = marbleArray.length + indexToRemove;
-    score = marble + marbleArray[indexToRemove];
-    insertionIndex = indexToRemove % (marbleArray.length - 1);
-    newMarbleArray.splice(indexToRemove, 1);
+const insertMarble = (marbleObject, value) => {
+  const marble = marbleObject.marble;
+  if (value % 23 !== 0) {
+    const newMarble = new Node(value);
+    const leftMarble = marble.right;
+    const rightMarble = leftMarble.right;
+    newMarble.left = leftMarble;
+    newMarble.right = rightMarble;
+    leftMarble.right = newMarble;
+    rightMarble.left = newMarble;
+    return { marble: newMarble, score: 0 };
   }
-  return { array: newMarbleArray, index: insertionIndex, score };
+  let toRemove = marble;
+  [...Array(7).keys()].forEach(_ => {
+    toRemove = toRemove.left;
+  });
+  toRemove.left.right = toRemove.right;
+  toRemove.right.left = toRemove.left;
+  return { marble: toRemove.right, score: value + toRemove.value };
 };
 
-const part1 = input => {
+const part1 = (input, multiplier = 1) => {
   const { numberOfPlayers, maxPoints } = parseInput(input);
-  let marbleArray = [0];
-  let insertionIndex = 0;
+  const firstMarble = new Node(0);
+  firstMarble.left = firstMarble;
+  firstMarble.right = firstMarble;
+  let currentMarble = { marble: firstMarble, score: 0 };
   const scores = [...Array(numberOfPlayers).keys()].map(_ => 0);
-  for (let i = 0; i < maxPoints; i++) {
-    const { array, index, score } = addMarble(marbleArray, insertionIndex, i + 1);
+  for (let i = 0; i < multiplier * maxPoints; i++) {
+    const marble = insertMarble(currentMarble, i + 1);
     const scoreIndex = i % numberOfPlayers;
-    scores[scoreIndex] += score;
-    marbleArray = array;
-    insertionIndex = index;
+    scores[scoreIndex] += marble.score;
+    currentMarble = marble;
   }
   return Math.max(...scores);
 };
-const part2 = () => 0;
-module.exports = { parseInput, addMarble, part1, part2 };
+
+const part2 = input => part1(input, 100);
+module.exports = { parseInput, insertMarble, part1, part2 };
