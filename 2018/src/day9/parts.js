@@ -2,8 +2,8 @@ const { findRegex } = require('../../utils/common');
 const Node = require('../../utils/Node');
 
 const parseInput = input => {
-  const numberOfPlayers = Number(findRegex(input, /^([0-9]+)/));
-  const maxPoints = Number(findRegex(input, /([0-9]+)\spoints/));
+  const numberOfPlayers = Number(findRegex(input, /^([0-9]+)/g));
+  const maxPoints = Number(findRegex(input, /([0-9]+)\spoints/g));
   return { numberOfPlayers, maxPoints };
 };
 

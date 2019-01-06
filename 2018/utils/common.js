@@ -24,8 +24,13 @@ const parseFile = fileName => {
 };
 
 const findRegex = (string, regex) => {
-  const matched = regex.exec(string);
-  return matched && matched[1];
+  let matched = regex.exec(string);
+  const result = [];
+  while (matched && matched[1]) {
+    result.push(matched[1]);
+    matched = regex.exec(string);
+  }
+  return result.length === 1 ? result[0] : result;
 };
 
 module.exports = { parseFile, filterInt, findRegex };

@@ -2,9 +2,9 @@ const { sortBy, range, flow, mergeWith, isArray, countBy, reduce, map } = requir
 const moment = require('moment');
 const { findRegex } = require('../../utils/common');
 
-const extractDateFromEntry = entry => findRegex(entry, /\[(.*?)\]/);
+const extractDateFromEntry = entry => findRegex(entry, /\[(.*?)\]/g);
 
-const extractGuardIdFromEntry = entry => findRegex(entry, /#([0-9]*?)\s/);
+const extractGuardIdFromEntry = entry => findRegex(entry, /#([0-9]*?)\s/g);
 
 const convertDateStringToMoment = dateString => moment(dateString, 'YYYY-MM-DD HH:mm');
 
@@ -29,7 +29,8 @@ const customiser = (objValue, srcValue) => {
 
 const getGuardSleep = (guardId, entryIndex, sortedLog, sleepLog) => {
   let index = entryIndex + 1;
-  let startTime; let endTime;
+  let startTime;
+  let endTime;
   if (!sleepLog[guardId]) sleepLog[guardId] = {};
   while (sortedLog[index]) {
     if (sortedLog[index].includes('falls asleep')) {
@@ -63,7 +64,10 @@ const sleepLogsMerge = guardLog => {
 };
 
 const findSleepiestGuard = (sleepLog, comparator) => {
-  const flatSleepLogs = map(sleepLog, (guardLog, key) => ({ guardId: key, log: sleepLogsMerge(guardLog) }));
+  const flatSleepLogs = map(sleepLog, (guardLog, key) => ({
+    guardId: key,
+    log: sleepLogsMerge(guardLog),
+  }));
   let finalGuardId = 0;
   let finalLog = [];
   flatSleepLogs.forEach(guardLog => {
