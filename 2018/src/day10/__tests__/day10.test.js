@@ -72,10 +72,18 @@ describe('Day 10', () => {
           { pos: [7, 0], vel: [-1, 0] },
           { pos: [3, -2], vel: [-1, 1] },
         ])
-    ).toEqual({ xDiff: 6, yDiff: 3 });
+    ).toEqual({ xDiff: 6, yDiff: 3, xMin: 3, yMin: -2 });
   });
   it('should solve part 1', () => {
-    expect(part1()).toEqual(0);
+    expect(part1(testInput)).toEqual(`#...#..###
+#...#...#.
+#...#...#.
+#####...#.
+#...#...#.
+#...#...#.
+#...#...#.
+#...#..###
+`);
   });
   it('should solve part 2', () => {
     expect(part2()).toEqual(0);

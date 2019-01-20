@@ -1,3 +1,4 @@
+const Matrix = require('vectorious').Matrix;
 const { zipWith } = require('lodash');
 const { findRegex } = require('../../utils/common');
 
@@ -18,12 +19,51 @@ const findDimensions = particleDataArray => {
   const xArray = particleDataArray.map(particleData => particleData.pos[0]);
   const yArray = particleDataArray.map(particleData => particleData.pos[1]);
   return {
+    xMin: Math.min(...xArray),
+    yMin: Math.min(...yArray),
     xDiff: Math.max(...xArray) - Math.min(...xArray),
     yDiff: Math.max(...yArray) - Math.min(...yArray),
   };
 };
 
-const part1 = () => 0;
+const printData = particleDataArray => {
+  const { xMin, yMin, xDiff, yDiff } = findDimensions(particleDataArray);
+  const offsetParticles = particleDataArray.map(particle => ({
+    pos: [particle.pos[0] - xMin, particle.pos[1] - yMin],
+    vel: particle.vel,
+  }));
+  const visualArray = new Matrix(xDiff + 1, yDiff + 1);
+  offsetParticles.forEach(particle => {
+    const { pos } = particle;
+    visualArray.set(pos[0], pos[1], 1);
+  });
+  let line = '';
+  for (let j = 0; j < yDiff + 1; j++) {
+    for (let i = 0; i < xDiff + 1; i++) {
+      line = line.concat(visualArray.get(i, j) === 0 ? '.' : '#');
+    }
+    line = line.concat('\n');
+  }
+  return line;
+};
+
+const part1 = input => {
+  let movementData = fillMovementData(input);
+  let xDifference = undefined;
+  let yDifference = undefined;
+  let newData;
+  while (true) {
+    newData = movementData.map(moveParticle);
+    const { xDiff, yDiff } = findDimensions(newData);
+    if (xDiff > xDifference && yDiff > yDifference) {
+      return printData(movementData);
+    } else {
+      xDifference = xDiff;
+      yDifference = yDiff;
+      movementData = newData;
+    }
+  }
+};
 const part2 = () => 0;
 module.exports = {
   parseMovementData,
