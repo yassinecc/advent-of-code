@@ -5,4 +5,4 @@ const input = parseFile('inputs/day10.txt');
 
 console.log('Answer to part 1 is');
 console.log(part1(input));
-console.log('Answer to part 2 is', part2(input));
+console.log('Answer to part 2 is', part2(input), 'seconds');

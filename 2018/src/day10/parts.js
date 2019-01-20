@@ -47,6 +47,7 @@ const printData = particleDataArray => {
   return line;
 };
 
+let time = 0;
 const part1 = input => {
   let movementData = fillMovementData(input);
   let xDifference = undefined;
@@ -58,13 +59,14 @@ const part1 = input => {
     if (xDiff > xDifference && yDiff > yDifference) {
       return printData(movementData);
     } else {
+      time++;
       xDifference = xDiff;
       yDifference = yDiff;
       movementData = newData;
     }
   }
 };
-const part2 = () => 0;
+const part2 = () => time;
 module.exports = {
   parseMovementData,
   fillMovementData,

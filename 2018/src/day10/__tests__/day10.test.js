@@ -86,6 +86,6 @@ describe('Day 10', () => {
 `);
   });
   it('should solve part 2', () => {
-    expect(part2()).toEqual(0);
+    expect(part2()).toEqual(3);
   });
 });
