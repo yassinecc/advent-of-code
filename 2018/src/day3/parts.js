@@ -3,10 +3,10 @@ const { filterInt, findRegex } = require('../../utils/common');
 const { initializeArray, arraySum } = require('../../utils/math');
 
 const parseClaim = claimLine => {
-  const xStart = filterInt(findRegex(claimLine, /@\s([0-9]*?)\,/));
-  const deltaX = filterInt(findRegex(claimLine, /\:\s([0-9]*?)x/));
-  const yStart = filterInt(findRegex(claimLine, /\,([0-9]*?)\:/));
-  const deltaY = filterInt(findRegex(claimLine, /x([0-9]*?)$/));
+  const xStart = filterInt(findRegex(claimLine, /@\s([0-9]*?)\,/g));
+  const deltaX = filterInt(findRegex(claimLine, /\:\s([0-9]*?)x/g));
+  const yStart = filterInt(findRegex(claimLine, /\,([0-9]*?)\:/g));
+  const deltaY = filterInt(findRegex(claimLine, /x([0-9]*?)$/g));
   return { xStart, deltaX, yStart, deltaY };
 };
 

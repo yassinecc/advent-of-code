@@ -2,8 +2,8 @@ const { findRegex } = require('../../utils/common');
 const Cell = require('../../utils/Cell');
 
 const parseCellLink = instruction => {
-  const parent = findRegex(instruction, /Step\s([A-Z]*?)\s/);
-  const child = findRegex(instruction, /step\s([A-Z]*?)\scan\sbegin/);
+  const parent = findRegex(instruction, /Step\s([A-Z]*?)\s/g);
+  const child = findRegex(instruction, /step\s([A-Z]*?)\scan\sbegin/g);
   return { parent, child };
 };
 
