@@ -1,26 +1,32 @@
 const maxBy = require('lodash/maxBy');
 
+const gridSize = 300;
+
 const getEnergyLevel = ({ x, y }, serialNumber) => {
   const rackId = x + 10;
   const int = (y * rackId + serialNumber) * rackId;
   const hundreds = Math.floor(int / 100) % 10;
   return hundreds - 5;
 };
-const getAreaEnergyLevel = ({ x, y }, serialNumber) => {
+const getAreaEnergyLevel = ({ x, y, s }, serialNumber) => {
   let result = 0;
-  for (let i = 0; i < 3; i++) {
-    for (let j = 0; j < 3; j++) {
+  for (let i = 0; i < s; i++) {
+    for (let j = 0; j < s; j++) {
       result += getEnergyLevel({ x: x + i, y: y + j }, serialNumber);
     }
   }
   return result;
 };
 const part1 = serialNumber => {
-  const max = 300;
+  const cellSize = 3;
   const array = [];
-  for (let x = 1; x < max - 1; x++) {
-    for (let y = 1; y < max - 1; y++) {
-      array.push({ point: { x, y }, value: getAreaEnergyLevel({ x, y }, serialNumber) });
+  for (let x = 1; x < gridSize + 2 - cellSize; x++) {
+    for (let y = 1; y < gridSize + 2 - cellSize; y++) {
+      const point = { x, y, s: cellSize };
+      array.push({
+        point,
+        value: getAreaEnergyLevel(point, serialNumber),
+      });
     }
   }
   const maxObject = maxBy(array, elt => elt.value);
