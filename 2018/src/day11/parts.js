@@ -1,3 +1,5 @@
+const maxBy = require('lodash/maxBy');
+
 const getEnergyLevel = ({ x, y }, serialNumber) => {
   const rackId = x + 10;
   const int = (y * rackId + serialNumber) * rackId;
@@ -13,6 +15,16 @@ const getAreaEnergyLevel = ({ x, y }, serialNumber) => {
   }
   return result;
 };
-const part1 = () => 0;
+const part1 = serialNumber => {
+  const max = 300;
+  const array = [];
+  for (let x = 1; x < max - 1; x++) {
+    for (let y = 1; y < max - 1; y++) {
+      array.push({ point: { x, y }, value: getAreaEnergyLevel({ x, y }, serialNumber) });
+    }
+  }
+  const maxObject = maxBy(array, elt => elt.value);
+  return maxObject.point;
+};
 const part2 = () => 0;
 module.exports = { getEnergyLevel, getAreaEnergyLevel, part1, part2 };
