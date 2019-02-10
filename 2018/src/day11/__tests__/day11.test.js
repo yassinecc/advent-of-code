@@ -8,14 +8,16 @@ describe('Day 11', () => {
     [{ x: 101, y: 153 }, 71, 4],
   ])('should find the correct energy', (c, s, r) => expect(getEnergyLevel(c, s)).toEqual(r));
 
-  it.each([[{ x: 33, y: 45, s: 3 }, 18, 29], [{ x: 21, y: 61, s: 3 }, 42, 30]])(
-      'should find the correct area energy',
-      (c, s, r) => expect(getAreaEnergyLevel(c, s)).toEqual(r)
+  it.each([
+    [{ x: 33, y: 45 }, { z: 33 + 3, t: 45 + 3 }, 18, 29],
+    [{ x: 21, y: 61 }, { z: 21 + 3, t: 61 + 3 }, 42, 30],
+  ])('should find the correct area energy', (c, e, s, r) =>
+    expect(getAreaEnergyLevel(c, e, s)).toEqual(r)
   );
 
   it('should solve part 1', () => {
-    expect(part1(18)).toEqual({ x: 33, y: 45, s: 3 });
-    expect(part1(42)).toEqual({ x: 21, y: 61, s: 3 });
+    expect(part1(18)).toEqual({ x: 33, y: 45 });
+    expect(part1(42)).toEqual({ x: 21, y: 61 });
   });
   it('should solve part 2', () => {
     expect(part2()).toEqual(0);

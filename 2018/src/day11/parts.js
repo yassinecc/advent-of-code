@@ -8,10 +8,10 @@ const getEnergyLevel = ({ x, y }, serialNumber) => {
   const hundreds = Math.floor(int / 100) % 10;
   return hundreds - 5;
 };
-const getAreaEnergyLevel = ({ x, y, s }, serialNumber) => {
+const getAreaEnergyLevel = ({ x, y }, { z, t }, serialNumber) => {
   let result = 0;
-  for (let i = 0; i < s; i++) {
-    for (let j = 0; j < s; j++) {
+  for (let i = 0; i < z - x; i++) {
+    for (let j = 0; j < t - y; j++) {
       result += getEnergyLevel({ x: x + i, y: y + j }, serialNumber);
     }
   }
@@ -20,12 +20,13 @@ const getAreaEnergyLevel = ({ x, y, s }, serialNumber) => {
 const part1 = serialNumber => {
   const cellSize = 3;
   const array = [];
-  for (let x = 1; x < gridSize + 2 - cellSize; x++) {
-    for (let y = 1; y < gridSize + 2 - cellSize; y++) {
-      const point = { x, y, s: cellSize };
+  for (let i = 1; i < gridSize + 2 - cellSize; i++) {
+    for (let j = 1; j < gridSize + 2 - cellSize; j++) {
+      const point = { x: i, y: j };
+      const edge = { z: i + cellSize, t: j + cellSize };
       array.push({
         point,
-        value: getAreaEnergyLevel(point, serialNumber),
+        value: getAreaEnergyLevel(point, edge, serialNumber),
       });
     }
   }
