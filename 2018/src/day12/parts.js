@@ -49,6 +49,24 @@ const countPotsNumber = ({ input, minIndex }) => {
   return counter;
 };
 
+const getLinearPotsNumberDiff = (plantState, spreadRules) => {
+  let index = 0;
+  let potsNumber = 0;
+  let potsNumberDiff = 1;
+  while (true) {
+    index++;
+    plantState = spreadPlants(plantState, spreadRules);
+    const newPotsNumber = countPotsNumber(plantState);
+    const newDiff = newPotsNumber - potsNumber;
+    if (newDiff === potsNumberDiff) {
+      return { diff: newPotsNumber - potsNumber, index, newPotsNumber };
+    } else {
+      potsNumber = newPotsNumber;
+      potsNumberDiff = newDiff;
+    }
+  }
+};
+
 const part1 = input => {
   let plantState = { input: getInitialState(input[0]), minIndex: 0 };
   const rulesString = input.slice(2).join('\n');
@@ -58,7 +76,13 @@ const part1 = input => {
   }
   return countPotsNumber(plantState);
 };
-const part2 = () => 0;
+const part2 = input => {
+  const plantState = { input: getInitialState(input[0]), minIndex: 0 };
+  const rulesString = input.slice(2).join('\n');
+  const spreadRules = getSpreadRules(rulesString);
+  const { diff, index, newPotsNumber } = getLinearPotsNumberDiff(plantState, spreadRules);
+  return newPotsNumber + diff * (50000000000 - index);
+};
 
 module.exports = {
   convertInput,

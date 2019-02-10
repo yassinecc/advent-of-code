@@ -5,7 +5,6 @@ const {
   spreadPlants,
   padInput,
   countPotsNumber,
-  part2,
 } = require('../parts');
 
 const plantString = '...#..#.#..##......###...###...........';
@@ -63,8 +62,5 @@ describe('Day 12', () => {
           minIndex: -3,
         })
     ).toEqual(325);
-  });
-  it('should solve part 2', () => {
-    expect(part2()).toEqual(0);
   });
 });
