@@ -6,7 +6,7 @@
   "author": "yassinecc",
   "license": "MIT",
   "scripts": {
-    "test": "eslint . && jest",
+    "test": "eslint . && jest --changedSince master",
     "setup": "./scripts/setupPuzzle.sh"
   },
   "dependencies": {

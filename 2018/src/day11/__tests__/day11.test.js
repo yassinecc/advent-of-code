@@ -56,6 +56,7 @@ describe('Day 11', () => {
     expect(part1(42)).toEqual({ x: 21, y: 61 });
   });
   it('should solve part 2', () => {
-    expect(part2()).toEqual(0);
+    expect(part2(18)).toEqual({ x: 90, y: 269, size: 16 });
+    expect(part2(42)).toEqual({ x: 232, y: 251, size: 12 });
   });
 });
