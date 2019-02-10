@@ -19,13 +19,54 @@ const getSpreadRules = input => {
   return result;
 };
 
-const padInput = input => {
+const padInput = ({ input, minIndex }) => {
   const start = input.indexOf('1');
   const end = input.lastIndexOf('1');
-  return `00000${input.slice(start, end + 1)}00000`;
+  return {
+    paddedInput: `00000${input.slice(start, end + 1)}00000`,
+    minIndex: minIndex - 5 + start,
+  };
 };
 
-const part1 = () => 0;
+const spreadPlants = (plantState, spreadRules) => {
+  const { paddedInput, minIndex } = padInput(plantState);
+  const plantsLength = paddedInput.length;
+  const plantsArray = [0, 0];
+  for (let i = 2; i < plantsLength - 3; i++) {
+    const neighbours = paddedInput.slice(i - 2, i + 3);
+    const index = parseInt(neighbours, 2);
+    plantsArray.push(spreadRules[index] || 0);
+  }
+  plantsArray.push(0, 0);
+  return { input: plantsArray.join(''), minIndex };
+};
+
+const countPotsNumber = ({ input, minIndex }) => {
+  let counter = 0;
+  input.split('').forEach((char, index) => {
+    if (char === '1') counter = counter + index + minIndex;
+  });
+  return counter;
+};
+
+const part1 = input => {
+  let plantState = { input: getInitialState(input[0]), minIndex: 0 };
+  const rulesString = input.slice(2).join('\n');
+  const spreadRules = getSpreadRules(rulesString);
+  for (let i = 0; i < 20; i++) {
+    plantState = spreadPlants(plantState, spreadRules);
+  }
+  return countPotsNumber(plantState);
+};
 const part2 = () => 0;
 
-module.exports = { getInitialState, getSpreadRules, padInput, part1, part2 };
+module.exports = {
+  convertInput,
+  getInitialState,
+  getSpreadRules,
+  padInput,
+  spreadPlants,
+  countPotsNumber,
+  part1,
+  part2,
+};
