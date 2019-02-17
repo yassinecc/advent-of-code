@@ -3,7 +3,7 @@ const { uniqWith, isEqual, difference, sortBy } = require('lodash');
 
 const cartCharacters = ['<', '^', '>', 'v'];
 
-const cartCharToDirection = { '<': 'left', '^': 'up', '>': 'right', "v": 'down' };
+const cartCharToDirection = { '<': 'left', '^': 'up', '>': 'right', 'v': 'down' };
 
 const trackTypes = ['-', '|', '/', '\\', '+'];
 
@@ -102,7 +102,7 @@ const advanceCart = (cart, currentTrackCharacter) => {
   }
 };
 
-const getDuplicatePosition = (sortedCarts, index, tracksMatrix) => {
+const getNextDuplicatePosition = (sortedCarts, index, tracksMatrix) => {
   const cart = sortedCarts[index];
   const currentTrackCharacter = trackTypes[tracksMatrix.get(cart.x, cart.y)];
   const advancedCart = advanceCart(cart, currentTrackCharacter);
@@ -119,12 +119,34 @@ const part1 = input => {
   loop: while (true) {
     const sortedCarts = sortCarts(carts);
     for (let index = 0; index < sortedCarts.length; index++) {
-      duplicate = getDuplicatePosition(sortedCarts, index, tracksMatrix);
+      duplicate = getNextDuplicatePosition(sortedCarts, index, tracksMatrix);
       if (duplicate) break loop;
     }
     carts = sortedCarts;
   }
   return `${duplicate.y},${duplicate.x}`;
 };
-const part2 = input => 0;
+const part2 = input => {
+  let { tracksMatrix, carts } = parseTracks(input);
+  let duplicate;
+  loop: while (carts.length > 1) {
+    let sortedCarts = sortCarts(carts);
+    let index = 0;
+    while (index < sortedCarts.length) {
+      duplicate = getNextDuplicatePosition(sortedCarts, index, tracksMatrix);
+      index++;
+      if (duplicate) {
+        sortedCarts = sortedCarts.filter((cart, i) => {
+          const isDuplicate = cart.x === duplicate.x && cart.y === duplicate.y;
+          if (isDuplicate && i <= index) {
+            index--;
+          }
+          return !isDuplicate;
+        });
+      }
+    }
+    carts = sortedCarts;
+  }
+  return `${carts[0].y},${carts[0].x}`;
+};
 module.exports = { parseTracks, advanceCart, sortCarts, part1, part2 };

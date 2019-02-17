@@ -98,6 +98,18 @@ const testTracks = String.raw`
 `;
 const testTrackLines = testTracks.split('\n').filter(track => track.length > 0);
 
+const testTracks2 = String.raw`
+/>-<\  
+|   |  
+| /<+-\
+| | | v
+\>+</ |
+  |   ^
+  \<->/
+`;
+
+const testTrackLines2 = testTracks2.split('\n').filter(track => track.length > 0);
+
 describe('Day 13', () => {
   it('should parse test tracks', () => {
     expect(parseTracks(testTrackLines)).toEqual(initialTestCase);
@@ -172,6 +184,6 @@ describe('Day 13', () => {
     expect(part1(testTrackLines)).toEqual('7,3');
   });
   it('should solve part 2', () => {
-    expect(part2()).toEqual(0);
+    expect(part2(testTrackLines2)).toEqual('6,4');
   });
 });
