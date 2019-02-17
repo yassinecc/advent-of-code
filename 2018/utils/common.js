@@ -7,13 +7,12 @@ const filterInt = function(value) {
 
 const separators = ['\n'];
 
-const parseFile = fileName => {
+const parseFile = (fileName, trim = true) => {
   const fileContents = fs.readFileSync(fileName, 'utf-8');
-  const contentsArray = fileContents
-      .toString()
-      .trim()
-      .split(new RegExp(separators.join('|'), 'g'));
-  return contentsArray.map(line => {
+  const contentsArray = fileContents.toString();
+  const trimmedContent = trim ? contentsArray.trim() : contentsArray;
+  const splitContent = trimmedContent.split(new RegExp(separators.join('|'), 'g'));
+  return splitContent.map(line => {
     try {
       const integer = filterInt(line);
       return isNaN(integer) ? line : integer;
