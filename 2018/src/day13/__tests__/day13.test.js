@@ -1,5 +1,5 @@
 const Matrix = require('vectorious').Matrix;
-const { parseTracks, advanceCart, part1, part2 } = require('../parts');
+const { parseTracks, advanceCart, sortCarts, part1, part2 } = require('../parts');
 
 const initialTestCase = {
   carts: [{ type: '>', x: 0, y: 2, turnFlag: 0 }, { type: 'v', x: 3, y: 9, turnFlag: 0 }],
@@ -88,9 +88,7 @@ const initialTestCase = {
   ),
 };
 
-describe('Day 13', () => {
-  it('should parse test tracks', () => {
-    const testTracks = String.raw`
+const testTracks = String.raw`
 /->-\        
 |   |  /----\
 | /-+--+-\  |
@@ -98,7 +96,10 @@ describe('Day 13', () => {
 \-+-/  \-+--/
   \------/
 `;
-    const testTrackLines = testTracks.split('\n').filter(track => track.length > 0);
+const testTrackLines = testTracks.split('\n').filter(track => track.length > 0);
+
+describe('Day 13', () => {
+  it('should parse test tracks', () => {
     expect(parseTracks(testTrackLines)).toEqual(initialTestCase);
   });
   it('should advance carts', () => {
@@ -126,8 +127,49 @@ describe('Day 13', () => {
     expect(cart13).toEqual(expectedCart13);
     expect(cart23).toEqual(expectedCart23);
   });
+  it('should sort carts', () => {
+    const carts = [
+      { x: 0, y: 39, type: '<' },
+      { x: 0, y: 53, type: '>' },
+      { x: 1, y: 116, type: '<' },
+      { x: 27, y: 38, type: '^' },
+      { x: 36, y: 49, type: '>' },
+      { x: 36, y: 121, type: 'v' },
+      { x: 44, y: 28, type: '<' },
+      { x: 49, y: 11, type: '^' },
+      { x: 50, y: 116, type: 'v' },
+      { x: 55, y: 24, type: 'v' },
+      { x: 74, y: 8, type: 'v' },
+      { x: 93, y: 11, type: 'v' },
+      { x: 95, y: 24, type: 'v' },
+      { x: 110, y: 46, type: '>' },
+      { x: 115, y: 4, type: '<' },
+      { x: 121, y: 72, type: '<' },
+      { x: 142, y: 76, type: '<' },
+    ];
+    const expectedSorted = [
+      { x: 0, y: 39, type: '<' },
+      { x: 0, y: 53, type: '>' },
+      { x: 1, y: 116, type: '<' },
+      { x: 27, y: 38, type: '^' },
+      { x: 36, y: 49, type: '>' },
+      { x: 36, y: 121, type: 'v' },
+      { x: 44, y: 28, type: '<' },
+      { x: 49, y: 11, type: '^' },
+      { x: 50, y: 116, type: 'v' },
+      { x: 55, y: 24, type: 'v' },
+      { x: 74, y: 8, type: 'v' },
+      { x: 93, y: 11, type: 'v' },
+      { x: 95, y: 24, type: 'v' },
+      { x: 110, y: 46, type: '>' },
+      { x: 115, y: 4, type: '<' },
+      { x: 121, y: 72, type: '<' },
+      { x: 142, y: 76, type: '<' },
+    ];
+    expect(sortCarts(carts)).toEqual(expectedSorted);
+  });
   it('should solve part 1', () => {
-    expect(part1()).toEqual(0);
+    expect(part1(testTrackLines)).toEqual('7,3');
   });
   it('should solve part 2', () => {
     expect(part2()).toEqual(0);

@@ -1,4 +1,5 @@
 const Matrix = require('vectorious').Matrix;
+const { uniqWith, isEqual, difference, sortBy } = require('lodash');
 
 const cartCharacters = ['<', '^', '>', 'v'];
 
@@ -34,9 +35,16 @@ const parseTracks = trackLines => {
 
 const getIntersectionChoice = cart => {
   // Subtract one because turnFlag is 0 to go left
-  const characterIndex = (cartCharacters.indexOf(cart.type) + cart.turnFlag - 1) % 3;
-  return cartCharToDirection[cartCharacters[characterIndex]];
+  const characterIndex = (cartCharacters.indexOf(cart.type) + cart.turnFlag - 1) % 4;
+  const cartCharacter =
+    characterIndex > -1
+      ? cartCharacters[characterIndex]
+      : cartCharacters[cartCharacters.length - 1];
+  return cartCharToDirection[cartCharacter];
 };
+
+// Default JS sort not working as expected...
+const sortCarts = carts => sortBy(carts, a => a.x * 10000 + a.y);
 
 const moveCart = (cart, direction) => {
   const { x, y } = cart;
@@ -94,6 +102,29 @@ const advanceCart = (cart, currentTrackCharacter) => {
   }
 };
 
-const part1 = () => 0;
-const part2 = () => 0;
-module.exports = { parseTracks, advanceCart, part1, part2 };
+const getDuplicatePosition = (sortedCarts, index, tracksMatrix) => {
+  const cart = sortedCarts[index];
+  const currentTrackCharacter = trackTypes[tracksMatrix.get(cart.x, cart.y)];
+  const advancedCart = advanceCart(cart, currentTrackCharacter);
+  sortedCarts[index] = advancedCart;
+  const newPositions = sortedCarts.map(cart => ({ x: cart.x, y: cart.y }));
+  const uniquePositions = uniqWith(newPositions, isEqual);
+  duplicate = difference(newPositions, uniquePositions)[0];
+  return duplicate;
+};
+
+const part1 = input => {
+  let { tracksMatrix, carts } = parseTracks(input);
+  let duplicate;
+  loop: while (true) {
+    const sortedCarts = sortCarts(carts);
+    for (let index = 0; index < sortedCarts.length; index++) {
+      duplicate = getDuplicatePosition(sortedCarts, index, tracksMatrix);
+      if (duplicate) break loop;
+    }
+    carts = sortedCarts;
+  }
+  return `${duplicate.y},${duplicate.x}`;
+};
+const part2 = input => 0;
+module.exports = { parseTracks, advanceCart, sortCarts, part1, part2 };
