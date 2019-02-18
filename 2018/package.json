@@ -23,7 +23,7 @@
     ]
   },
   "devDependencies": {
-    "eslint": "^5.13.0",
+    "eslint": "^5.14.0",
     "eslint-config-google": "^0.12.0"
   }
 }
