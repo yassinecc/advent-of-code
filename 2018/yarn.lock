@@ -3811,10 +3811,10 @@ validate-npm-package-license@^3.0.1:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
 
-vectorious@^5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/vectorious/-/vectorious-5.0.1.tgz#2ef22d48948fbde5046a4bbd3cda3da8f02cbfa5"
-  integrity sha512-0yIcPjwPYOj3ZaN1j2Xui4279H/Nd+FvU4i4kLqkH7vNdTNmVHwkYkobk6y2j6di9dCoxRVK63xg60DYu1qj2Q==
+vectorious@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/vectorious/-/vectorious-5.1.0.tgz#1d85f5783575ac63d0ed8fa23e2d831e4b2421f6"
+  integrity sha512-RPbuVr76HUejdC59LKZE9elxHzbHJ+b8oYaMN2RB8LWWAynGx5GFeNR9KFMXoH/SJ3MScj9P1AXWZuANiUZ/rw==
   optionalDependencies:
     nblas "^1.2.2"
 
