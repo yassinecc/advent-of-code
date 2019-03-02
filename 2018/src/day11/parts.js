@@ -1,5 +1,6 @@
 const maxBy = require('lodash/maxBy');
 const Matrix = require('vectorious').Matrix;
+const { safeMatrixAccess } = require('../../utils/common');
 
 const gridSize = 300;
 
@@ -11,14 +12,6 @@ const getEnergyTable = serialNumber => {
     }
   }
   return energyTable;
-};
-
-const safeMatrixAccess = (matrix, i, j) => {
-  const [xSize, ySize] = matrix.shape;
-  if (i < 0 || i >= xSize || j < 0 || j >= ySize) {
-    return 0;
-  }
-  return matrix.get(i, j);
 };
 
 const getSummedTable = energyTable => {
