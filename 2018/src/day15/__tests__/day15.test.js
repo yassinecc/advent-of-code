@@ -1,8 +1,8 @@
-const { parseMap, getNextSteps, getShortestPath, part1, part2 } = require('../parts');
+const { parse2dArray, getNextSteps, getShortestPath, part1, part2 } = require('../parts');
 
 const testInput = ['#######', '#E..G.#', '#...#.#', '#.G.#G#', '#######'];
 
-const testMap = parseMap(testInput);
+const testMap = parse2dArray(testInput);
 
 describe('Day 15', () => {
   it('should get next steps', () => {
