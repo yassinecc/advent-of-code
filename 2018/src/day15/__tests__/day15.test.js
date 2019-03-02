@@ -1,6 +1,6 @@
 const { parse2dArray, getNextSteps, getShortestPath, part1, part2 } = require('../parts');
 
-const testInput = ['#######', '#E..G.#', '#...#.#', '#.G.#G#', '#######'];
+const testInput = ['#######', '#E....#', '#...#.#', '#.G.#G#', '#######'];
 
 const testMap = parse2dArray(testInput);
 
@@ -11,7 +11,7 @@ describe('Day 15', () => {
     expect(getNextSteps({ x: 3, y: 5 }, testMap)).toEqual([{ x: 2, y: 5 }]);
   });
   it('should get the shortest path', () => {
-    expect(getShortestPath({ x: 1, y: 1 }, { x: 3, y: 2 }, testMap)).toEqual({
+    expect(getShortestPath({ x: 1, y: 1 }, testMap)).toEqual({
       x: 3,
       y: 2,
       path: [{ x: 1, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 2 }],

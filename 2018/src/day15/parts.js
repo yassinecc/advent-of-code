@@ -18,13 +18,32 @@ const getNextSteps = (spot, map) => {
   return results;
 };
 
-const getShortestPath = (player, goal, map) => {
+const getOpponentItem = playerItem => {
+  const playerType = String.fromCharCode(playerItem);
+  let opponentType;
+  switch (playerType) {
+    case 'G':
+      opponentType = 'E';
+      break;
+    case 'E':
+      opponentType = 'G';
+      break;
+    default:
+      opponentType = '*';
+      break;
+  }
+  return opponentType.charCodeAt(0);
+};
+
+const getShortestPath = (player, map) => {
   const queue = [];
   const start = { x: player.x, y: player.y, path: [] };
+  const opponentItem = getOpponentItem(map[player.x][player.x].item);
   queue.push(start);
   while (queue.length !== 0) {
     const currentSpot = queue.shift();
-    if (currentSpot.x === goal.x && currentSpot.y === goal.y) {
+    const currentItem = map[currentSpot.x][currentSpot.y].item;
+    if (currentItem === opponentItem) {
       return currentSpot;
     }
     const nextSteps = getNextSteps(currentSpot, map);
