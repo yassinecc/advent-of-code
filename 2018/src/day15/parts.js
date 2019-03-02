@@ -2,7 +2,7 @@ const parse2dArray = input => {
   const result = [];
   [...Array(input.length).keys()].forEach(_ => result.push([]));
   input.forEach((line, i) => {
-    [...line].forEach((character, j) => (result[i][j] = { item: character.charCodeAt(0) }));
+    [...line].forEach((character, j) => (result[i][j] = { type: character }));
   });
   return result;
 };
@@ -12,38 +12,32 @@ const getNextSteps = (spot, map) => {
   const increments = [{ i: -1, j: 0 }, { i: 0, j: -1 }, { i: 0, j: 1 }, { i: 1, j: 0 }];
   increments.forEach(increment => {
     const potential = { x: spot.x + increment.i, y: spot.y + increment.j };
-    const { item } = map[potential.x][potential.y];
-    if (String.fromCharCode(item) !== '#') results.push(potential);
+    const { type } = map[potential.x][potential.y];
+    if (type !== '#') results.push(potential);
   });
   return results;
 };
 
-const getOpponentItem = playerItem => {
-  const playerType = String.fromCharCode(playerItem);
-  let opponentType;
+const getOpponentType = playerType => {
   switch (playerType) {
     case 'G':
-      opponentType = 'E';
-      break;
+      return 'E';
     case 'E':
-      opponentType = 'G';
-      break;
+      return 'G';
     default:
-      opponentType = '*';
-      break;
+      return '*';
   }
-  return opponentType.charCodeAt(0);
 };
 
 const getShortestPath = (player, map) => {
   const queue = [];
   const start = { x: player.x, y: player.y, path: [] };
-  const opponentItem = getOpponentItem(map[player.x][player.x].item);
+  const opponentType = getOpponentType(map[player.x][player.y].type);
   queue.push(start);
   while (queue.length !== 0) {
     const currentSpot = queue.shift();
-    const currentItem = map[currentSpot.x][currentSpot.y].item;
-    if (currentItem === opponentItem) {
+    const currentType = map[currentSpot.x][currentSpot.y].type;
+    if (currentType === opponentType) {
       return currentSpot;
     }
     const nextSteps = getNextSteps(currentSpot, map);
