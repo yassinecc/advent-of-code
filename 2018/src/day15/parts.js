@@ -1,4 +1,4 @@
-const { omit } = require('lodash');
+const { flatten, uniq, sortBy, omit } = require('lodash');
 
 const PLAYER_TYPES = ['E', 'G'];
 const INCREMENTS = [{ i: -1, j: 0 }, { i: 0, j: -1 }, { i: 0, j: 1 }, { i: 1, j: 0 }];
@@ -41,36 +41,60 @@ const getOpponentType = playerType => {
   }
 };
 
-const getShortestPath = (player, map) => {
+const sortPotentialPaths = paths => {
+  const sortedPaths = sortBy(paths, path => {
+    const lastSquare = path.path[path.path.length - 1];
+    return 100000 * path.path.length + 1000 * lastSquare.x + lastSquare.y;
+  });
+  return sortedPaths[0];
+};
+
+// Finds all possible adjacent squares next to reachable opponents as well as the shortest path to them
+const getPossibleTargets = (player, map) => {
+  if (!isFightOngoing(map)) throw Error('No targets found');
   const queue = [];
-  const start = { x: player.x, y: player.y, path: [] };
+  const start = { x: player.x, y: player.y, previousSpot: {}, path: [] };
   const opponentType = getOpponentType(map[player.x][player.y].type);
+  const possibleTargets = [];
   queue.push(start);
   while (queue.length !== 0) {
     const currentSpot = queue.shift();
     const currentType = map[currentSpot.x][currentSpot.y].type;
     if (currentType === opponentType) {
-      map.forEach((_, i) =>
-        _.forEach(({ type }, j) => {
-          const rest = omit(map[i][j], 'checked');
-          map[i][j] = rest;
-        })
-      );
-      return currentSpot;
+      possibleTargets.push(currentSpot);
+      continue;
     }
     const nextSteps = getNextSteps(opponentType, currentSpot, map);
     nextSteps.forEach(step => {
       const element = map[step.x][step.y];
       if (!element.checked) {
-        map[step.x][step.y] = { ...element, checked: true };
+        map[step.x][step.y] = { ...element, checked: element.type !== opponentType };
         queue.push({
           ...step,
           path: currentSpot.path.concat({ x: currentSpot.x, y: currentSpot.y }),
+          previousSpot: { x: currentSpot.x, y: currentSpot.y },
         });
       }
     });
   }
-  return { ...player, path: [] };
+  map.forEach((_, i) =>
+    _.forEach((_, j) => {
+      map[i][j] = omit(map[i][j], 'checked');
+    })
+  );
+  return possibleTargets;
+};
+
+const getShortestPath = (player, map) => {
+  const potentialPaths = getPossibleTargets(player, map);
+  const bestPaths = sortBy(potentialPaths, path => path.path.length);
+
+  if (bestPaths.length === 0) {
+    return { ...player, path: [] };
+  } else {
+    const bestPath = sortPotentialPaths(bestPaths);
+    return bestPath;
+  }
 };
 
 const swapCells = (map, firstCell, secondCell) => {
@@ -85,10 +109,11 @@ const getClosestOpponent = (player, map) => {
     const neighbor = { x: player.x + increment.i, y: player.y + increment.j };
     const playerObject = map[player.x][player.y];
     const potentialOpponent = map[neighbor.x][neighbor.y];
-    if (potentialOpponent.type === getOpponentType(playerObject.type)) {
-      if (!opponent || potentialOpponent.hp < opponent.hp) {
-        opponent = { ...potentialOpponent, ...neighbor };
-      }
+    if (
+      potentialOpponent.type === getOpponentType(playerObject.type) &&
+      (!opponent || potentialOpponent.hp < opponent.hp)
+    ) {
+      opponent = { ...potentialOpponent, ...neighbor };
     }
   });
   return opponent;
@@ -102,20 +127,22 @@ const attackOpponent = (map, player, closestOpponent) => {
     newHp > 0 ? { ...opponentData, hp: newHp } : { type: '.' };
 };
 
-const attackCloseNeighbor = (player, map) => {
-  const closestOpponent = getClosestOpponent(player, map);
-  if (closestOpponent) attackOpponent(map, player, closestOpponent);
-};
-
 const playTurn = (player, map) => {
-  const { path } = getShortestPath(player, map);
-  let nextCell = player;
-  // Nowhere to move
-  if (path.length > 1) {
-    nextCell = path[1];
-    swapCells(map, player, nextCell);
+  if (!PLAYER_TYPES.includes(map[player.x][player.y].type)) return true;
+  try {
+    const { path } = getShortestPath(player, map);
+    let nextCell = player;
+    // Nowhere to move
+    if (path.length > 1) {
+      nextCell = path[1];
+      swapCells(map, player, nextCell);
+    }
+    const closestOpponent = getClosestOpponent(nextCell, map);
+    if (closestOpponent) attackOpponent(map, nextCell, closestOpponent);
+    return true;
+  } catch (error) {
+    return false;
   }
-  attackCloseNeighbor(nextCell, map);
 };
 
 const playRound = map => {
@@ -128,16 +155,39 @@ const playRound = map => {
       }
     }
   }
-  players.forEach(player => playTurn(player, map));
+  const haveAllPlayed = players.map(player => playTurn(player, map));
+  return !haveAllPlayed.some(havePlayed => !havePlayed);
 };
 
-const part1 = () => 0;
+const isFightOngoing = map => {
+  const players = flatten(map).filter(item => PLAYER_TYPES.includes(item.type));
+  const playerTypes = uniq(players.map(player => player.type));
+  return playerTypes.length === PLAYER_TYPES.length;
+};
+
+const getTotalHp = map => {
+  const players = flatten(map).filter(item => PLAYER_TYPES.includes(item.type));
+  const totalHp = players.reduce((acc, player) => acc + player.hp, 0);
+  return totalHp;
+};
+
+const part1 = input => {
+  const map = parse2dArray(input);
+  let completedRounds = 0;
+  while (isFightOngoing(map)) {
+    const haveAllPlayed = playRound(map);
+    if (haveAllPlayed) completedRounds++;
+  }
+  const totalHp = getTotalHp(map);
+  return { completedRounds, totalHp };
+};
 const part2 = () => 0;
 module.exports = {
   PLAYER_TYPES,
   parse2dArray,
   parseMap,
   getNextSteps,
+  getPossibleTargets,
   getShortestPath,
   getClosestOpponent,
   playRound,
