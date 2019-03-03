@@ -1,10 +1,18 @@
+const { omit } = require('lodash');
+
 const PLAYER_TYPES = ['E', 'G'];
+const INCREMENTS = [{ i: -1, j: 0 }, { i: 0, j: -1 }, { i: 0, j: 1 }, { i: 1, j: 0 }];
 
 const parse2dArray = input => {
   const result = [];
   [...Array(input.length).keys()].forEach(_ => result.push([]));
   input.forEach((line, i) => {
-    [...line].forEach((character, j) => (result[i][j] = { type: character }));
+    [...line].forEach(
+        (character, j) =>
+          (result[i][j] = PLAYER_TYPES.includes(character)
+          ? { type: character, hp: 200, att: 3 }
+          : { type: character })
+    );
   });
   return result;
 };
@@ -14,8 +22,7 @@ const parseMap = playerMap =>
 
 const getNextSteps = (opponentType, spot, map) => {
   const results = [];
-  const increments = [{ i: -1, j: 0 }, { i: 0, j: -1 }, { i: 0, j: 1 }, { i: 1, j: 0 }];
-  increments.forEach(increment => {
+  INCREMENTS.forEach(increment => {
     const potential = { x: spot.x + increment.i, y: spot.y + increment.j };
     const { type } = map[potential.x][potential.y];
     if (type === '.' || type === opponentType) results.push(potential);
@@ -43,7 +50,12 @@ const getShortestPath = (player, map) => {
     const currentSpot = queue.shift();
     const currentType = map[currentSpot.x][currentSpot.y].type;
     if (currentType === opponentType) {
-      map.forEach((_, i) => _.forEach(({ type }, j) => (map[i][j] = { type })));
+      map.forEach((_, i) =>
+        _.forEach(({ type }, j) => {
+          const rest = omit(map[i][j], 'checked');
+          map[i][j] = rest;
+        })
+      );
       return currentSpot;
     }
     const nextSteps = getNextSteps(opponentType, currentSpot, map);
@@ -67,13 +79,43 @@ const swapCells = (map, firstCell, secondCell) => {
   map[firstCell.x][firstCell.y] = nextCellValue;
 };
 
+const getClosestOpponent = (player, map) => {
+  let opponent;
+  INCREMENTS.forEach(increment => {
+    const neighbor = { x: player.x + increment.i, y: player.y + increment.j };
+    const playerObject = map[player.x][player.y];
+    const potentialOpponent = map[neighbor.x][neighbor.y];
+    if (potentialOpponent.type === getOpponentType(playerObject.type)) {
+      if (!opponent || potentialOpponent.hp < opponent.hp) {
+        opponent = { ...potentialOpponent, ...neighbor };
+      }
+    }
+  });
+  return opponent;
+};
+
+const attackOpponent = (map, player, closestOpponent) => {
+  const opponentData = map[closestOpponent.x][closestOpponent.y];
+  const attackPower = map[player.x][player.y].att;
+  const newHp = opponentData.hp - attackPower;
+  map[closestOpponent.x][closestOpponent.y] =
+    newHp > 0 ? { ...opponentData, hp: newHp } : { type: '.' };
+};
+
+const attackCloseNeighbor = (player, map) => {
+  const closestOpponent = getClosestOpponent(player, map);
+  if (closestOpponent) attackOpponent(map, player, closestOpponent);
+};
+
 const playTurn = (player, map) => {
   const { path } = getShortestPath(player, map);
-  // Not next to opponent
+  let nextCell = player;
+  // Nowhere to move
   if (path.length > 1) {
-    const nextCell = path[1];
+    nextCell = path[1];
     swapCells(map, player, nextCell);
   }
+  attackCloseNeighbor(nextCell, map);
 };
 
 const playRound = map => {
@@ -91,4 +133,14 @@ const playRound = map => {
 
 const part1 = () => 0;
 const part2 = () => 0;
-module.exports = { parse2dArray, parseMap, getNextSteps, getShortestPath, playRound, part1, part2 };
+module.exports = {
+  PLAYER_TYPES,
+  parse2dArray,
+  parseMap,
+  getNextSteps,
+  getShortestPath,
+  getClosestOpponent,
+  playRound,
+  part1,
+  part2,
+};
