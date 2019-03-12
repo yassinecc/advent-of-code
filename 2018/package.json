@@ -10,7 +10,7 @@
     "setup": "./scripts/setupPuzzle.sh"
   },
   "dependencies": {
-    "jest": "^24.1.0",
+    "jest": "^24.4.0",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "plop": "^2.3.0",
