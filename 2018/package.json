@@ -14,7 +14,7 @@
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "plop": "^2.3.0",
-    "vectorious": "^5.2.0"
+    "vectorious": "^5.3.1"
   },
   "jest": {
     "testPathIgnorePatterns": [
