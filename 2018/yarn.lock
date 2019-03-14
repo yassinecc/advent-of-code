@@ -2570,10 +2570,10 @@ natural-compare@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
 
-nblas@^1.2.2:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/nblas/-/nblas-1.2.2.tgz#cc750ca672920de59c2074abd4063beee6b83384"
-  integrity sha1-zHUMpnKSDeWcIHSr1AY77ua4M4Q=
+nblas@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/nblas/-/nblas-2.1.2.tgz#5387190229db4fee3f49f12ff326084bed7cc0db"
+  integrity sha512-IbstqFVFjNdTv2DcCLetdhwc57OiWX1MWKS0BIrajWSpehETuz/CIrDoy0FXb+IAWTVwEuvEBTWqCtYu3v/hGg==
 
 needle@^2.2.1:
   version "2.2.4"
@@ -3826,12 +3826,12 @@ validate-npm-package-license@^3.0.1:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
 
-vectorious@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/vectorious/-/vectorious-5.2.0.tgz#fcef7abcc5cc672c15b7ca7cd78b6cb6779dffda"
-  integrity sha512-L1qVcMAeoLGDuC3eokYaGl0Ct19k+c3ZFxpjd0manqjECFwPFV3brli5o5BIW1p8DO+WQx/zUnEOQm6He9xGuQ==
+vectorious@^5.3.2:
+  version "5.3.2"
+  resolved "https://registry.yarnpkg.com/vectorious/-/vectorious-5.3.2.tgz#d4358de7d935a31ac703aa3f2af1adbb7a793f28"
+  integrity sha512-e1MF2fQSlGlX+VUHfbH5j7zemaHSxBfn4YwfthiGv66tDPt9VA0adKyfb146wABSlq8wk/FkKkLw9Xq4loUzUA==
   optionalDependencies:
-    nblas "^1.2.2"
+    nblas "^2.1.2"
 
 verror@1.10.0:
   version "1.10.0"
