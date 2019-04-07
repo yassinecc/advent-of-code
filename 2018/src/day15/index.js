@@ -3,13 +3,17 @@ const { part1, part2 } = require('../day15/parts');
 
 const input = parseFile('inputs/day15.txt');
 
+const writeResult = (part, rounds, hp) =>
+  console.log(
+      `Part ${part}: Completed rounds:`,
+      rounds,
+      ', total HP:',
+      hp,
+      ', outcome:',
+      rounds * hp
+  );
+
 const { completedRounds, totalHp } = part1(input);
-console.log(
-    'Part 1: Completed rounds:',
-    completedRounds,
-    ', total HP:',
-    totalHp,
-    ', outcome:',
-    completedRounds * totalHp
-);
-console.log('Answer to part 2 is', part2(input));
+writeResult(1, completedRounds, totalHp);
+const { fightCompletedRounds, fightFinalHp } = part2(input);
+writeResult(2, fightCompletedRounds, fightFinalHp);

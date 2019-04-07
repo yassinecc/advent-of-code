@@ -318,14 +318,38 @@ describe('Day 15', () => {
     expect(getHitPoints(testMap3)).toEqual([200, 131, 59, 200]);
   });
   it('should solve part 1', () => {
-    expect(part1(testInput3)).toEqual({ completedRounds: 47, totalHp: 590 });
-    expect(part1(testInput4)).toEqual({ completedRounds: 37, totalHp: 982 });
-    expect(part1(testInput5)).toEqual({ completedRounds: 46, totalHp: 859 });
-    expect(part1(testInput6)).toEqual({ completedRounds: 35, totalHp: 793 });
-    expect(part1(testInput7)).toEqual({ completedRounds: 54, totalHp: 536 });
-    expect(part1(testInput8)).toEqual({ completedRounds: 20, totalHp: 937 });
+    expect(part1(testInput3)).toEqual({ completedRounds: 47, totalHp: 590, winner: 'G' });
+    expect(part1(testInput4)).toEqual({ completedRounds: 37, totalHp: 982, winner: 'E' });
+    expect(part1(testInput5)).toEqual({ completedRounds: 46, totalHp: 859, winner: 'E' });
+    expect(part1(testInput6)).toEqual({ completedRounds: 35, totalHp: 793, winner: 'G' });
+    expect(part1(testInput7)).toEqual({ completedRounds: 54, totalHp: 536, winner: 'G' });
+    expect(part1(testInput8)).toEqual({ completedRounds: 20, totalHp: 937, winner: 'G' });
   });
   it('should solve part 2', () => {
-    expect(part2()).toEqual(0);
+    expect(part2(testInput3)).toEqual({
+      elvesAttackingPower: 15,
+      fightCompletedRounds: 29,
+      fightFinalHp: 172,
+    });
+    expect(part2(testInput5)).toEqual({
+      elvesAttackingPower: 4,
+      fightCompletedRounds: 33,
+      fightFinalHp: 948,
+    });
+    expect(part2(testInput6)).toEqual({
+      elvesAttackingPower: 15,
+      fightCompletedRounds: 37,
+      fightFinalHp: 94,
+    });
+    expect(part2(testInput7)).toEqual({
+      elvesAttackingPower: 12,
+      fightCompletedRounds: 39,
+      fightFinalHp: 166,
+    });
+    expect(part2(testInput8)).toEqual({
+      elvesAttackingPower: 34,
+      fightCompletedRounds: 30,
+      fightFinalHp: 38,
+    });
   });
 });

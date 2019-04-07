@@ -160,6 +160,9 @@ const playRound = map => {
   return !haveAllPlayed.some(havePlayed => !havePlayed);
 };
 
+const getTeammatesNumber = (map, playerType) =>
+  flatten(map).filter(item => item.type === playerType).length;
+
 const remainingTeams = map => {
   const players = flatten(map).filter(item => PLAYER_TYPES.includes(item.type));
   return uniq(players.map(player => player.type));
@@ -171,17 +174,39 @@ const getTotalHp = map => {
   return totalHp;
 };
 
-const part1 = (input, elvesAttackingPower = 3) => {
+const part1 = (input, elvesAttackingPower = 3, shouldElvesWin) => {
   const map = parse2dArray(input, elvesAttackingPower);
   let completedRounds = 0;
+  const initialElvesNumber = getTeammatesNumber(map, 'E');
   while (remainingTeams(map).length === 2) {
+    if (shouldElvesWin) {
+      const didElfDie = getTeammatesNumber(map, 'E') < initialElvesNumber;
+      if (didElfDie) throw Error('An elf died');
+    }
     const haveAllPlayed = playRound(map);
     if (haveAllPlayed) completedRounds++;
   }
+  const [winner] = remainingTeams(map);
   const totalHp = getTotalHp(map);
-  return { completedRounds, totalHp };
+  return { completedRounds, totalHp, winner };
 };
-const part2 = () => 0;
+
+const part2 = input => {
+  let elvesAttackingPower = 4;
+  let fightWinner;
+  let fightCompletedRounds;
+  let fightFinalHp;
+  while (fightWinner !== 'E') {
+    try {
+      const { winner, completedRounds, totalHp } = part1(input, elvesAttackingPower, true);
+      fightWinner = winner;
+      fightCompletedRounds = completedRounds;
+      fightFinalHp = totalHp;
+    } catch (error) {}
+    elvesAttackingPower++;
+  }
+  return { elvesAttackingPower: elvesAttackingPower - 1, fightCompletedRounds, fightFinalHp };
+};
 module.exports = {
   PLAYER_TYPES,
   parse2dArray,
