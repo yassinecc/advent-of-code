@@ -3,9 +3,18 @@
   "configurations": [
     {
       "type": "node",
-      "request": "attach",
-      "name": "Attach",
-      "port": 9229
+      "request": "launch",
+      "name": "Launch",
+      "port": 9229,
+      "cwd": "${workspaceFolder}/2018",
+      "runtimeArgs": [
+        "--inspect-brk",
+        "${workspaceRoot}/2018/node_modules/.bin/jest",
+        "${file}",
+        "--watch",
+        "--bail",
+        "--runInBand"
+      ]
     }
   ]
 }

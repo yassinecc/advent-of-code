@@ -32,4 +32,12 @@ const findRegex = (string, regex) => {
   return result.length === 1 ? result[0] : result;
 };
 
-module.exports = { parseFile, filterInt, findRegex };
+const safeMatrixAccess = (matrix, i, j) => {
+  const [xSize, ySize] = matrix.shape;
+  if (i < 0 || i >= xSize || j < 0 || j >= ySize) {
+    return 0;
+  }
+  return matrix.get(i, j);
+};
+
+module.exports = { parseFile, filterInt, findRegex, safeMatrixAccess };
