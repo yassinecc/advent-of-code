@@ -3,14 +3,15 @@ const { flatten, uniq, sortBy, omit } = require('lodash');
 const PLAYER_TYPES = ['E', 'G'];
 const INCREMENTS = [{ i: -1, j: 0 }, { i: 0, j: -1 }, { i: 0, j: 1 }, { i: 1, j: 0 }];
 
-const parse2dArray = input => {
+const parse2dArray = (input, elvesAttackingPower = 3) => {
+  const attackingPower = { E: elvesAttackingPower, G: 3 };
   const result = [];
   [...Array(input.length).keys()].forEach(_ => result.push([]));
   input.forEach((line, i) => {
     [...line].forEach(
         (character, j) =>
           (result[i][j] = PLAYER_TYPES.includes(character)
-          ? { type: character, hp: 200, att: 3 }
+          ? { type: character, hp: 200, att: attackingPower[character] }
           : { type: character })
     );
   });
@@ -51,7 +52,7 @@ const sortPotentialPaths = paths => {
 
 // Finds all possible adjacent squares next to reachable opponents as well as the shortest path to them
 const getPossibleTargets = (player, map) => {
-  if (!isFightOngoing(map)) throw Error('No targets found');
+  if (remainingTeams(map).length < 2) throw Error('No targets found');
   const queue = [];
   const start = { x: player.x, y: player.y, previousSpot: {}, path: [] };
   const opponentType = getOpponentType(map[player.x][player.y].type);
@@ -159,10 +160,9 @@ const playRound = map => {
   return !haveAllPlayed.some(havePlayed => !havePlayed);
 };
 
-const isFightOngoing = map => {
+const remainingTeams = map => {
   const players = flatten(map).filter(item => PLAYER_TYPES.includes(item.type));
-  const playerTypes = uniq(players.map(player => player.type));
-  return playerTypes.length === PLAYER_TYPES.length;
+  return uniq(players.map(player => player.type));
 };
 
 const getTotalHp = map => {
@@ -171,10 +171,10 @@ const getTotalHp = map => {
   return totalHp;
 };
 
-const part1 = input => {
-  const map = parse2dArray(input);
+const part1 = (input, elvesAttackingPower = 3) => {
+  const map = parse2dArray(input, elvesAttackingPower);
   let completedRounds = 0;
-  while (isFightOngoing(map)) {
+  while (remainingTeams(map).length === 2) {
     const haveAllPlayed = playRound(map);
     if (haveAllPlayed) completedRounds++;
   }
