@@ -12,6 +12,13 @@ parseLines = input => {
   return { samples };
 };
 
+const parseTestProgram = input => {
+  const testStartIndex = input.findIndex(
+      (element, index) => element && element.match(/^[0-9]/g) && input[index + 1].match(/^[0-9]/g)
+  );
+  return input.slice(testStartIndex);
+};
+
 const parseRegisters = registerLine => {
   const registersData = findRegex(registerLine, /\[(.*?)\]/g);
   return registersData.split(',').map(Number);
@@ -43,6 +50,12 @@ const getMatchingOperations = sample => {
   return { id: instruction.opId, operations: possibleOperations };
 };
 
+const executeInstruction = (registers, instructionLine, registersMap) => {
+  const instruction = parseInstruction(instructionLine);
+  const opCode = registersMap[instruction.opId];
+  return opcodes[opCode](registers, instruction.inA, instruction.inB, instruction.regC);
+};
+
 const isUndetermined = registersMap =>
   registersMap.filter(register => register.length > 1).length > 0;
 
@@ -72,7 +85,12 @@ const part1 = input => {
   return filter(allSamples, sample => sample.operations.length >= 3).length;
 };
 const part2 = input => {
-  console.log('getOpcodes(input)', getOpcodes(input));
-  return 0;
+  const registersMap = getOpcodes(input);
+  let registers = Array(4).fill(0);
+  const testProgram = parseTestProgram(input);
+  testProgram.forEach(instructionLine => {
+    registers = executeInstruction(registers, instructionLine, registersMap);
+  });
+  return registers[0];
 };
 module.exports = { parseRegisters, parseInstruction, getMatchingOperations, part1, part2 };
