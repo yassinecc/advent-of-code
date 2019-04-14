@@ -1,4 +1,4 @@
-const { map, isEqual } = require('lodash');
+const { filter, map, isEqual, intersection, difference, flatten } = require('lodash');
 const opcodes = require('./opcodes');
 const { findRegex } = require('../../utils/common');
 
@@ -27,12 +27,12 @@ const parseInstruction = instructionLine => {
   };
 };
 
-const executeSample = sample => {
+const getMatchingOperations = sample => {
   const [beforeLine, instructionLine, afterLine] = sample;
   const registers = parseRegisters(beforeLine);
   const instruction = parseInstruction(instructionLine);
   const expectedRegisters = parseRegisters(afterLine);
-  return map(opcodes, opcode =>
+  const possibleOperations = map(opcodes, opcode =>
     isEqual(
         expectedRegisters,
         opcode(registers, instruction.inA, instruction.inB, instruction.regC)
@@ -40,12 +40,39 @@ const executeSample = sample => {
       ? opcode.name
       : false
   ).filter(Boolean);
+  return { id: instruction.opId, operations: possibleOperations };
+};
+
+const isUndetermined = registersMap =>
+  registersMap.filter(register => register.length > 1).length > 0;
+
+const knownOpcodes = registersMap =>
+  flatten(registersMap.filter(register => register.length === 1));
+
+const getOpcodes = input => {
+  let registersMap = Array(16);
+  const { samples } = parseLines(input);
+  samples.forEach(sample => {
+    const { id, operations } = getMatchingOperations(sample);
+    if (registersMap[id]) {
+      registersMap[id] = intersection(registersMap[id], operations);
+    } else registersMap[id] = operations;
+  });
+  while (isUndetermined(registersMap)) {
+    registersMap = registersMap.map(register =>
+      register.length === 1 ? register : difference(register, knownOpcodes(registersMap))
+    );
+  }
+  return flatten(registersMap);
 };
 
 const part1 = input => {
   const { samples } = parseLines(input);
-  const allSamples = map(samples, executeSample);
-  return allSamples.filter(sample => sample.length >= 3).length;
+  const allSamples = samples.map(getMatchingOperations);
+  return filter(allSamples, sample => sample.operations.length >= 3).length;
 };
-const part2 = () => 0;
-module.exports = { parseRegisters, parseInstruction, executeSample, part1, part2 };
+const part2 = input => {
+  console.log('getOpcodes(input)', getOpcodes(input));
+  return 0;
+};
+module.exports = { parseRegisters, parseInstruction, getMatchingOperations, part1, part2 };
