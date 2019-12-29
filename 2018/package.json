@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "jest": "^24.8.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.13",
     "moment": "^2.24.0",
     "plop": "^2.4.0",
     "vectorious": "^5.5.0"
