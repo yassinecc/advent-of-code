@@ -83,7 +83,7 @@ const initialTestCase = {
         0,
         0,
         0
-      ],
+      ]
   ).reshape([6, 13])
 };
 
