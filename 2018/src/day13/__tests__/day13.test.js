@@ -4,7 +4,7 @@ const { parseTracks, advanceCart, sortCarts, part1, part2 } = require('../parts'
 const initialTestCase = {
   carts: [{ type: '>', x: 0, y: 2, turnFlag: 0 }, { type: 'v', x: 3, y: 9, turnFlag: 0 }],
   tracksMatrix: new Matrix(
-      new Vector([
+      [
         2,
         0,
         0,
@@ -83,9 +83,8 @@ const initialTestCase = {
         0,
         0,
         0
-      ]),
-      { shape: [6, 13] }
-  )
+      ],
+  ).reshape([6, 13])
 };
 
 const testTracks = String.raw`
