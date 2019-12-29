@@ -10,9 +10,9 @@ const parse2dArray = (input, elvesAttackingPower = 3) => {
   input.forEach((line, i) => {
     [...line].forEach(
         (character, j) =>
-          (result[i][j] = PLAYER_TYPES.includes(character)
-          ? { type: character, hp: 200, att: attackingPower[character] }
-          : { type: character })
+          (result[i][j] = PLAYER_TYPES.includes(character) ?
+          { type: character, hp: 200, att: attackingPower[character] } :
+          { type: character })
     );
   });
   return result;

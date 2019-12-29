@@ -37,9 +37,9 @@ const getIntersectionChoice = cart => {
   // Subtract one because turnFlag is 0 to go left
   const characterIndex = (cartCharacters.indexOf(cart.type) + cart.turnFlag - 1) % 4;
   const cartCharacter =
-    characterIndex > -1
-      ? cartCharacters[characterIndex]
-      : cartCharacters[cartCharacters.length - 1];
+    characterIndex > -1 ?
+      cartCharacters[characterIndex] :
+      cartCharacters[cartCharacters.length - 1];
   return cartCharToDirection[cartCharacter];
 };
 

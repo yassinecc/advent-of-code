@@ -43,9 +43,9 @@ const getMatchingOperations = sample => {
     isEqual(
         expectedRegisters,
         opcode(registers, instruction.inA, instruction.inB, instruction.regC)
-    )
-      ? opcode.name
-      : false
+    ) ?
+      opcode.name :
+      false
   ).filter(Boolean);
   return { id: instruction.opId, operations: possibleOperations };
 };
