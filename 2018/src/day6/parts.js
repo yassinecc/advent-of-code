@@ -13,7 +13,7 @@ const getEdges = points => {
     xMin: Math.min(...Xs),
     xMax: Math.max(...Xs),
     yMin: Math.min(...Ys),
-    yMax: Math.max(...Ys),
+    yMax: Math.max(...Ys)
   };
 };
 
@@ -28,7 +28,7 @@ const createPointsRing = (point, radius) => {
           { x: point.x + radius, y: point.y + degree },
           { x: point.x - radius, y: point.y + degree },
           { x: point.x + degree, y: point.y + radius },
-          { x: point.x + degree, y: point.y - radius },
+          { x: point.x + degree, y: point.y - radius }
         ]),
       []
   );
@@ -106,5 +106,5 @@ module.exports = {
   countClosestLocations,
   measureDistanceToAllPoints,
   part1,
-  part2,
+  part2
 };

@@ -5,7 +5,7 @@ const {
   getEnergyTable,
   getSummedTable,
   part1,
-  part2,
+  part2
 } = require('../parts');
 
 getEdge = (point, cellSize) => ({ z: point.x + cellSize - 1, t: point.y + cellSize - 1 });
@@ -15,7 +15,7 @@ describe('Day 11', () => {
     [{ x: 3, y: 5 }, 8, 4],
     [{ x: 122, y: 79 }, 57, -5],
     [{ x: 217, y: 196 }, 39, 0],
-    [{ x: 101, y: 153 }, 71, 4],
+    [{ x: 101, y: 153 }, 71, 4]
   ])('should find the correct energy', (cell, serialNumber, result) => {
     const point = { x: cell.x - 1, y: cell.y - 1 };
     return expect(getEnergyLevel(point, serialNumber)).toEqual(result);

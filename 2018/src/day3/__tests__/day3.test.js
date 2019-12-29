@@ -9,7 +9,7 @@ describe('Day3', () => {
       xStart: 604,
       deltaX: 22,
       yStart: 670,
-      deltaY: 16,
+      deltaY: 16
     }));
   it('should correctly count overlap size', () => {
     expect(part1(['#1 @ 1,3: 4x4', '#2 @ 3,1: 4x4', '#3 @ 5,5: 2x2'], 10)).toEqual(4);
@@ -18,7 +18,7 @@ describe('Day3', () => {
     ['#1 @ 1,3: 4x4', '#2 @ 3,1: 4x4', true],
     ['#1 @ 1,3: 4x4', '#0 @ 2,2: 4x4', true],
     ['#3 @ 5,5: 2x2', '#2 @ 3,1: 4x4', false],
-    ['#1 @ 1,3: 4x4', '#3 @ 5,5: 2x2', false],
+    ['#1 @ 1,3: 4x4', '#3 @ 5,5: 2x2', false]
   ])('should correctly determine if rectangles are overlapping', (a, b, expected) => {
     expect(doClaimsIntersect(a, b)).toBe(expected);
   });

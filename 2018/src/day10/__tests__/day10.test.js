@@ -4,7 +4,7 @@ const {
   moveParticle,
   findDimensions,
   part1,
-  part2,
+  part2
 } = require('../parts');
 
 const testInput = [
@@ -38,13 +38,13 @@ const testInput = [
   'position=<-6,  0> velocity=< 2,  0>',
   'position=< 5,  9> velocity=< 1, -2>',
   'position=<14,  7> velocity=<-2,  0>',
-  'position=<-3,  6> velocity=< 2, -1>',
+  'position=<-3,  6> velocity=< 2, -1>'
 ];
 
 const shortTestInput = [
   'position=< 9,  1> velocity=< 0,  2>',
   'position=< 7,  0> velocity=<-1,  0>',
-  'position=< 3, -2> velocity=<-1,  1>',
+  'position=< 3, -2> velocity=<-1,  1>'
 ];
 
 describe('Day 10', () => {
@@ -52,14 +52,14 @@ describe('Day 10', () => {
   it('should parse movementData', () => {
     expect(parseMovementData(movementData)).toEqual({
       pos: [2, -4],
-      vel: [-2, 12],
+      vel: [-2, 12]
     });
   });
   it('should fill data', () => {
     expect(fillMovementData(shortTestInput)).toEqual([
       { pos: [9, 1], vel: [0, 2] },
       { pos: [7, 0], vel: [-1, 0] },
-      { pos: [3, -2], vel: [-1, 1] },
+      { pos: [3, -2], vel: [-1, 1] }
     ]);
   });
   it('should move a particle', () => {
@@ -70,7 +70,7 @@ describe('Day 10', () => {
         findDimensions([
           { pos: [9, 1], vel: [0, 2] },
           { pos: [7, 0], vel: [-1, 0] },
-          { pos: [3, -2], vel: [-1, 1] },
+          { pos: [3, -2], vel: [-1, 1] }
         ])
     ).toEqual({ xDiff: 6, yDiff: 3, xMin: 3, yMin: -2 });
   });

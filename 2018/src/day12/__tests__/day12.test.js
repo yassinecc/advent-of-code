@@ -4,7 +4,7 @@ const {
   getSpreadRules,
   spreadPlants,
   padInput,
-  countPotsNumber,
+  countPotsNumber
 } = require('../parts');
 
 const plantString = '...#..#.#..##......###...###...........';
@@ -46,7 +46,7 @@ describe('Day 12', () => {
   it('should pad input', () => {
     expect(padInput({ input: '01100111000', minIndex: 0 })).toEqual({
       paddedInput: '00000110011100000',
-      minIndex: -4,
+      minIndex: -4
     });
   });
   it('should spread plants to the next generation', () => {
@@ -59,7 +59,7 @@ describe('Day 12', () => {
     expect(
         countPotsNumber({
           input: convertInput('.#....##....#####...#######....#.#..##.'),
-          minIndex: -3,
+          minIndex: -3
         })
     ).toEqual(325);
   });

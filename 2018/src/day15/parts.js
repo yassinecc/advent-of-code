@@ -73,7 +73,7 @@ const getPossibleTargets = (player, map) => {
         queue.push({
           ...step,
           path: currentSpot.path.concat({ x: currentSpot.x, y: currentSpot.y }),
-          previousSpot: { x: currentSpot.x, y: currentSpot.y },
+          previousSpot: { x: currentSpot.x, y: currentSpot.y }
         });
       }
     });
@@ -217,5 +217,5 @@ module.exports = {
   getClosestOpponent,
   playRound,
   part1,
-  part2,
+  part2
 };

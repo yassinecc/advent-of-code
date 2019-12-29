@@ -17,7 +17,7 @@ const makeRecipe = (recipesList, index1, index2, nextScoreIndex) => {
     newRecipes: recipesList,
     newScoreIndex: nextScoreIndex,
     newIndex1: index1,
-    newIndex2: index2,
+    newIndex2: index2
   };
 };
 

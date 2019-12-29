@@ -48,7 +48,7 @@ const initWorkers = numberOfWorkers =>
   [...Array(numberOfWorkers).keys()].map(key => ({
     id: key,
     step: '.',
-    leadTime: 0,
+    leadTime: 0
   }));
 
 const getAvailableWorkers = workers => workers.filter(worker => worker.leadTime === 0);

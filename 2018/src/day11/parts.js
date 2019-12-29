@@ -72,7 +72,7 @@ const part1 = serialNumber => {
       const edge = { z: i + cellSize - 1, t: j + cellSize - 1 };
       array.push({
         point,
-        value: getAreaEnergyLevel(summedTable, point, edge),
+        value: getAreaEnergyLevel(summedTable, point, edge)
       });
     }
   }
@@ -90,7 +90,7 @@ const part2 = serialNumber => {
       array.push({
         point: { x: i, y: j },
         value,
-        size,
+        size
       });
     }
   }
@@ -104,5 +104,5 @@ module.exports = {
   getEnergyTable,
   getSummedTable,
   part1,
-  part2,
+  part2
 };

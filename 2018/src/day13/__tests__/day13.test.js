@@ -82,10 +82,10 @@ const initialTestCase = {
         2,
         0,
         0,
-        0,
+        0
       ]),
       { shape: [6, 13] }
-  ),
+  )
 };
 
 const testTracks = String.raw`
@@ -157,7 +157,7 @@ describe('Day 13', () => {
       { x: 110, y: 46, type: '>' },
       { x: 115, y: 4, type: '<' },
       { x: 121, y: 72, type: '<' },
-      { x: 142, y: 76, type: '<' },
+      { x: 142, y: 76, type: '<' }
     ];
     const expectedSorted = [
       { x: 0, y: 39, type: '<' },
@@ -176,7 +176,7 @@ describe('Day 13', () => {
       { x: 110, y: 46, type: '>' },
       { x: 115, y: 4, type: '<' },
       { x: 121, y: 72, type: '<' },
-      { x: 142, y: 76, type: '<' },
+      { x: 142, y: 76, type: '<' }
     ];
     expect(sortCarts(carts)).toEqual(expectedSorted);
   });

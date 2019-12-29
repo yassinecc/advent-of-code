@@ -30,7 +30,7 @@ const parseInstruction = instructionLine => {
     opId: instructionParts[0],
     inA: instructionParts[1],
     inB: instructionParts[2],
-    regC: instructionParts[3],
+    regC: instructionParts[3]
   };
 };
 

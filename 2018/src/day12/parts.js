@@ -24,7 +24,7 @@ const padInput = ({ input, minIndex }) => {
   const end = input.lastIndexOf('1');
   return {
     paddedInput: `00000${input.slice(start, end + 1)}00000`,
-    minIndex: minIndex - 5 + start,
+    minIndex: minIndex - 5 + start
   };
 };
 
@@ -92,5 +92,5 @@ module.exports = {
   spreadPlants,
   countPotsNumber,
   part1,
-  part2,
+  part2
 };

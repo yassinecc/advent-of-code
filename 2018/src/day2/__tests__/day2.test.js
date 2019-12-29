@@ -42,7 +42,7 @@ describe('Day2', () => {
     ['abcde', 'acdbe', 'ae'],
     ['abcde', 'adcbe', 'ace'],
     ['abcde', 'abcde', 'abcde'],
-    ['abcde', 'abcze', 'abce'],
+    ['abcde', 'abcze', 'abce']
   ])('should find the match between %s and %s', (a, b, expected) => {
     expect(findPairMatch(a, b)).toEqual(expected);
   });
