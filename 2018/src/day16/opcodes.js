@@ -117,5 +117,5 @@ module.exports = {
   gtrr,
   eqir,
   eqri,
-  eqrr,
+  eqrr
 };

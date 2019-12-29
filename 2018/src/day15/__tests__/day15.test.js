@@ -9,7 +9,7 @@ const {
   getClosestOpponent,
   playRound,
   part1,
-  part2,
+  part2
 } = require('../parts');
 
 const testInput = [
@@ -17,7 +17,7 @@ const testInput = [
   '#E....#      ',
   '#...#.#      ',
   '#.G.#G#      ',
-  '#######      ',
+  '#######      '
 ];
 
 const testInput2 = [
@@ -29,7 +29,7 @@ const testInput2 = [
   '#.......#',
   '#.......#',
   '#G..G..G#',
-  '#########',
+  '#########'
 ];
 
 const testInput3 = [
@@ -39,7 +39,7 @@ const testInput3 = [
   '#.#.#G# ',
   '#..G#E# ',
   '#.....# ',
-  '####### ',
+  '####### '
 ];
 
 const testInput4 = [
@@ -49,7 +49,7 @@ const testInput4 = [
   '#G.##.# ',
   '#...#E# ',
   '#...E.# ',
-  '####### ',
+  '####### '
 ];
 
 const testInput5 = [
@@ -59,7 +59,7 @@ const testInput5 = [
   '#E.##E# ',
   '#G..#.# ',
   '#..E#.# ',
-  '####### ',
+  '####### '
 ];
 
 const testInput6 = [
@@ -69,7 +69,7 @@ const testInput6 = [
   '#G.#.G# ',
   '#G..#.# ',
   '#...E.# ',
-  '####### ',
+  '####### '
 ];
 
 const testInput7 = [
@@ -79,7 +79,7 @@ const testInput7 = [
   '#.###.# ',
   '#E#G#G# ',
   '#...#G# ',
-  '####### ',
+  '####### '
 ];
 
 const testInput8 = [
@@ -91,7 +91,7 @@ const testInput8 = [
   '#...#...# ',
   '#.G...G.# ',
   '#.....G.# ',
-  '######### ',
+  '######### '
 ];
 
 const testMap = parse2dArray(testInput);
@@ -116,19 +116,19 @@ describe('Day 15', () => {
         path: [{ x: 1, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 2 }],
         previousSpot: { x: 2, y: 2 },
         x: 3,
-        y: 2,
+        y: 2
       },
       {
         path: [{ x: 1, y: 1 }, { x: 2, y: 1 }, { x: 3, y: 1 }],
         previousSpot: { x: 3, y: 1 },
         x: 3,
-        y: 2,
+        y: 2
       },
       {
         path: [{ x: 1, y: 1 }, { x: 1, y: 2 }, { x: 1, y: 3 }, { x: 2, y: 3 }, { x: 3, y: 3 }],
         previousSpot: { x: 3, y: 3 },
         x: 3,
-        y: 2,
+        y: 2
       },
       {
         path: [
@@ -137,12 +137,12 @@ describe('Day 15', () => {
           { x: 1, y: 3 },
           { x: 1, y: 4 },
           { x: 1, y: 5 },
-          { x: 2, y: 5 },
+          { x: 2, y: 5 }
         ],
         previousSpot: { x: 2, y: 5 },
         x: 3,
-        y: 5,
-      },
+        y: 5
+      }
     ]);
   });
   it('should get next steps', () => {
@@ -154,12 +154,12 @@ describe('Day 15', () => {
     expect(getShortestPath({ x: 1, y: 1 }, testMap)).toMatchObject({
       x: 3,
       y: 2,
-      path: [{ x: 1, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 2 }],
+      path: [{ x: 1, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 2 }]
     });
     expect(getShortestPath({ x: 1, y: 4 }, testMap2)).toMatchObject({
       x: 4,
       y: 4,
-      path: [{ x: 1, y: 4 }, { x: 2, y: 4 }, { x: 3, y: 4 }],
+      path: [{ x: 1, y: 4 }, { x: 2, y: 4 }, { x: 3, y: 4 }]
     });
   });
   it('should play rounds', () => {
@@ -173,7 +173,7 @@ describe('Day 15', () => {
       '#.......#',
       '#G..G..G#',
       '#.......#',
-      '#########',
+      '#########'
     ]);
     playRound(testMap2);
     expect(parseMap(testMap2)).toEqual([
@@ -185,7 +185,7 @@ describe('Day 15', () => {
       '#G..G..G#',
       '#.......#',
       '#.......#',
-      '#########',
+      '#########'
     ]);
     playRound(testMap2);
     expect(parseMap(testMap2)).toEqual([
@@ -197,7 +197,7 @@ describe('Day 15', () => {
       '#......G#',
       '#.......#',
       '#.......#',
-      '#########',
+      '#########'
     ]);
   });
   it('should get the closest opponent', () => {
@@ -210,7 +210,7 @@ describe('Day 15', () => {
       '#......G#',
       '#.......#',
       '#.......#',
-      '#########',
+      '#########'
     ]);
     expect(getClosestOpponent({ x: 2, y: 3 }, expectedMap)).toEqual(undefined);
     expect(getClosestOpponent({ x: 2, y: 4 }, expectedMap)).toMatchObject({ x: 3, y: 4 });
@@ -225,7 +225,7 @@ describe('Day 15', () => {
       '#.#G#G# ',
       '#...#E# ',
       '#.....# ',
-      '####### ',
+      '####### '
     ]);
     expect(getHitPoints(testMap3)).toEqual([200, 197, 197, 200, 197, 197]);
     playRound(testMap3);
@@ -236,7 +236,7 @@ describe('Day 15', () => {
       '#.#.#G# ',
       '#...#E# ',
       '#.....# ',
-      '####### ',
+      '####### '
     ]);
     expect(getHitPoints(testMap3)).toEqual([200, 200, 188, 194, 194, 194]);
     [...Array(21).keys()].forEach(_ => playRound(testMap3));
@@ -247,7 +247,7 @@ describe('Day 15', () => {
       '#.#.#G# ',
       '#...#E# ',
       '#.....# ',
-      '####### ',
+      '####### '
     ]);
     expect(getHitPoints(testMap3)).toEqual([200, 200, 131, 131, 131]);
     playRound(testMap3);
@@ -258,7 +258,7 @@ describe('Day 15', () => {
       '#.#G#G# ',
       '#...#E# ',
       '#.....# ',
-      '####### ',
+      '####### '
     ]);
     expect(getHitPoints(testMap3)).toEqual([200, 131, 200, 128, 128]);
     playRound(testMap3);
@@ -269,7 +269,7 @@ describe('Day 15', () => {
       '#.#.#G# ',
       '#..G#E# ',
       '#.....# ',
-      '####### ',
+      '####### '
     ]);
     expect(getHitPoints(testMap3)).toEqual([200, 131, 125, 200, 125]);
     playRound(testMap3);
@@ -280,7 +280,7 @@ describe('Day 15', () => {
       '#.#.#G# ',
       '#...#E# ',
       '#..G..# ',
-      '####### ',
+      '####### '
     ]);
     expect(getHitPoints(testMap3)).toEqual([200, 131, 122, 122, 200]);
     playRound(testMap3);
@@ -291,7 +291,7 @@ describe('Day 15', () => {
       '#.#.#G# ',
       '#...#E# ',
       '#...G.# ',
-      '####### ',
+      '####### '
     ]);
     expect(getHitPoints(testMap3)).toEqual([200, 131, 119, 119, 200]);
     playRound(testMap3);
@@ -302,7 +302,7 @@ describe('Day 15', () => {
       '#.#.#G# ',
       '#...#E# ',
       '#....G# ',
-      '####### ',
+      '####### '
     ]);
     expect(getHitPoints(testMap3)).toEqual([200, 131, 116, 113, 200]);
     [...Array(21).keys()].forEach(_ => playRound(testMap3));
@@ -313,7 +313,7 @@ describe('Day 15', () => {
       '#.#.#G# ',
       '#...#.# ',
       '#....G# ',
-      '####### ',
+      '####### '
     ]);
     expect(getHitPoints(testMap3)).toEqual([200, 131, 59, 200]);
   });
@@ -329,27 +329,27 @@ describe('Day 15', () => {
     expect(part2(testInput3)).toEqual({
       elvesAttackingPower: 15,
       fightCompletedRounds: 29,
-      fightFinalHp: 172,
+      fightFinalHp: 172
     });
     expect(part2(testInput5)).toEqual({
       elvesAttackingPower: 4,
       fightCompletedRounds: 33,
-      fightFinalHp: 948,
+      fightFinalHp: 948
     });
     expect(part2(testInput6)).toEqual({
       elvesAttackingPower: 15,
       fightCompletedRounds: 37,
-      fightFinalHp: 94,
+      fightFinalHp: 94
     });
     expect(part2(testInput7)).toEqual({
       elvesAttackingPower: 12,
       fightCompletedRounds: 39,
-      fightFinalHp: 166,
+      fightFinalHp: 166
     });
     expect(part2(testInput8)).toEqual({
       elvesAttackingPower: 34,
       fightCompletedRounds: 30,
-      fightFinalHp: 38,
+      fightFinalHp: 38
     });
   });
 });

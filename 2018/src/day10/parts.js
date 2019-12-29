@@ -12,7 +12,7 @@ const fillMovementData = inputList => inputList.map(input => parseMovementData(i
 
 const moveParticle = particleData => ({
   pos: zipWith(particleData.pos, particleData.vel, (pos, vel) => pos + vel),
-  vel: particleData.vel,
+  vel: particleData.vel
 });
 
 const findDimensions = particleDataArray => {
@@ -22,7 +22,7 @@ const findDimensions = particleDataArray => {
     xMin: Math.min(...xArray),
     yMin: Math.min(...yArray),
     xDiff: Math.max(...xArray) - Math.min(...xArray),
-    yDiff: Math.max(...yArray) - Math.min(...yArray),
+    yDiff: Math.max(...yArray) - Math.min(...yArray)
   };
 };
 
@@ -30,7 +30,7 @@ const printData = particleDataArray => {
   const { xMin, yMin, xDiff, yDiff } = findDimensions(particleDataArray);
   const offsetParticles = particleDataArray.map(particle => ({
     pos: [particle.pos[0] - xMin, particle.pos[1] - yMin],
-    vel: particle.vel,
+    vel: particle.vel
   }));
   const visualArray = new Matrix(xDiff + 1, yDiff + 1);
   offsetParticles.forEach(particle => {
@@ -73,5 +73,5 @@ module.exports = {
   moveParticle,
   findDimensions,
   part1,
-  part2,
+  part2
 };

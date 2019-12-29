@@ -5,20 +5,20 @@ module.exports = function(plop) {
       {
         type: 'input',
         name: 'dayNumber',
-        message: 'Day number?',
-      },
+        message: 'Day number?'
+      }
     ],
     actions: [
       {
         type: 'addMany',
         destination: 'src/day{{dayNumber}}/',
-        templateFiles: 'plop-templates/*',
+        templateFiles: 'plop-templates/*'
       },
       {
         type: 'add',
         path: 'src/day{{dayNumber}}/__tests__/day{{dayNumber}}.test.js',
-        templateFile: 'plop-templates/__tests__/test.js',
-      },
-    ],
+        templateFile: 'plop-templates/__tests__/test.js'
+      }
+    ]
   });
 };

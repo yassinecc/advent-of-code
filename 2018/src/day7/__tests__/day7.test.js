@@ -7,14 +7,14 @@ const instructionsList = [
   'Step A must be finished before step D can begin.',
   'Step B must be finished before step E can begin.',
   'Step D must be finished before step E can begin.',
-  'Step F must be finished before step E can begin.',
+  'Step F must be finished before step E can begin.'
 ];
 
 describe('Day 7', () => {
   it('should parse an instruction', () => {
     expect(parseCellLink('Step C must be finished before step A can begin.')).toEqual({
       parent: 'C',
-      child: 'A',
+      child: 'A'
     });
   });
 

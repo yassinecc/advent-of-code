@@ -6,7 +6,7 @@
   "author": "yassinecc",
   "license": "MIT",
   "scripts": {
-    "test": "eslint . && jest --changedSince master",
+    "test": "eslint . && jest",
     "setup": "./scripts/setupPuzzle.sh"
   },
   "dependencies": {
@@ -23,7 +23,7 @@
     ]
   },
   "devDependencies": {
-    "eslint": "^6.0.0",
+    "eslint": "^6.8.0",
     "eslint-config-google": "^0.13.0"
   }
 }

@@ -9,7 +9,7 @@ const testInputs = [
   '13 players; last marble is worth 7999 points',
   '17 players; last marble is worth 1104 points',
   '21 players; last marble is worth 6111 points',
-  '30 players; last marble is worth 5807 points',
+  '30 players; last marble is worth 5807 points'
 ];
 const testMaxScores = [32, 8317, 146373, 2764, 54718, 37305];
 
@@ -17,7 +17,7 @@ describe('Day 9', () => {
   it('should correctly parse an input', () => {
     expect(parseInput('478 players; last marble is worth 71240 points')).toEqual({
       numberOfPlayers: 478,
-      maxPoints: 71240,
+      maxPoints: 71240
     });
   });
 

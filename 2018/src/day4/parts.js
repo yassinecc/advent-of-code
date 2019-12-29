@@ -66,7 +66,7 @@ const sleepLogsMerge = guardLog => {
 const findSleepiestGuard = (sleepLog, comparator) => {
   const flatSleepLogs = map(sleepLog, (guardLog, key) => ({
     guardId: key,
-    log: sleepLogsMerge(guardLog),
+    log: sleepLogsMerge(guardLog)
   }));
   let finalGuardId = 0;
   let finalLog = [];
@@ -122,5 +122,5 @@ module.exports = {
   findFrequentSleepGuard,
   getMostFrequentMark,
   part1,
-  part2,
+  part2
 };

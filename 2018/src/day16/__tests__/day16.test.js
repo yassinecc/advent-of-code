@@ -12,7 +12,7 @@ describe('Day 16', () => {
   it('should execute opcodes over a sample', () => {
     expect(getMatchingOperations(testInput)).toEqual({
       id: 9,
-      operations: ['addi', 'mulr', 'seti'],
+      operations: ['addi', 'mulr', 'seti']
     });
   });
   it('should solve part 1', () => {
