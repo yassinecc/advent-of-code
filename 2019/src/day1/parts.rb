@@ -13,10 +13,14 @@ def get_composite_fuel(fuel)
     return result
 end
 
-def part1(args)
-    return args.map{|x| get_single_fuel(x)}.sum
-end
+module Day1
+    class << self
+        def part1(args)
+            return args.map{|x| get_single_fuel(x)}.sum
+        end
 
-def part2(args)
-    return args.map{|x| get_composite_fuel(x)}.sum
+        def part2(args)
+            return args.map{|x| get_composite_fuel(x)}.sum
+        end
+    end
 end
