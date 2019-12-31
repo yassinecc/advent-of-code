@@ -63,9 +63,12 @@ const seti = (registers, valA, inB, regC) => {
   return newRegisters;
 };
 
-// gtir (greater-than immediate/register) sets register C to 1 if value A is greater than register B. Otherwise, register C is set to 0.
-// gtri (greater-than register/immediate) sets register C to 1 if register A is greater than value B. Otherwise, register C is set to 0.
-// gtrr (greater-than register/register) sets register C to 1 if register A is greater than register B. Otherwise, register C is set to 0.
+// gtir (greater-than immediate/register) sets register C to 1 if value A is greater than register B.
+//  Otherwise, register C is set to 0.
+// gtri (greater-than register/immediate) sets register C to 1 if register A is greater than value B.
+//  Otherwise, register C is set to 0.
+// gtrr (greater-than register/register) sets register C to 1 if register A is greater than register B.
+//  Otherwise, register C is set to 0.
 const gtir = (registers, valA, regB, regC) => {
   const newRegisters = [...registers];
   newRegisters[regC] = Number(valA > registers[regB]);
@@ -82,9 +85,12 @@ const gtrr = (registers, regA, regB, regC) => {
   return newRegisters;
 };
 
-// eqir (equal immediate/register) sets register C to 1 if value A is equal to register B. Otherwise, register C is set to 0.
-// eqri (equal register/immediate) sets register C to 1 if register A is equal to value B. Otherwise, register C is set to 0.
-// eqrr (equal register/register) sets register C to 1 if register A is equal to register B. Otherwise, register C is set to 0.
+// eqir (equal immediate/register) sets register C to 1 if value A is equal to register B.
+//  Otherwise, register C is set to 0.
+// eqri (equal register/immediate) sets register C to 1 if register A is equal to value B.
+//  Otherwise, register C is set to 0.
+// eqrr (equal register/register) sets register C to 1 if register A is equal to register B.
+//  Otherwise, register C is set to 0.
 const eqir = (registers, valA, regB, regC) => {
   const newRegisters = [...registers];
   newRegisters[regC] = Number(valA === registers[regB]);
