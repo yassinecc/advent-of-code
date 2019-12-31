@@ -47,5 +47,26 @@ module Day2
             end
             return program
         end
+        
+        def part2(args, target)
+            noun = nil
+            verb = nil
+            i = 0
+            j = 0
+            while noun.nil?
+                newProgram = part1(args, { 1 => i, 2 => j })
+                if newProgram[0] === target
+                    noun = i
+                    verb = j
+                end
+                if i < 99
+                    i = i + 1
+                else
+                    i = 0
+                    j = j + 1
+                end
+            end
+            return 100 * noun + verb
+        end
     end
 end
