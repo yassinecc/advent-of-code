@@ -1,6 +1,22 @@
 module Day2
     class << self
 
+        def processOpCode(program, index, opCode)
+            firstValue = program[program[index + 1]]
+            secondValue = program[program[index + 2]]
+            if opCode === 1
+                newValue = firstValue + secondValue
+            elsif opCode === 2
+                newValue = firstValue * secondValue
+            else
+                raise "Unknown opCode #{opCode} found at index #{index} for program #{program}"
+            end
+            targetIndex = program[index + 3]
+            newProgram = program.clone
+            newProgram[targetIndex] = newValue
+            return { program: newProgram, index: index + 4 }
+        end
+
         def processProgram(args)
             index = args[:index]
             program = args[:program]
@@ -10,32 +26,11 @@ module Day2
             opCode = program[index]
             if opCode === 99
                 return { program: program, index: -1 }
-            elsif opCode === 1
-                # opCode should be followed by 3 positions and the next opCode
-                if index >= program.length - 4
-                    raise "Opcode too close to end of program"
-                else
-                    firstValue = program[program[index + 1]]
-                    secondValue = program[program[index + 2]]
-                    targetIndex = program[index + 3]
-                    newProgram = program.clone
-                    newProgram[targetIndex] = firstValue + secondValue
-                    return { program: newProgram, index: index + 4 }
-                end
-            elsif opCode === 2
-                # opCode should be followed by 3 positions and the next opCode
-                if index >= program.length - 4
-                    raise "Opcode too close to end of program"
-                else
-                    firstValue = program[program[index + 1]]
-                    secondValue = program[program[index + 2]]
-                    targetIndex = program[index + 3]
-                    newProgram = program.clone
-                    newProgram[targetIndex] = firstValue * secondValue
-                    return { program: newProgram, index: index + 4 }
-                end
+            # opCode should be followed by 3 positions and the next opCode
+            elsif index >= program.length - 4
+                raise "Opcode too close to end of program"
             else
-                raise "Unknown opCode #{opCode} found at index #{index} for program #{program}"
+                return processOpCode(program, index, opCode)
             end
         end
 
