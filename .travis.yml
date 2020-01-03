@@ -17,4 +17,4 @@ jobs:
       before_install:
         - gem install bundler
       install: cd 2019 && bundle install
-      script: bundle exec rspec src --format doc
+      script: bundle exec rubocop && bundle exec reek && bundle exec rspec src --format doc
