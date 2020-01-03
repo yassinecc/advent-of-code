@@ -3,7 +3,7 @@
 require_relative('./parts.rb')
 require_relative('../util.rb')
 
-input = parse_input('day2.txt')
+input = Utils.parse_input('day2.txt')
 
 replacements = { 1 => 12, 2 => 2 }
 puts "Value at position 0 is #{DayTwo.part_one(input, replacements)[0]}"
