@@ -1,20 +1,20 @@
 jobs:
   include:
-  - language: node_js
-    node_js:
-      - 12.14.0
-    before_install: cd 2018 && npm install -g yarn
-    install: yarn
-    cache:
-      directories:
-        - jest/tmp
-        - node_modules
-  - language: ruby
-    gemfile: 2019/Gemfile
-    cache: bundler
-    rvm:
-      - 2.4.1
-    before_install:
-      - gem install bundler
-    install: cd 2019 && bundle install
-    script: bundle exec rspec src --format doc
+    - language: node_js
+      node_js:
+        - 12.14.0
+      before_install: cd 2018 && npm install -g yarn
+      install: yarn
+      cache:
+        directories:
+          - jest/tmp
+          - node_modules
+    - language: ruby
+      gemfile: 2019/Gemfile
+      cache: bundler
+      rvm:
+        - 2.4.1
+      before_install:
+        - gem install bundler
+      install: cd 2019 && bundle install
+      script: bundle exec rubocop && bundle exec reek && bundle exec rspec src --format doc

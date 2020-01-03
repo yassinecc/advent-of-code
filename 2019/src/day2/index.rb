@@ -1,9 +1,11 @@
-require_relative("./parts.rb")
-require_relative("../util.rb")
+# frozen_string_literal: true
 
-input = parseInput("day2.txt")
+require_relative('./parts.rb')
+require_relative('../util.rb')
+
+input = Utils.parse_input('day2.txt')
 
 replacements = { 1 => 12, 2 => 2 }
-puts "Value at position 0 is #{Day2::part1(input, replacements)[0]}"
+puts "Value at position 0 is #{DayTwo.part_one(input, replacements)[0]}"
 
-puts "Target input is #{Day2::part2(input, 19690720)}"
+puts "Target input is #{DayTwo.part_two(input, 19_690_720)}"

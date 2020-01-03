@@ -1,7 +1,9 @@
-require_relative("./parts.rb")
-require_relative("../util.rb")
+# frozen_string_literal: true
 
-input = parseInput("day1.txt")
+require_relative('./parts.rb')
+require_relative('../util.rb')
 
-puts "Total fuel requirements: #{part1(input)}"
-puts "Total fuel requirements for part 2: #{part2(input)}"
+input = Utils.parse_input('day1.txt')
+
+puts "Total fuel requirements: #{DayOne.part_one(input)}"
+puts "Total fuel requirements for part 2: #{DayOne.part_two(input)}"
