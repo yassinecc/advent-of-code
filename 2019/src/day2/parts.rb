@@ -3,7 +3,7 @@
 # Day 2 module
 module DayTwo
   class << self
-    def process_op_code(program, index, op_code)
+    def get_new_value(program, index, op_code)
       first_value = program[program[index + 1]]
       second_value = program[program[index + 2]]
       if op_code.equal? 1
@@ -13,6 +13,14 @@ module DayTwo
       else
         raise "Unknown opCode #{op_code} for program #{program}"
       end
+      new_value
+    end
+
+    def process_op_code(program, index, op_code)
+      # opCode should be followed by 3 positions and the next opCode
+      raise 'Opcode too close to end of program' if index >= program.length - 4
+
+      new_value = get_new_value(program, index, op_code)
       target_index = program[index + 3]
       new_program = program.clone
       new_program[target_index] = new_value
@@ -28,9 +36,6 @@ module DayTwo
       op_code = program[index]
       if op_code.equal? 99
         { program: program, index: -1 }
-      # opCode should be followed by 3 positions and the next opCode
-      elsif index >= program_length - 4
-        raise 'Opcode too close to end of program'
       else
         process_op_code(program, index, op_code)
       end
@@ -48,27 +53,28 @@ module DayTwo
       program
     end
 
+    def advance(noun_index, verb_index)
+      if noun_index < 99
+        new_noun_index = noun_index + 1
+        new_verb_index = verb_index
+      else
+        new_noun_index = 0
+        new_verb_index = verb_index + 1
+      end
+      { noun_index: new_noun_index, verb_index: new_verb_index }
+    end
+
     def part_two(args, target)
-      noun = nil
-      verb = nil
-      should_continue = true
       noun_index = 0
       verb_index = 0
-      while should_continue
+      loop do
         new_program = part_one(args, 1 => noun_index, 2 => verb_index)
-        if new_program[0].equal? target
-          noun = noun_index
-          verb = noun_index
-          should_continue = false
-        end
-        if noun_index < 99
-          noun_index += 1
-        else
-          noun_index = 0
-          verb_index += 1
-        end
+        return 100 * noun_index + verb_index if new_program[0].equal? target
+
+        indices = advance(noun_index, verb_index)
+        noun_index = indices[:noun_index]
+        verb_index = indices[:verb_index]
       end
-      100 * noun + verb
     end
   end
 end
