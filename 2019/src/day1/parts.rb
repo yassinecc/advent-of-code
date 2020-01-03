@@ -10,8 +10,10 @@ module DayOne
     def get_composite_fuel(fuel)
       result = 0
       extra = fuel
-      while get_single_fuel(extra).positive?
+      loop do
         extra_fuel = get_single_fuel(extra)
+        break unless extra_fuel.positive?
+
         result += extra_fuel
         extra = extra_fuel
       end

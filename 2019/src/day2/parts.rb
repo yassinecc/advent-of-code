@@ -41,9 +41,9 @@ module DayTwo
       end
     end
 
-    def part_one(args, replacements = nil)
+    def part_one(args, replacements = {})
       program = args[0].split(',').map(&:to_i)
-      replacements&.keys&.each { |key| program[key] = replacements[key] }
+      replacements.keys.each { |key| program[key] = replacements[key] }
       index = 0
       while index >= 0
         processed_program = process_program(program: program, index: index)
