@@ -3058,10 +3058,10 @@ natural-compare@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
 
-nblas@^2.1.2:
-  version "2.1.3"
-  resolved "https://registry.yarnpkg.com/nblas/-/nblas-2.1.3.tgz#cd6200de46b1b80866e5c0a33b5e49df00822eed"
-  integrity sha512-+iqGinNzpsA5xViEJiUyT56hz1Y4mTwgC5y3A8v0XXqBfowpLYvxCqC3Qvk7Kr5V7HOtTjNJ97LurAIHRM1bUQ==
+nblas@^2.1.9:
+  version "2.1.9"
+  resolved "https://registry.yarnpkg.com/nblas/-/nblas-2.1.9.tgz#5cbdd948b8bef5b0a3ff4cc6c2b081145853b48e"
+  integrity sha512-nMMTKm+ETAT2fYbR54Y3v448iu9akEA2wDRM0mQL8bvjBHBL2zRu3Ww68k0/OLwWb5uQG9ovRNunV1UUjZEREw==
 
 neo-async@^2.6.0:
   version "2.6.1"
@@ -3072,6 +3072,11 @@ nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
   integrity sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==
+
+nlapack@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/nlapack/-/nlapack-2.0.4.tgz#ab04cdafc32edb98a3d28864f231f5bc78a1515f"
+  integrity sha512-wOSREY+1LoAQCJkOR+d4xNFXYZEPaXH8iLxbAHCFj/+ynMtNGfWOihMzTEo6rL+fzVIWcoU00zFxNB34+8BXSw==
 
 no-case@^2.2.0, no-case@^2.3.2:
   version "2.3.2"
@@ -4301,12 +4306,13 @@ v8flags@^2.0.10:
   dependencies:
     user-home "^1.1.1"
 
-vectorious@^5.5.0:
-  version "5.5.0"
-  resolved "https://registry.yarnpkg.com/vectorious/-/vectorious-5.5.0.tgz#888aa286d28f92d1ed247ca470027952c17c7f5b"
-  integrity sha512-6vrEyGEj5IniZ8gUpoE6/H2vJImi729c8V79748IwtDUoYpAIN62gkzm0uy3uVi5mrGvy6/DnVd2mDoRHEdSkA==
+vectorious@^6.0.2:
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/vectorious/-/vectorious-6.0.2.tgz#a850af6e88a44f2787ba4ddfa154d8c4f6fff344"
+  integrity sha512-U+FQIeKZF+p/x7+XtEuydyqe1v7HPgYKbzqJF/mtDLJ09SjxlHNESJNa06AFtZjINGFJIO8pFIjiYdGXWlU3BQ==
   optionalDependencies:
-    nblas "^2.1.2"
+    nblas "^2.1.9"
+    nlapack "^2.0.4"
 
 verror@1.10.0:
   version "1.10.0"
