@@ -4589,10 +4589,10 @@ validate-npm-package-license@^3.0.1:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
 
-vectorious@^6.0.2:
-  version "6.0.2"
-  resolved "https://registry.yarnpkg.com/vectorious/-/vectorious-6.0.2.tgz#a850af6e88a44f2787ba4ddfa154d8c4f6fff344"
-  integrity sha512-U+FQIeKZF+p/x7+XtEuydyqe1v7HPgYKbzqJF/mtDLJ09SjxlHNESJNa06AFtZjINGFJIO8pFIjiYdGXWlU3BQ==
+vectorious@^6.0.4:
+  version "6.0.4"
+  resolved "https://registry.yarnpkg.com/vectorious/-/vectorious-6.0.4.tgz#c16f4cddfb7614c73c48d1a0d5c5db5008a0b90c"
+  integrity sha512-/Qib5sB34vH1PEc/EkcKajzlRxFB+JcrqSrPfHTfas/x3sLKoswNRI37+cLj7OXIeQFCDcihZ2stLm4WxkXplg==
   optionalDependencies:
     nblas "^2.1.9"
     nlapack "^2.0.4"
