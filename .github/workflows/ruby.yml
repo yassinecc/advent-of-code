@@ -14,7 +14,7 @@ on:
     branches: [ master ]
 
 jobs:
-  test:
+  test_2019:
 
     runs-on: ubuntu-latest
 
@@ -34,4 +34,24 @@ jobs:
           cd 2019
           bundle exec rubocop
           bundle exec reek
-          bundle exec rspec src --format doc
+          bundle exec rspec src
+  test_2021:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        # To automatically get bug fixes and new Ruby versions for ruby/setup-ruby,
+        # change this to (see https://github.com/ruby/setup-ruby#versioning):
+        # uses: ruby/setup-ruby@v1
+        uses: ruby/setup-ruby@473e4d8fe5dd94ee328fdfca9f8c9c7afc9dae5e
+        with:
+          working-directory: ./2021
+          ruby-version: 3.0.0
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+      - name: Run tests
+        run: |
+          cd 2021
+          bundle exec rubocop
+          bundle exec rspec
