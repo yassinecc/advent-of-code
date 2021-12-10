@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative('../day1/parts.rb')
+require_relative('../day1/parts')
 
 RSpec.describe 'Day 1' do
   it 'solves part 1' do

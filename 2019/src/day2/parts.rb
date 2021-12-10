@@ -7,14 +7,12 @@ module DayTwo
   def get_new_value(program, index, op_code)
     first_value = program[program[index + 1]]
     second_value = program[program[index + 2]]
-    if op_code.equal? 1
-      new_value = first_value + second_value
-    elsif op_code.equal? 2
-      new_value = first_value * second_value
+    case op_code
+    when 1 then first_value + second_value
+    when 2 then first_value * second_value
     else
       raise "Unknown opCode #{op_code} for program #{program}"
     end
-    new_value
   end
 
   def process_op_code(program, index, op_code)
@@ -44,7 +42,7 @@ module DayTwo
 
   def part_one(args, replacements = {})
     program = args[0].split(',').map(&:to_i)
-    replacements.keys.each { |key| program[key] = replacements[key] }
+    replacements.each_key { |key| program[key] = replacements[key] }
     index = 0
     while index >= 0
       processed_program = process_program(program: program, index: index)

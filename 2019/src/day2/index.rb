@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative('./parts.rb')
-require_relative('../util.rb')
+require_relative('./parts')
+require_relative('../util')
 
 input = Utils.parse_input('day2.txt')
 
