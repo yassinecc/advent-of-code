@@ -1,11 +1,11 @@
 const maxBy = require('lodash/maxBy');
-const Matrix = require('vectorious').Matrix;
+const { zeros } = require('vectorious');
 const { safeMatrixAccess } = require('../../utils/common');
 
 const gridSize = 300;
 
 const getEnergyTable = serialNumber => {
-  const energyTable = new Matrix(gridSize, gridSize);
+  const energyTable = zeros(gridSize, gridSize);
   for (let i = 0; i < gridSize; i++) {
     for (let j = 0; j < gridSize; j++) {
       energyTable.set(i, j, getEnergyLevel({ x: i, y: j }, serialNumber)); // Array starts at 1
@@ -16,7 +16,7 @@ const getEnergyTable = serialNumber => {
 
 const getSummedTable = energyTable => {
   const tableSize = energyTable.shape[0];
-  const summedTable = new Matrix(tableSize, tableSize);
+  const summedTable = zeros(tableSize, tableSize);
   for (let i = 0; i < tableSize; i++) {
     for (let j = 0; j < tableSize; j++) {
       summedTable.set(

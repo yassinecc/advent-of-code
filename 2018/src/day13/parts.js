@@ -1,4 +1,4 @@
-const Matrix = require('vectorious').Matrix;
+const { zeros } = require('vectorious');
 const { uniqWith, isEqual, difference, sortBy } = require('lodash');
 
 const cartCharacters = ['<', '^', '>', 'v'];
@@ -15,7 +15,7 @@ const findTrackType = (cartY, line) => {
 };
 
 const parseTracks = trackLines => {
-  const tracksMatrix = new Matrix(trackLines.length, trackLines[0].length);
+  const tracksMatrix = zeros(trackLines.length, trackLines[0].length);
   const carts = [];
   trackLines.forEach((line, i) => {
     [...line].forEach((character, j) => {
