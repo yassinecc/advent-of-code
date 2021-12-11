@@ -1,11 +1,4 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-# This workflow will download a prebuilt Ruby version, install dependencies and run tests with Rake
-# For more information see: https://github.com/marketplace/actions/setup-ruby-jruby-and-truffleruby
-
-name: Ruby
+name: Test
 
 on:
   push:
@@ -14,6 +7,23 @@ on:
     branches: [ master ]
 
 jobs:
+  test_2018:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16.13.1
+#          cache: 'yarn'
+#          cache-dependency-path: '2018/yarn.lock'
+      - name: Run tests
+        run: |
+          cd 2018
+          yarn install
+          yarn test
+
   test_2019:
 
     runs-on: ubuntu-latest
@@ -35,6 +45,7 @@ jobs:
           bundle exec rubocop
           bundle exec reek
           bundle exec rspec src
+
   test_2021:
 
     runs-on: ubuntu-latest
