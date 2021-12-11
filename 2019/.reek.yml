@@ -1,5 +1,6 @@
 exclude_paths:
   - "src/spec/spec_helper.rb"
+  - "vendor"
 detectors:
   TooManyStatements:
     enabled: false

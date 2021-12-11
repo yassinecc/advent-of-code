@@ -1,4 +1,4 @@
-const Matrix = require('vectorious').Matrix;
+const { array } = require('vectorious');
 const {
   getEnergyLevel,
   getAreaEnergyLevel,
@@ -22,8 +22,8 @@ describe('Day 11', () => {
   });
 
   it('should compute a summed table', () => {
-    const energyTable = new Matrix([[2, -3], [5, 7]]);
-    expect(getSummedTable(energyTable)).toEqual(new Matrix([[2, -1], [7, 11]]));
+    const energyTable = array([[2, -3], [5, 7]]);
+    expect(getSummedTable(energyTable)).toEqual(array([[2, -1], [7, 11]]));
   });
 
   it.each([[{ x: 33, y: 45 }, 18, 29], [{ x: 21, y: 61 }, 42, 30]])(

@@ -1,4 +1,4 @@
-const Matrix = require('vectorious').Matrix;
+const { zeros } = require('vectorious');
 const { zipWith } = require('lodash');
 const { findRegex } = require('../../utils/common');
 
@@ -32,7 +32,7 @@ const printData = particleDataArray => {
     pos: [particle.pos[0] - xMin, particle.pos[1] - yMin],
     vel: particle.vel
   }));
-  const visualArray = new Matrix(xDiff + 1, yDiff + 1);
+  const visualArray = zeros(xDiff + 1, yDiff + 1);
   offsetParticles.forEach(particle => {
     const { pos } = particle;
     visualArray.set(pos[0], pos[1], 1);

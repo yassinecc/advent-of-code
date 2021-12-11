@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # Common utils in the project
 module Utils
   module_function

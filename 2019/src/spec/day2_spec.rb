@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../day2/parts.rb'
+require_relative '../day2/parts'
 
 RSpec.describe 'Day2' do
   it 'computes the next program' do
