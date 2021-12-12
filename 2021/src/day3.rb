@@ -22,8 +22,16 @@ class Day3
     most_commons * least_commons
   end
 
-  def part2(_input)
-    nil
+  def part2(input)
+    oxygen_rating = get_rating(input) do |element, length|
+      element >= length ? 1 : 0
+    end
+
+    co2_rating = get_rating(input) do |element, length|
+      element >= length ? 0 : 1
+    end
+
+    oxygen_rating * co2_rating
   end
 
   def counter_array(input)
@@ -35,4 +43,24 @@ class Day3
     end
     array
   end
+
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/MethodLength
+  def get_rating(input)
+    index = 0
+    while input.length > 1
+      counter = counter_array(input)
+      most_commons = counter.map do |element|
+        yield(element, input.length.fdiv(2).ceil)
+      end
+      new_input = input.filter do |element|
+        (element[index].to_i ^ most_commons[index].to_i).zero?
+      end
+      index = (index + 1) % input.first.length
+      input = new_input
+    end
+    input.first.to_i(2)
+  end
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength
 end
