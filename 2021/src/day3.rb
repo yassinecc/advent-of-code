@@ -45,7 +45,6 @@ class Day3
   end
 
   # rubocop:disable Metrics/AbcSize
-  # rubocop:disable Metrics/MethodLength
   def get_rating(input)
     index = 0
     while input.length > 1
@@ -62,5 +61,4 @@ class Day3
     input.first.to_i(2)
   end
   # rubocop:enable Metrics/AbcSize
-  # rubocop:enable Metrics/MethodLength
 end
