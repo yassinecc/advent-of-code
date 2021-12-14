@@ -9,6 +9,15 @@
 #
 # See https://docs.rubocop.org/rubocop/configuration
 
+AllCops:
+  NewCops: disable
+
+Metrics/BlockLength:
+  Exclude: ["**/*_spec.rb"]
+
+Metrics/MethodLength:
+  Max: 20
+
 Style/Documentation:
   Enabled: false
 
