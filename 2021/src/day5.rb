@@ -17,13 +17,8 @@ class Day5
       coordinates = line.scan(/[0-9]+/).map(&:to_i)
       next unless coordinates[0] == coordinates[2] || coordinates[1] == coordinates[3]
 
-      x_start, x_end = [coordinates[0], coordinates[2]].sort
-      y_start, y_end = [coordinates[1], coordinates[3]].sort
-
-      (x_start..x_end).each do |x|
-        (y_start..y_end).each do |y|
-          grid[x, y] = grid[x, y] + 1
-        end
+      points_in_path(coordinates).each do |point|
+        grid[*point] = grid[*point] + 1
       end
     end
 
@@ -40,5 +35,15 @@ class Day5
 
   def get_max_dimension(input)
     input.join(' ').scan(/[0-9]+/).map(&:to_i).max + 1
+  end
+
+  def points_in_path(coordinates)
+    x_step = coordinates[2] <=> coordinates[0]
+    y_step = coordinates[3] <=> coordinates[1]
+
+    length = [(coordinates[0] - coordinates[2]).abs, (coordinates[1] - coordinates[3]).abs].max
+    (0..length).map do |step|
+      [coordinates[0] + step * x_step, coordinates[1] + step * y_step]
+    end
   end
 end
