@@ -11,11 +11,19 @@ class Day5
   end
 
   def part1(input)
+    count_overlap(input, true)
+  end
+
+  def part2(input)
+    count_overlap(input, false)
+  end
+
+  def count_overlap(input, skip_diagonals)
     max_dimension = get_max_dimension(input)
     grid = Matrix.zero(max_dimension)
     input.map do |line|
       coordinates = line.scan(/[0-9]+/).map(&:to_i)
-      next unless coordinates[0] == coordinates[2] || coordinates[1] == coordinates[3]
+      next unless !skip_diagonals || (coordinates[0] == coordinates[2] || coordinates[1] == coordinates[3])
 
       points_in_path(coordinates).each do |point|
         grid[*point] = grid[*point] + 1
@@ -27,10 +35,6 @@ class Day5
       result += 1 if element > 1
     end
     result
-  end
-
-  def part2(_input)
-    nil
   end
 
   def get_max_dimension(input)
