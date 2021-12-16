@@ -23,13 +23,25 @@ class Day5
     grid = Matrix.zero(max_dimension)
     input.map do |line|
       coordinates = line.scan(/[0-9]+/).map(&:to_i)
-      next unless !skip_diagonals || (coordinates[0] == coordinates[2] || coordinates[1] == coordinates[3])
+      next unless !skip_diagonals || line?(coordinates)
 
       points_in_path(coordinates).each do |point|
         grid[*point] = grid[*point] + 1
       end
     end
 
+    count_grid_danger(grid)
+  end
+
+  def get_max_dimension(input)
+    input.join(' ').scan(/[0-9]+/).map(&:to_i).max + 1
+  end
+
+  def line?(coordinates)
+    coordinates[0] == coordinates[2] || coordinates[1] == coordinates[3]
+  end
+
+  def count_grid_danger(grid)
     result = 0
     grid.each do |element|
       result += 1 if element > 1
@@ -37,10 +49,7 @@ class Day5
     result
   end
 
-  def get_max_dimension(input)
-    input.join(' ').scan(/[0-9]+/).map(&:to_i).max + 1
-  end
-
+  # rubocop:disable Metrics/AbcSize
   def points_in_path(coordinates)
     x_step = coordinates[2] <=> coordinates[0]
     y_step = coordinates[3] <=> coordinates[1]
@@ -50,4 +59,5 @@ class Day5
       [coordinates[0] + step * x_step, coordinates[1] + step * y_step]
     end
   end
+  # rubocop:enable Metrics/AbcSize
 end
