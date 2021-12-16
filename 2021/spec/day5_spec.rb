@@ -16,7 +16,7 @@ describe 'Day5' do
   end
 
   it 'gets the maximum dimension for solution space' do
-    expect(Day5.new.get_max_dimension(input)).to eq(9)
+    expect(Day5.new.get_max_dimension(input)).to eq(10)
   end
 
   context 'part 1' do
