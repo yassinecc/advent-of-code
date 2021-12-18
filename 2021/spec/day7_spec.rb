@@ -10,6 +10,7 @@ describe 'Day7' do
   end
   context 'part 2' do
     it 'succeeds' do
+      expect(Day7.new.part2(input)).to eq(168)
     end
   end
 end
