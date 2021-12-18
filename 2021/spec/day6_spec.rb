@@ -11,6 +11,7 @@ describe 'Day6' do
   end
   context 'part 2' do
     it 'succeeds' do
+      expect(Day6.new.part2(input, 256)).to eq(26_984_457_539)
     end
   end
 end

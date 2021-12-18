@@ -6,27 +6,30 @@ class Day6
   end
 
   def solve
-    [part1(@input, 80), part2(@input)]
+    [part1(@input, 80), part2(@input, 256)]
   end
 
   def part1(input, duration)
-    fishes = input.clone
+    fishes = input.tally
     (1..duration).each do
-      new_fishes = []
-      fishes.each_with_index do |fish, index|
-        if fish.zero?
-          fishes[index] = 6
-          new_fishes << 8
-        else
-          fishes[index] = fish - 1
-        end
+      fishes = next_fishes_array(fishes).each_with_object({}) do |pair, accumulator|
+        key, value = pair
+        accumulator[key] = (accumulator[key] || 0) + value
       end
-      fishes.concat(new_fishes)
     end
-    fishes.count
+    fishes.values.sum
   end
 
-  def part2(input)
-    # p input
+  def part2(input, duration)
+    part1(input, duration)
+  end
+
+  def next_fishes_array(fishes)
+    new_fishes = fishes[0] || 0
+    next_fishes_array = fishes.map do |clock, number|
+      clock.zero? ? [6, number] : [clock - 1, number]
+    end
+    next_fishes_array.append([8, new_fishes]) unless new_fishes.zero?
+    next_fishes_array
   end
 end
