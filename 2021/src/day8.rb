@@ -1,22 +1,6 @@
 require_relative './utils'
 require 'set'
 
-#  aaaa
-# b    c
-# b    c
-#  dddd
-# e    f
-# e    f
-#  gggg
-#
-#
-# 1 -> 2 switches c, f
-# 7 -> 3 switches a, c, f
-# 4 -> 4 switches b, c, d, f
-# 8 -> 7 switches a, b, c, d, e, f, g
-# 2, 3, 5 -> 5 switches sharing a,d,g and diffing in ce/cf/bf
-# 0, 6, 9 -> 6 switches sharing a,b,f,g and diffing in ce/de/cd
-
 class Day8
   def initialize
     @input = Utils.parse_input('day8.txt')
@@ -73,22 +57,22 @@ class Day8
     raise if instruction8.nil?
 
     instruction3 = five_long_instruction_sets.find do |set|
-      (Set.new(instruction1.split('')) - Set.new(set.split(''))).empty?
+      diff_as_sets(instruction1, set).empty?
     end
     five_long_instruction_sets -= [instruction3] # either 2 or 5 now
 
     instruction2 = five_long_instruction_sets.find do |set|
-      (Set.new(instruction4.split('')) & Set.new(set.split(''))).length == 2
+      inter_as_sets(instruction4, set).length == 2
     end
     instruction5 = (five_long_instruction_sets - [instruction2]).first
 
     instruction6 = six_long_instruction_sets.find do |set|
-      !(Set.new(instruction1.split('')) - Set.new(set.split(''))).empty?
+      !diff_as_sets(instruction1, set).empty?
     end
     six_long_instruction_sets -= [instruction6] # either 0 or 9 now
 
     instruction0 = six_long_instruction_sets.find do |set|
-      (Set.new(instruction4.split('')) & Set.new(set.split(''))).length == 3
+      inter_as_sets(instruction4, set).length == 3
     end
     instruction9 = (six_long_instruction_sets - [instruction0]).first
 
@@ -96,5 +80,13 @@ class Day8
      instruction7, instruction8, instruction9].map do |instruction|
       instruction.split('').sort.join
     end
+  end
+
+  def diff_as_sets(ins1, ins2)
+    Set.new(ins1.split('')) - Set.new(ins2.split(''))
+  end
+
+  def inter_as_sets(ins1, ins2)
+    Set.new(ins1.split('')) & Set.new(ins2.split(''))
   end
 end
