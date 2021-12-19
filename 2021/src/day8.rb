@@ -38,24 +38,31 @@ class Day8
     end.join
   end
 
+  # rubocop:disable Metrics/AbcSize
   def identify(instructions)
     instruction_sets = Set.new(instructions.split(' '))
 
-    five_long_instruction_sets = Set.new(instruction_sets.filter { |set| set.length == 5 })
-    six_long_instruction_sets = Set.new(instruction_sets.filter { |set| set.length == 6 })
-
     instruction1 = instruction_sets.find { |set| set.length == 2 }
-    raise if instruction1.nil?
 
     instruction4 = instruction_sets.find { |set| set.length == 4 }
-    raise if instruction4.nil?
 
     instruction7 = instruction_sets.find { |set| set.length == 3 }
-    raise if instruction7.nil?
 
     instruction8 = instruction_sets.find { |set| set.length == 7 }
-    raise if instruction8.nil?
 
+    instruction2, instruction3, instruction5 = identify_five_long_digits(instruction_sets, instruction1, instruction4)
+
+    instruction0, instruction6, instruction9 = identify_six_long_digits(instruction_sets, instruction1, instruction4)
+
+    [instruction0, instruction1, instruction2, instruction3, instruction4, instruction5, instruction6,
+     instruction7, instruction8, instruction9].map do |instruction|
+      instruction.split('').sort.join
+    end
+  end
+  # rubocop:enable Metrics/AbcSize
+
+  def identify_five_long_digits(instruction_sets, instruction1, instruction4)
+    five_long_instruction_sets = Set.new(instruction_sets.filter { |set| set.length == 5 })
     instruction3 = five_long_instruction_sets.find do |set|
       diff_as_sets(instruction1, set).empty?
     end
@@ -65,6 +72,11 @@ class Day8
       inter_as_sets(instruction4, set).length == 2
     end
     instruction5 = (five_long_instruction_sets - [instruction2]).first
+    [instruction2, instruction3, instruction5]
+  end
+
+  def identify_six_long_digits(instruction_sets, instruction1, instruction4)
+    six_long_instruction_sets = Set.new(instruction_sets.filter { |set| set.length == 6 })
 
     instruction6 = six_long_instruction_sets.find do |set|
       !diff_as_sets(instruction1, set).empty?
@@ -75,11 +87,7 @@ class Day8
       inter_as_sets(instruction4, set).length == 3
     end
     instruction9 = (six_long_instruction_sets - [instruction0]).first
-
-    [instruction0, instruction1, instruction2, instruction3, instruction4, instruction5, instruction6,
-     instruction7, instruction8, instruction9].map do |instruction|
-      instruction.split('').sort.join
-    end
+    [instruction0, instruction6, instruction9]
   end
 
   def diff_as_sets(ins1, ins2)
