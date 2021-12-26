@@ -1,7 +1,9 @@
 require_relative './utils'
 require('matrix')
+require('set')
 
 class Day9
+  TOP_HEIGHT = 9
   def initialize
     @input = Utils.parse_input('day9.txt')
   end
@@ -22,7 +24,14 @@ class Day9
   end
 
   def part2(input)
-    # p input
+    areas = []
+    heightmap = Matrix.rows(input.map { |line| line.split('').map(&:to_i) })
+    heightmap.each_with_index do |_, row, col|
+      next unless local_minimum(heightmap, row, col)
+
+      areas << area_size(heightmap, row, col)
+    end
+    areas.sort.reverse.take(3).reduce(1, :*)
   end
 
   def local_minimum(heightmap, row, col)
@@ -43,8 +52,42 @@ class Day9
     true
   end
 
+  def area_size(heightmap, row, col)
+    visited = Set.new
+    to_visit = Set.new([[row, col]])
+
+    until to_visit.empty?
+      next_to_visit = Set.new
+      to_visit.each do |point|
+        neighbors = non_peak_neighbors(heightmap, point[0], point[1])
+        unseen_neighbors = neighbors - (to_visit | visited)
+
+        next_to_visit.merge(unseen_neighbors)
+        to_visit.delete(point)
+        visited.add(point)
+      end
+      to_visit.merge(next_to_visit)
+    end
+    visited.size
+  end
+
+  def non_peak_neighbors(heightmap, row, col)
+    result = Set.new
+    [-1, 1].each do |row_idx|
+      [-1, 1].each do |col_idx|
+        # Apply a rotation matrix
+        row_inc = (row_idx + col_idx) / 2
+        col_inc = (row_idx - col_idx) / 2
+        next if safe_matrix_get(heightmap, row + row_inc, col + col_inc) >= TOP_HEIGHT
+
+        result << [row + row_inc, col + col_inc]
+      end
+    end
+    result
+  end
+
   def safe_matrix_get(matrix, row, col)
-    return 10 unless row.between?(0, matrix.row_count - 1) && col.between?(0, matrix.column_count - 1)
+    return TOP_HEIGHT + 1 unless row.between?(0, matrix.row_count - 1) && col.between?(0, matrix.column_count - 1)
 
     matrix[row, col]
   end

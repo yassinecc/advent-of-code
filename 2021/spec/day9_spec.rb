@@ -11,12 +11,12 @@ describe 'Day9' do
   end
   context 'part 1' do
     it 'succeeds' do
-      day9 = Day9.new
-      expect(day9.part1(input)).to eq(15)
+      expect(Day9.new.part1(input)).to eq(15)
     end
   end
   context 'part 2' do
     it 'succeeds' do
+      expect(Day9.new.part2(input)).to eq(1134)
     end
   end
 end
