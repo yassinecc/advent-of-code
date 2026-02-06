@@ -3993,10 +3993,10 @@ v8flags@^4.0.0:
   resolved "https://registry.yarnpkg.com/v8flags/-/v8flags-4.0.0.tgz#dcacd1e0b20a7919cc48022b1bf2d95adb175e83"
   integrity sha512-83N0OkTbn6gOjJ2awNuzuK4czeGxwEwBoTqlhBZhnp8o0IJ72mXRQKphj/azwRf3acbDJZYZhbOPEJHd884ELg==
 
-vectorious@^6.1.1:
-  version "6.1.1"
-  resolved "https://registry.yarnpkg.com/vectorious/-/vectorious-6.1.1.tgz#ebd78fae90b54712eadbfdf695ae66d733e516a9"
-  integrity sha512-8BtnzFUmNpXgzisVAfbkWaB7q16U+f2WACtnyBVO5lhPG/2O97Cmi3xVLQLskDjvwsUiqALDGwvRSQB+dwipsA==
+vectorious@^6.1.4:
+  version "6.1.4"
+  resolved "https://registry.yarnpkg.com/vectorious/-/vectorious-6.1.4.tgz#5adab922419e06d21290392f948a3544ba47c412"
+  integrity sha512-3xKPhuG8j6XCdaClpkIh5rnJPM+NjcHlUJJYsI/zMFWZEWHCa4uY1/qxnIh6LXdX9zVTXl0vD00eHJaP49ze5A==
   optionalDependencies:
     nblas "^2.1.9"
     nlapack "^2.0.4"
